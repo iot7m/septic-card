@@ -1,0 +1,22 @@
+{
+  "name": "ha-lit-card",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "custom-card-helpers": "^1.9.0",
+    "rollup": "^4.54.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "apexcharts": "^5.3.6",
+    "lit": "^3.3.2",
+    "tslib": "^2.8.1"
+  }
+}
