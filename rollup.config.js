@@ -3,9 +3,9 @@ import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 
 export default {
-  input: "src/index.ts",
+  input: "src/gseptik.ts",
   output: {
-    file: "../config/www/septic-element.js",
+    dir: "dist",
     format: "es",
   },
   plugins: [

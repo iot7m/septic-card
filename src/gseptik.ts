@@ -7,7 +7,7 @@ interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
 }
 
-@customElement("septic-element-v1")
+@customElement("septic-element")
 export class SepticElement extends LitElement implements LovelaceCard {
   @state()
   private _config?: SepticCardConfig;
@@ -42,7 +42,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
       border-radius: 8px;
       text-align: center;
       margin-bottom: 8px;
-      background-color: var(--card-background-color);
+      background-color: #fafafa;
     }
     .statistic-card:hover {
       background-color: rgba(0, 0, 0, 0.05);
@@ -242,7 +242,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
 
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-  type: "septic-element-v1",
+  type: "septic-element",
   name: "My Element",
   description: "Minimal Lit 3 card for Home Assistant",
 });
