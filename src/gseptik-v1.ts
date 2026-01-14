@@ -73,7 +73,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
       colorsArr.push("#C5D0E6", "#007FFF");
     }
 
-    let endColor = "#ffffff";
+    const endColor = "#ffffff";
 
     const options = {
       chart: {

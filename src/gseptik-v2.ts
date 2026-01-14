@@ -180,13 +180,13 @@ export class SepticElement extends LitElement implements LovelaceCard {
       <div class="tank ${isCritical ? "critical" : ""}">
         <div class="fill" style="height: ${level}%">
           ${showBubbles
-            ? html`
+        ? html`
                 <div class="bubble bubble--1"></div>
                 <div class="bubble bubble--2"></div>
                 <div class="bubble bubble--3"></div>
                 <div class="bubble bubble--4"></div>
               `
-            : null}
+        : null}
         </div>
 
         <div class="critical-line" style="bottom: ${critical}%"></div>
@@ -240,40 +240,38 @@ export class SepticElement extends LitElement implements LovelaceCard {
         </div>
           <statistic-box>
           <ha-card class="statistic-card" @click=${() =>
-            this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
-              ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika]
-                  .state === "Нет"
-                  ? html`<good-value>Уровень септика не превышен</good-value> `
-                  : html`<bad-value>Превышен уровень септика</bad-value>`
-              }
+        this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+              ${this.hass?.states?.[prevyshen_kriticheskii_uroven_septika]
+        .state === "Нет"
+        ? html`<good-value>Уровень септика не превышен</good-value> `
+        : html`<bad-value>Превышен уровень септика</bad-value>`
+      }
             </ha-card>
             <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(kriticheskii_uroven_septika)}>
+        this._openMoreInfo(kriticheskii_uroven_septika)}>
               Критический уровень септика:
               ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
             </ha-card>
             <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(temperatura_septika)}>
+        this._openMoreInfo(temperatura_septika)}>
               <ha-icon icon="mdi:thermometer"></ha-icon>
-              ${
-                this.hass?.states?.[temperatura_septika].state > 0
-                  ? html`<good-value
+              ${this.hass?.states?.[temperatura_septika].state > 0
+        ? html`<good-value
                       >+${this.hass?.states?.[temperatura_septika].state}
                       &deg;C</good-value
                     >`
-                  : html`<bad-value
+        : html`<bad-value
                       >${this.hass?.states?.[temperatura_septika]
-                        .state}&deg;C</bad-value
+            .state}&deg;C</bad-value
                     >`
-              }
+      }
             </ha-card>
             <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(davlenie_septika)}>
+        this._openMoreInfo(davlenie_septika)}>
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar
-            </ha-card>             
+            </ha-card>
           </div>
         </div>
       </ha-card>
