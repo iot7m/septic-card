@@ -1,0 +1,25 @@
+# IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore artifacts
+coverage
+dist
+
+# Ignore node modules
+node_modules
+
+# Ignore files
+README.md
+
+# Ignore shadcn
+src/ui
+
+# Ignore files

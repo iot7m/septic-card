@@ -1,0 +1,19 @@
+# IDE configuration files
+.idea/
+*.iml
+
+# macOS system files
+.DS_Store
+
+# Log files
+*.log
+
+# Build output directory (bundled app)
+dist/
+
+# Node modules directory (heavy, installed at container build time)
+node_modules/
+
+# Temporary or cache files
+tmp/
+*.tmp

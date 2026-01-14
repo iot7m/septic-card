@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "lint": "npx eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npm run prettier -- --write",
     "build": "rollup -c --bundleConfigAsCjs",
     "start": "rollup -c --watch --bundleConfigAsCjs",
     "start:hass": "docker run --rm -p8123:8123 -v ./.hass:/config homeassistant/home-assistant:beta",
