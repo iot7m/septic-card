@@ -53,7 +53,7 @@ Each card is configured using YAML.
 
 ## Development
 
-### Home Assistant demo
+### Home Assistant server
 
 ```sh
 npm run start:hass
@@ -68,12 +68,13 @@ npm install
 npm start
 ```
 
-Dev server runs on http://localhost:4000
-
-To use it in Home Assistant, add resource:
+Dev server runs on http://localhost:4000. To use it in Home Assistant, add resource to configuration.yaml:
 
 ```
-http://host.docker.internal:4000/gseptik.js
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - http://host.docker.internal:4000/gseptik.js
 ```
 
 
