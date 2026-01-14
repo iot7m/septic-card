@@ -16,6 +16,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
     "@stylistic/eslint-plugin": "^5.7.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.53.0",
     "custom-card-helpers": "^1.9.0",

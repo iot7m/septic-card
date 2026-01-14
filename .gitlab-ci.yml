@@ -4,7 +4,27 @@ cache:
 
 # Setup stages
 stages:
+  - lint
   - build
+  - test
+  - coverage
+
+# Run linters
+lint-eslint:
+  stage: lint
+  tags:
+    - linux
+  script:
+    - npm install
+    - npm run lint
+
+lint-prettier:
+  stage: lint
+  tags:
+    - linux
+  script:
+    - npm install
+    - npm run prettier
 
 # Build artifacts
 build-application:
@@ -13,8 +33,28 @@ build-application:
     - linux
   script:
     - git rev-parse HEAD > VERSION
+    - npm install
+    - npm run build
   artifacts:
     name: artifacts
     expire_in: 1 week
     paths:
       - VERSION
+
+# Run all tests
+.test-application:
+  stage: test
+  tags:
+    - linux
+  script:
+    - npm install
+    - npm run test
+
+# Run coverage
+.coverage-application:
+  stage: coverage
+  tags:
+    - linux
+  script:
+    - npm install
+    - npm run test:coverage

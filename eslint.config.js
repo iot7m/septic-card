@@ -8,23 +8,12 @@ export default tseslint.config(
   { ignores: ["dist", "src/ui", "output"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ["**/*.{ts,tsx}"],
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
+    files: ["**/*.ts"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
     },
     plugins: {
-      react: react,
       "@stylistic": stylistic,
       tsdoc: tsdoceslint,
     },
