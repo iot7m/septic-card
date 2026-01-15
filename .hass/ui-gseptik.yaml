@@ -1,0 +1,37 @@
+views:
+  - path: default_view
+    title: Entities
+    cards:
+      - type: entities
+        title: Entities
+        state_color: false
+        show_header_toggle: false
+        entities:
+          - entity: sensor.uroven_zhidkosti_septika
+            icon: mdi:water-percent
+          - entity: sensor.temperatura_septika
+            icon: mdi:thermometer
+          - entity: sensor.davlenie_septika
+            icon: mdi:gauge
+          - entity: sensor.kriticheskii_uroven_septika
+            icon: mdi:water-alert
+          - entity: sensor.prevyshen_kriticheskii_uroven_septika
+            icon: mdi:alert-octagon-outline
+          - entity: sensor.oshibka_septika
+            icon: mdi:alert-circle-outline
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
+      - type: custom:cistern-card
+        entity: sensor.example_level
+      - type: custom:donut-card
+        entity: sensor.example_level
+      - type: custom:tank-card
+        entity: sensor.example_level
+  - title: Tiles
+    cards:
+      - type: tile
+        entity: climate.ecobee
+        name: Климат
+      - type: custom:tile-card
+        entity: sensor.example_level

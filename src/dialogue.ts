@@ -1,19 +1,14 @@
 import { LitElement, html, css } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import type { LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
-interface SepticCardConfig extends LovelaceCardConfig {
-  entity: string;
-}
+import { customElement, state, property } from "lit/decorators.js";
 
-@customElement("septic-element-v3")
-export class SepticElement extends LitElement implements LovelaceCard {
-  @state()
-  private _config?: SepticCardConfig;
+@customElement("gspeptik-dialogue")
+export class SepticDialog extends LitElement {
+  @property({ attribute: false }) hass!: any;
+  @property() entity!: string;
+
+  @state() private _tab = 0;
+
   static styles = css`
-    ha-card {
-      padding: 16px;
-    }
-
     .tank-ball {
       width: clamp(120px, 20vw, 25vw);
       aspect-ratio: 1;
@@ -23,6 +18,9 @@ export class SepticElement extends LitElement implements LovelaceCard {
       background: #e6e6e6;
       border: 2px solid #9e9e9e;
       box-sizing: border-box;
+    }
+    .cursor {
+      cursor: pointer;
     }
 
     .water {
@@ -59,7 +57,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
       z-index: 1;
       box-sizing: border-box;
       position: absolute;
-      inset: 0 45%;
+      inset: 0 42%;
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -162,6 +160,11 @@ export class SepticElement extends LitElement implements LovelaceCard {
     .statistic-card:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
+
+    mwc-dialog {
+      --mdc-dialog-min-width: 90vw;
+      --mdc-dialog-max-width: 90vw;
+    }
   `;
 
   private get septicLevel() {
@@ -178,6 +181,10 @@ export class SepticElement extends LitElement implements LovelaceCard {
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
+  private _tabChanged(e: CustomEvent) {
+    console.log(e.detail);
+    this._tab = e.detail.value;
+  }
   private renderTank() {
     const level = this.septicLevel;
     const critical = this.criticalLevel;
@@ -217,23 +224,35 @@ export class SepticElement extends LitElement implements LovelaceCard {
     );
   }
 
-  firstUpdated() {
-    this.renderTank();
+  private _close() {
+    this.remove();
   }
-
-  setConfig(config: SepticCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-  }
-
-  getCardSize(): number {
-    return 1;
-  }
-
-  hass?: any;
 
   render() {
-    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
+    if (!this.hass || !this.entity) {
+      return html``;
+    }
+
+    return html`
+      <ha-dialog open heading="Септик" @closed=${this._close}>
+        <ha-tabs .selected=${this._tab} @selected-changed=${this._tabChanged}>
+          <ha-tab class="cursor">Уровень</ha-tab>
+          <ha-tab class="cursor">История</ha-tab>
+        </ha-tabs>
+
+        <div class="dialog-content">
+          ${this._tab === 0 ? this.renderLevel() : this.renderHistory()}
+        </div>
+
+        <ha-button slot="primaryAction" dialogAction="close">
+          Закрыть
+        </ha-button>
+      </ha-dialog>
+    `;
+  }
+
+  private renderLevel() {
+    if (!this.hass || !this.entity) return html``;
     const uroven_zhidkosti_septika = "sensor.uroven_zhidkosti_septika";
     const temperatura_septika = "sensor.temperatura_septika";
     const davlenie_septika = "sensor.davlenie_septika";
@@ -241,8 +260,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
     const prevyshen_kriticheskii_uroven_septika =
       "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
-      <ha-card>
-        <h2>Септик</h2>
+      <div>
         <div class="flex">
         <div>
           ${this.renderTank()}
@@ -287,17 +305,23 @@ export class SepticElement extends LitElement implements LovelaceCard {
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar
-            </ha-card>             
+            </ha-card>
           </div>
         </div>
-      </ha-card>
+      </div>
+    `;
+  }
+
+  private renderHistory() {
+    return html`
+      <hui-history-graph-card
+        .hass=${this.hass}
+        .config=${{
+          entities: [this.entity],
+          hours_to_show: 24,
+          refresh_interval: 60,
+        }}
+      ></hui-history-graph-card>
     `;
   }
 }
-
-(window as any).customCards = (window as any).customCards || [];
-(window as any).customCards.push({
-  type: "septic-element-v3",
-  name: "My Element",
-  description: "Minimal Lit 3 card for Home Assistant",
-});

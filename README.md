@@ -51,7 +51,7 @@ Each card is configured using YAML.
 
 ## Build module
 
-Run the build process using the command `npm install`. The compiled JavaScript module will be located in the `dist` directory.
+Run the build process using the command `npm run build`. The compiled JavaScript module will be located in the `dist` directory.
 
 ### Run development server
 
@@ -88,16 +88,14 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:septic-element-v1
+      - type: custom:cistern-card
         entity: sensor.example_level
-      - type: custom:septic-element-v2
+      - type: custom:donut-card
         entity: sensor.example_level
-      - type: custom:septic-element-v3
+      - type: custom:tank-card
         entity: sensor.example_level
-      - type: custom:septic-element-v4
+      - type: custom:tile-card
         entity: sensor.example_level
-
-
 ```
 
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.

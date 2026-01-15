@@ -1,14 +1,19 @@
 import { LitElement, html, css } from "lit";
-import { customElement, state, property } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
+import type { LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+interface SepticCardConfig extends LovelaceCardConfig {
+  entity: string;
+}
 
-@customElement("septic-dialog")
-export class SepticDialog extends LitElement {
-  @property({ attribute: false }) hass!: any;
-  @property() entity!: string;
-
-  @state() private _tab = 0;
-
+@customElement("cistern-card")
+export class SepticElement extends LitElement implements LovelaceCard {
+  @state()
+  private _config?: SepticCardConfig;
   static styles = css`
+    ha-card {
+      padding: 16px;
+    }
+
     .tank-ball {
       width: clamp(120px, 20vw, 25vw);
       aspect-ratio: 1;
@@ -18,9 +23,6 @@ export class SepticDialog extends LitElement {
       background: #e6e6e6;
       border: 2px solid #9e9e9e;
       box-sizing: border-box;
-    }
-    .cursor {
-      cursor: pointer;
     }
 
     .water {
@@ -57,7 +59,7 @@ export class SepticDialog extends LitElement {
       z-index: 1;
       box-sizing: border-box;
       position: absolute;
-      inset: 0 42%;
+      inset: 0 45%;
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -160,11 +162,6 @@ export class SepticDialog extends LitElement {
     .statistic-card:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
-
-    mwc-dialog {
-      --mdc-dialog-min-width: 90vw;
-      --mdc-dialog-max-width: 90vw;
-    }
   `;
 
   private get septicLevel() {
@@ -181,10 +178,6 @@ export class SepticDialog extends LitElement {
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
-  private _tabChanged(e: CustomEvent) {
-    console.log(e.detail);
-    this._tab = e.detail.value;
-  }
   private renderTank() {
     const level = this.septicLevel;
     const critical = this.criticalLevel;
@@ -224,35 +217,23 @@ export class SepticDialog extends LitElement {
     );
   }
 
-  private _close() {
-    this.remove();
+  firstUpdated() {
+    this.renderTank();
   }
+
+  setConfig(config: SepticCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+  }
+
+  getCardSize(): number {
+    return 1;
+  }
+
+  hass?: any;
 
   render() {
-    if (!this.hass || !this.entity) {
-      return html``;
-    }
-
-    return html`
-      <ha-dialog open heading="Септик" @closed=${this._close}>
-        <ha-tabs .selected=${this._tab} @selected-changed=${this._tabChanged}>
-          <ha-tab class="cursor">Уровень</ha-tab>
-          <ha-tab class="cursor">История</ha-tab>
-        </ha-tabs>
-
-        <div class="dialog-content">
-          ${this._tab === 0 ? this.renderLevel() : this.renderHistory()}
-        </div>
-
-        <ha-button slot="primaryAction" dialogAction="close">
-          Закрыть
-        </ha-button>
-      </ha-dialog>
-    `;
-  }
-
-  private renderLevel() {
-    if (!this.hass || !this.entity) return html``;
+    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
     const uroven_zhidkosti_septika = "sensor.uroven_zhidkosti_septika";
     const temperatura_septika = "sensor.temperatura_septika";
     const davlenie_septika = "sensor.davlenie_septika";
@@ -260,7 +241,8 @@ export class SepticDialog extends LitElement {
     const prevyshen_kriticheskii_uroven_septika =
       "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
-      <div>
+      <ha-card>
+        <h2>Септик</h2>
         <div class="flex">
         <div>
           ${this.renderTank()}
@@ -308,20 +290,14 @@ export class SepticDialog extends LitElement {
             </ha-card>
           </div>
         </div>
-      </div>
-    `;
-  }
-
-  private renderHistory() {
-    return html`
-      <hui-history-graph-card
-        .hass=${this.hass}
-        .config=${{
-          entities: [this.entity],
-          hours_to_show: 24,
-          refresh_interval: 60,
-        }}
-      ></hui-history-graph-card>
+      </ha-card>
     `;
   }
 }
+
+(window as any).customCards = (window as any).customCards || [];
+(window as any).customCards.push({
+  type: "cistern-card",
+  name: "My Element",
+  description: "Minimal Lit 3 card for Home Assistant",
+});

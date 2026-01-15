@@ -17,6 +17,7 @@
 !.hass/rests.yaml
 !.hass/scenes.yaml
 !.hass/scripts.yaml
+!.hass/ui-gseptik.yaml
 
 # Production
 /dist
