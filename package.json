@@ -19,7 +19,8 @@
       "eslint --fix",
       "prettier --fix"
     ]
-  },  "devDependencies": {
+  },
+  "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.4",
