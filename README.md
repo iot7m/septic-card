@@ -51,7 +51,7 @@ Each card is configured using YAML.
 
 ## Build module
 
-Run the build process using the command `npm install`. The compiled JavaScript module will be located in the `dist` directory.
+Run the build process using the command `npm run build`. The compiled JavaScript module will be located in the `dist` directory.
 
 ### Run development server
 
@@ -88,13 +88,13 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:septic-element-v1
+      - type: custom:donut
         entity: sensor.example_level
-      - type: custom:septic-element-v2
+      - type: custom:tunk
         entity: sensor.example_level
-      - type: custom:septic-element-v3
+      - type: custom:cistern
         entity: sensor.example_level
-      - type: custom:septic-element-v4
+      - type: custom:tile
         entity: sensor.example_level
 ```
 

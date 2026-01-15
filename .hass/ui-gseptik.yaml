@@ -2,11 +2,11 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:septic-element-v1
+      - type: custom:donut
         entity: sensor.example_level
-      - type: custom:septic-element-v2
+      - type: custom:tunk
         entity: sensor.example_level
-      - type: custom:septic-element-v3
+      - type: custom:cistern
         entity: sensor.example_level
-      - type: custom:septic-element-v4
+      - type: custom:tile
         entity: sensor.example_level

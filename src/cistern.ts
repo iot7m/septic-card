@@ -5,7 +5,7 @@ interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
 }
 
-@customElement("septic-element-v3")
+@customElement("cistern")
 export class SepticElement extends LitElement implements LovelaceCard {
   @state()
   private _config?: SepticCardConfig;
@@ -287,7 +287,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar
-            </ha-card>             
+            </ha-card>
           </div>
         </div>
       </ha-card>
@@ -297,7 +297,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
 
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-  type: "septic-element-v3",
+  type: "cistern",
   name: "My Element",
   description: "Minimal Lit 3 card for Home Assistant",
 });

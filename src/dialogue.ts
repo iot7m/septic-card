@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { customElement, state, property } from "lit/decorators.js";
 
-@customElement("septic-dialog")
+@customElement("dialogue")
 export class SepticDialog extends LitElement {
   @property({ attribute: false }) hass!: any;
   @property() entity!: string;
