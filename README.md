@@ -49,6 +49,10 @@ Each card is configured using YAML.
 
 ## Development
 
+## Build module
+
+Run the build process using the command `npm install`. The compiled JavaScript module will be located in the `dist` directory.
+
 ### Run development server
 
 Install Node.js dependencies using the command `npm install`. Start the development server with the command `npm start`. The development server runs at http://localhost:4000.
@@ -64,7 +68,3 @@ frontend:
   extra_module_url:
     - http://localhost:4000/gseptik.js
 ```
-
-## Build module
-
-Run the build process using the command `npm install`. The compiled JavaScript module will be located in the `dist` directory.
