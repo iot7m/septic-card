@@ -1,9 +1,9 @@
 views:
   - path: default_view
-    title: Home
+    title: Entities
     cards:
       - type: entities
-        title: GSeptik
+        title: Entities
         state_color: false
         show_header_toggle: false
         entities:
@@ -19,11 +19,19 @@ views:
             icon: mdi:alert-octagon-outline
           - entity: sensor.oshibka_septika
             icon: mdi:alert-circle-outline
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
       - type: custom:cistern-card
         entity: sensor.example_level
       - type: custom:donut-card
         entity: sensor.example_level
       - type: custom:tank-card
         entity: sensor.example_level
+  - title: Tiles
+    cards:
+      - type: tile
+        entity: climate.ecobee
+        name: Климат
       - type: custom:tile-card
         entity: sensor.example_level

@@ -88,13 +88,13 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:donut
+      - type: custom:cistern-card
         entity: sensor.example_level
-      - type: custom:tunk
+      - type: custom:donut-card
         entity: sensor.example_level
-      - type: custom:cistern
+      - type: custom:tank-card
         entity: sensor.example_level
-      - type: custom:tile
+      - type: custom:tile-card
         entity: sensor.example_level
 ```
 
