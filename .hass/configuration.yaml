@@ -14,8 +14,6 @@ scene: !include scenes.yaml
 
 # Load integrations
 demo:
-climate:
-  - platform: demo
 
 # Include extra configuration
 rest: !include rests.yaml
