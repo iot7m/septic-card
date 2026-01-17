@@ -14,8 +14,8 @@
     "^lit$",
     "^lit/decorators\\.js$",
     "^custom-card-helpers$",
-    "^\\./",
-    "^\\.\\./"
+    "^@/(.*)",
+    "^@tests/(.*)"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
