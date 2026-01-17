@@ -1,6 +1,6 @@
-import { LitElement, html, css } from "lit";
+import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import type { LovelaceCard, LovelaceCardConfig, HomeAssistant } from "custom-card-helpers";
 
 declare global {
   interface Window {
@@ -72,16 +72,12 @@ export class SepticElement extends LitElement implements LovelaceCard {
   `;
 
   private get septicLevel() {
-    const value = Number(
-      this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state
-    );
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
   private get criticalLevel() {
-    const value = Number(
-      this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state
-    );
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 

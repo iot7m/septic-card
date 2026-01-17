@@ -1,6 +1,6 @@
 import type { HomeAssistant } from "custom-card-helpers";
-import { LitElement, html, css } from "lit";
-import { customElement, state, property } from "lit/decorators.js";
+import { LitElement, css, html } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 
 @customElement("gspeptik-dialogue")
 export class SepticDialog extends LitElement {
@@ -169,16 +169,12 @@ export class SepticDialog extends LitElement {
   `;
 
   private get septicLevel() {
-    const value = Number(
-      this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state
-    );
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
   private get criticalLevel() {
-    const value = Number(
-      this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state
-    );
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
@@ -197,14 +193,12 @@ export class SepticDialog extends LitElement {
           ${marks.map(
             (mark) => html`
               <div
-                class="mark ${level >= mark ? "active" : ""} ${mark === critical
-                  ? "critical-mark"
-                  : ""}"
+                class="mark ${level >= mark ? "active" : ""} ${mark === critical ? "critical-mark" : ""}"
                 data-value="${mark}"
               >
                 &mdash;${mark}%&mdash;
               </div>
-            `
+            `,
           )}
           ${html` <div class="mark-critical">&mdash;${critical}%&mdash;</div> `}
         </div>
@@ -221,7 +215,7 @@ export class SepticDialog extends LitElement {
         bubbles: true,
         composed: true,
         detail: { entityId },
-      })
+      }),
     );
   }
 
@@ -241,13 +235,9 @@ export class SepticDialog extends LitElement {
           <ha-tab class="cursor">История</ha-tab>
         </ha-tabs>
 
-        <div class="dialog-content">
-          ${this._tab === 0 ? this.renderLevel() : this.renderHistory()}
-        </div>
+        <div class="dialog-content">${this._tab === 0 ? this.renderLevel() : this.renderHistory()}</div>
 
-        <ha-button slot="primaryAction" dialogAction="close">
-          Закрыть
-        </ha-button>
+        <ha-button slot="primaryAction" dialogAction="close"> Закрыть </ha-button>
       </ha-dialog>
     `;
   }
@@ -258,8 +248,7 @@ export class SepticDialog extends LitElement {
     const temperatura_septika = "sensor.temperatura_septika";
     const davlenie_septika = "sensor.davlenie_septika";
     const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika =
-      "sensor.prevyshen_kriticheskii_uroven_septika";
+    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
       <div>
         <div class="flex">
@@ -267,42 +256,30 @@ export class SepticDialog extends LitElement {
           ${this.renderTank()}
         </div>
           <statistic-box>
-          <ha-card class="statistic-card" @click=${() =>
-            this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
               ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika]
-                  .state === "Нет"
+                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
                   ? html`<good-value>Уровень септика не превышен</good-value> `
                   : html`<bad-value>Превышен уровень септика</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(kriticheskii_uroven_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
               Критический уровень септика:
               ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(uroven_zhidkosti_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(uroven_zhidkosti_septika)}>
               Уровень жидкости септика:
               ${this.hass?.states?.[uroven_zhidkosti_septika].state} %
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(temperatura_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
               <ha-icon icon="mdi:thermometer"></ha-icon>
               ${
                 Number(this.hass?.states?.[temperatura_septika].state) > 0
-                  ? html`<good-value
-                      >+${this.hass?.states?.[temperatura_septika].state}
-                      &deg;C</good-value
-                    >`
-                  : html`<bad-value
-                      >${this.hass?.states?.[temperatura_septika]
-                        .state}&deg;C</bad-value
-                    >`
+                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
+                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(davlenie_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar

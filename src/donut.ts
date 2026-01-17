@@ -1,7 +1,8 @@
-import { LitElement, html, css, PropertyValues } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import type { LovelaceCard, LovelaceCardConfig, HomeAssistant} from "custom-card-helpers";
 import ApexCharts from "apexcharts";
+import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+import { LitElement, PropertyValues, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+
 interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
 }
@@ -108,8 +109,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
               total: {
                 show: true,
                 label: "Состояние септика",
-                formatter: () =>
-                  `${this.hass?.states?.[oshibka_septika].state}`,
+                formatter: () => `${this.hass?.states?.[oshibka_septika].state}`,
               },
               value: {
                 show: true,
@@ -152,7 +152,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
         bubbles: true,
         composed: true,
         detail: { entityId },
-      })
+      }),
     );
   }
 
@@ -196,45 +196,33 @@ export class SepticElement extends LitElement implements LovelaceCard {
     const temperatura_septika = "sensor.temperatura_septika";
     const davlenie_septika = "sensor.davlenie_septika";
     const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika =
-      "sensor.prevyshen_kriticheskii_uroven_septika";
+    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
       <ha-card>
         <h2>Септик</h2>
         <div class="flex">
           <div id="chart"></div>
           <statistic-box>
-          <ha-card class="statistic-card" @click=${() =>
-            this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
               ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika]
-                  .state === "Нет"
+                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
                   ? html`<good-value>Уровень септика не превышен</good-value> `
                   : html`<bad-value>Превышен уровень септика</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(kriticheskii_uroven_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
               Критический уровень септика:
               ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(temperatura_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
               <ha-icon icon="mdi:thermometer"></ha-icon>
               ${
                 Number(this.hass?.states?.[temperatura_septika].state) > 0
-                  ? html`<good-value
-                      >+${this.hass?.states?.[temperatura_septika].state}
-                      &deg;C</good-value
-                    >`
-                  : html`<bad-value
-                      >${this.hass?.states?.[temperatura_septika]
-                        .state}&deg;C</bad-value
-                    >`
+                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
+                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(davlenie_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar
