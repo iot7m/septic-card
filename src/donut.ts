@@ -1,12 +1,24 @@
-import { LitElement, html, css } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import type { LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 import ApexCharts from "apexcharts";
-("apexcharts");
+
+import { LitElement, PropertyValues, css, html } from "lit";
+
+import { customElement, state } from "lit/decorators.js";
+
+import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+
 interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
 }
 
+declare global {
+  interface Window {
+    customCards?: Array<{
+      type: string;
+      name: string;
+      description: string;
+    }>;
+  }
+}
 @customElement("donut-card")
 export class SepticElement extends LitElement implements LovelaceCard {
   @state()
@@ -100,8 +112,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
               total: {
                 show: true,
                 label: "Состояние септика",
-                formatter: () =>
-                  `${this.hass?.states?.[oshibka_septika].state}`,
+                formatter: () => `${this.hass?.states?.[oshibka_septika].state}`,
               },
               value: {
                 show: true,
@@ -144,7 +155,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
         bubbles: true,
         composed: true,
         detail: { entityId },
-      })
+      }),
     );
   }
 
@@ -165,7 +176,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
     this._chart.updateSeries([value, 100 - value]);
   }
 
-  updated(changedProps: Map<string, any>) {
+  updated(changedProps: PropertyValues) {
     if (changedProps.has("hass")) {
       this._updateChart();
     }
@@ -180,55 +191,41 @@ export class SepticElement extends LitElement implements LovelaceCard {
     return 1;
   }
 
-  hass?: any;
+  hass?: HomeAssistant;
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    const uroven_zhidkosti_septika = "sensor.uroven_zhidkosti_septika";
+
     const temperatura_septika = "sensor.temperatura_septika";
     const davlenie_septika = "sensor.davlenie_septika";
     const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika =
-      "sensor.prevyshen_kriticheskii_uroven_septika";
-    const stateObj = this.hass?.states?.[uroven_zhidkosti_septika];
-    const value = stateObj ? stateObj.state : "unknown";
+    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
       <ha-card>
         <h2>Септик</h2>
         <div class="flex">
           <div id="chart"></div>
           <statistic-box>
-          <ha-card class="statistic-card" @click=${() =>
-            this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
               ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika]
-                  .state === "Нет"
+                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
                   ? html`<good-value>Уровень септика не превышен</good-value> `
                   : html`<bad-value>Превышен уровень септика</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(kriticheskii_uroven_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
               Критический уровень септика:
               ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(temperatura_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
               <ha-icon icon="mdi:thermometer"></ha-icon>
               ${
-                this.hass?.states?.[temperatura_septika].state > 0
-                  ? html`<good-value
-                      >+${this.hass?.states?.[temperatura_septika].state}
-                      &deg;C</good-value
-                    >`
-                  : html`<bad-value
-                      >${this.hass?.states?.[temperatura_septika]
-                        .state}&deg;C</bad-value
-                    >`
+                Number(this.hass?.states?.[temperatura_septika].state) > 0
+                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
+                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() =>
-              this._openMoreInfo(davlenie_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
                 <ha-icon icon="mdi:gauge"></ha-icon>
                 ${this.hass?.states?.[davlenie_septika].state}
                 mbar
@@ -240,8 +237,8 @@ export class SepticElement extends LitElement implements LovelaceCard {
   }
 }
 
-(window as any).customCards = (window as any).customCards || [];
-(window as any).customCards.push({
+window.customCards = window.customCards || [];
+window.customCards.push({
   type: "donut-card",
   name: "My Element",
   description: "Minimal Lit 3 card for Home Assistant",

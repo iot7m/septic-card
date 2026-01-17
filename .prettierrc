@@ -7,26 +7,22 @@
   "tabWidth": 2,
   "useTabs": false,
   "endOfLine": "auto",
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "importOrder": [
+    "^node:",
     "<THIRD_PARTY_MODULES>",
-    "^@tests/mocks/(.*)",
-    "^@/ui/(.*)$",
-    "^@/(auth-config.*)",
-    "^@/(store.*)",
-    "^@/constants/(.*)$",
-    "^@/types/(.*)$",
-    "^@/schemas/(.*)$",
-    "^@/lib/(.*)$",
-    "^@/providers/(.*)$",
-    "^@/hooks/(.*)$",
-    "^@/queries/(.*)$",
-    "^@/slices/(.*)$",
-    "^@/components/(.*)$",
-    "^@/layouts/(.*)$",
-    "^@/pages/(.*)$",
-    "^@/(.*)",
-    "^@tests/(.*)"
+    "^lit$",
+    "^lit/decorators\\.js$",
+    "^custom-card-helpers$",
+    "^\\./",
+    "^\\.\\./"
   ],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "options": { "parser": "typescript" }
+    }
+  ]
 }
