@@ -1,6 +1,8 @@
-import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 import { LitElement, css, html } from "lit";
+
 import { customElement, state } from "lit/decorators.js";
+
+import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 
 declare global {
   interface Window {

@@ -1,7 +1,10 @@
 import ApexCharts from "apexcharts";
-import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+
 import { LitElement, PropertyValues, css, html } from "lit";
+
 import { customElement, state } from "lit/decorators.js";
+
+import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 
 interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
