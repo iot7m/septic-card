@@ -7,7 +7,6 @@
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "useDefineForClassFields": true,
-    "emitDecoratorMetadata": true
+    "useDefineForClassFields": true
   }
 }
