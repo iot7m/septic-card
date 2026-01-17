@@ -14,12 +14,15 @@
 
 # Ignore artifacts
 dist
+build/
+out/
 
 # Ignore node modules
 node_modules
 
 # Ignore files
 README.md
+LICENSE
 
 # Configs
 *.yml
@@ -38,9 +41,3 @@ README.md
 .gitlab-ci.yml
 .prettierignore
 .prettierrc
-LICENSE
-
-# Build outputs
-dist/
-build/
-out/
