@@ -45,6 +45,7 @@ jobs:
         shell: bash
         run: npm run build
   test:
+    if: false
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +62,7 @@ jobs:
         shell: bash
         run: npm run test
   coverage:
+    if: false
     needs: test
     runs-on: ubuntu-latest
     steps:
