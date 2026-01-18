@@ -4,6 +4,10 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 
+import { CARD_PREFIX } from "@/const";
+
+export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
+
 declare global {
   interface Window {
     customCards?: Array<{
@@ -18,7 +22,7 @@ interface SepticCardConfig extends LovelaceCardConfig {
   entity: string;
 }
 
-@customElement("gseptik-tank-card")
+@customElement(CARD_NAME)
 export class TankCard extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
 
@@ -279,7 +283,7 @@ export class TankCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "tank-card",
-  name: "My Element",
-  description: "Minimal Lit 3 card for Home Assistant",
+  type: CARD_NAME,
+  name: "G-Septik Tank",
+  description: "Tank card for G-Septik septic sensor",
 });

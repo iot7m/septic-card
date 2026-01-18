@@ -4,6 +4,10 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
 
+import { CARD_PREFIX } from "@/const";
+
+export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
+
 declare global {
   interface Window {
     customCards?: Array<{
@@ -23,7 +27,7 @@ interface GspeptikDialogueElement extends HTMLElement {
   entity: string;
 }
 
-@customElement("gseptik-tile-card")
+@customElement(CARD_NAME)
 export class SepticElement extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
 
@@ -119,7 +123,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "tile-card",
-  name: "My Element",
-  description: "Minimal Lit 3 card for Home Assistant",
+  type: CARD_NAME,
+  name: "G-Septik Tile",
+  description: "Compact tile card for G-Septik septic sensor",
 });
