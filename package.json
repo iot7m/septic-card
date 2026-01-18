@@ -58,7 +58,6 @@
     "vitest": "^4.0.17"
   },
   "dependencies": {
-    "apexcharts": "^5.3.6",
     "lit": "^3.3.2",
     "tslib": "^2.8.1"
   }

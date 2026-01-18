@@ -24,8 +24,6 @@ views:
         name: Climate
       - type: custom:cistern-card
         entity: sensor.example_level
-      - type: custom:donut-card
-        entity: sensor.example_level
       - type: custom:tank-card
         entity: sensor.example_level
   - title: Tiles
