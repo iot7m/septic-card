@@ -6,7 +6,7 @@ import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-car
 
 import { CARD_PREFIX } from "@/const";
 
-export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
+export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
 
 declare global {
   interface Window {
