@@ -1,7 +1,5 @@
-// Import cards
-import "./cistern";
-// Import dialogues
-import "./dialogue";
-import "./donut";
-import "./tank";
-import "./tile";
+// Import files
+import "@/cistern";
+import "@/dialogue";
+import "@/tank";
+import "@/tile";
