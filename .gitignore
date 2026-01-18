@@ -21,3 +21,6 @@
 
 # Production
 /dist
+
+# Test and coverage
+/output
