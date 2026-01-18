@@ -59,7 +59,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
     },
   ];
 
-
   static styles = css`
     .tank-ball {
       width: 100%;
@@ -256,19 +255,22 @@ export class CisternCard extends LitElement implements LovelaceCard {
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
     return html`
-      <div class="tank-ball" style="--level: ${level}; --critical: ${critical}"
-            @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}>
+      <div
+        class="tank-ball"
+        style="--level: ${level}; --critical: ${critical}"
+        @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
+      >
         <div class="scale">
           ${marks.map(
-      (mark) => html`
-                    <div
-                      class="mark ${level >= mark ? "active" : ""} ${mark === critical ? "critical-mark" : ""}"
-                      data-value="${mark}"
-                    >
-                      &mdash;${mark}%&mdash;
-                    </div>
-                  `,
-    )}
+            (mark) => html`
+              <div
+                class="mark ${level >= mark ? "active" : ""} ${mark === critical ? "critical-mark" : ""}"
+                data-value="${mark}"
+              >
+                &mdash;${mark}%&mdash;
+              </div>
+            `,
+          )}
           ${html` <div class="mark-critical">&mdash;${critical}%&mdash;</div> `}
         </div>
         <div class="water">
@@ -292,31 +294,23 @@ export class CisternCard extends LitElement implements LovelaceCard {
     if (!this.hass) return html``;
 
     return html`
-    <div class="entities">
-      ${this._entities.map((item) => {
-      const stateObj = this.hass!.states[item.entity];
-      if (!stateObj) return null;
+      <div class="entities">
+        ${this._entities.map((item) => {
+          const stateObj = this.hass!.states[item.entity];
+          if (!stateObj) return null;
 
-      return html`
-          <div
-            class="entity-row"
-            @click=${() => this._openMoreInfo(item.entity)}
-          >
-            <ha-icon class="entity-icon" icon=${item.icon}></ha-icon>
+          return html`
+            <div class="entity-row" @click=${() => this._openMoreInfo(item.entity)}>
+              <ha-icon class="entity-icon" icon=${item.icon}></ha-icon>
 
-            <div class="entity-name">
-              ${item.name ?? stateObj.attributes.friendly_name}
+              <div class="entity-name">${item.name ?? stateObj.attributes.friendly_name}</div>
+
+              <div class="entity-state">${stateObj.state} ${stateObj.attributes.unit_of_measurement ?? ""}</div>
             </div>
-
-            <div class="entity-state">
-              ${stateObj.state}
-              ${stateObj.attributes.unit_of_measurement ?? ""}
-            </div>
-          </div>
-        `;
-    })}
-    </div>
-  `;
+          `;
+        })}
+      </div>
+    `;
   }
 
   firstUpdated() {
