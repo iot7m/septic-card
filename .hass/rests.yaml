@@ -3,7 +3,7 @@
   scan_interval: 300
   timeout: 30
   sensor:
-    # Датчик 1
+    # Sensor 1
     - name: Уровень жидкости септика
       unique_id: sensor_gseptik_liquid_level
       json_attributes_path: "$[0]"
