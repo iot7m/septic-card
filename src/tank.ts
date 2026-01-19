@@ -2,29 +2,17 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
+
+import type { EntityCardConfig } from "@/types/cards";
 
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
 
-declare global {
-  interface Window {
-    customCards?: Array<{
-      type: string;
-      name: string;
-      description: string;
-    }>;
-  }
-}
-
-interface SepticCardConfig extends LovelaceCardConfig {
-  entity: string;
-}
-
 @customElement(CARD_NAME)
 export class TankCard extends LitElement implements LovelaceCard {
-  private _config?: SepticCardConfig;
+  private _config?: EntityCardConfig;
 
   static styles = css`
     ha-card {
@@ -224,7 +212,7 @@ export class TankCard extends LitElement implements LovelaceCard {
     this.renderTank();
   }
 
-  setConfig(config: SepticCardConfig) {
+  setConfig(config: EntityCardConfig) {
     if (!config.entity) throw new Error("Entity must be defined");
     this._config = config;
     this.requestUpdate();
