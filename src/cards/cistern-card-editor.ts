@@ -4,7 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
-import { EntityCardConfig } from "@/types/cards";
+import { EntityCardEditorConfig } from "@/types/cards";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -13,24 +13,16 @@ export const CARD_NAME = `${CARD_PREFIX}-cistern-card-editor` as const;
 @customElement(CARD_NAME)
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) hass!: HomeAssistant;
-  @property({ attribute: false }) private _config!: EntityCardConfig;
+  @property({ attribute: false })
+  private _config: EntityCardEditorConfig = {
+    type: `custom:${CARD_NAME}`,
+  };
 
-  setConfig(config: EntityCardConfig) {
+  setConfig(config: EntityCardEditorConfig) {
     this._config = {
       ...config,
       type: config.type ?? `custom:${CARD_NAME}`,
     };
-  }
-
-  private _valueChanged(ev: CustomEvent) {
-    const value = ev.detail.value;
-
-    this._config = {
-      ...this._config,
-      entity: value,
-    };
-
-    this._fireConfigChanged();
   }
 
   private _fireConfigChanged() {
@@ -44,19 +36,30 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
   }
 
   render() {
-    if (!this.hass) {
-      return html`<p>HASS not loaded</p>`;
-    }
+    if (!this.hass) return html``;
 
     return html`
-      <ha-entity-picker
+      <ha-form
         .hass=${this.hass}
-        .value=${this._config.entity ?? ""}
-        label="Основная сущность"
-        @value-changed=${this._valueChanged}
+        .data=${this._config}
+        .schema=${[
+          {
+            name: "entity",
+            selector: { entity: {} },
+          },
+        ]}
+        @value-changed=${this._formChanged}
       >
-      </ha-entity-picker>
+      </ha-form>
     `;
+  }
+
+  private _formChanged(ev: CustomEvent) {
+    this._config = {
+      ...this._config,
+      ...ev.detail.value,
+    };
+    this._fireConfigChanged();
   }
 
   static styles = css`

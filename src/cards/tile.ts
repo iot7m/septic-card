@@ -34,9 +34,15 @@ export class TileCard extends LitElement implements LovelaceCard {
   }
 
   private _openDialog() {
+    if (!this._config?.entity) {
+      return;
+    }
+
     const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
+
     dialog.hass = this.hass;
-    dialog.entity = this._config!.entity;
+    dialog.entity = this._config.entity;
+
     document.body.appendChild(dialog);
   }
 

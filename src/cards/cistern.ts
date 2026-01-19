@@ -67,7 +67,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   static async getConfigElement() {
     await import("@/cards/cistern-card-editor");
-    return document.createElement("gseptik-cistern-card-editor");
+    return document.createElement(`${CARD_PREFIX}-cistern-card-editor`);
   }
 
   static getStubConfig() {
