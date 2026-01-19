@@ -64,7 +64,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <div
-        class="tank-ball"
+        class="cistern"
         style="--level: ${level}; --critical: ${critical}"
         @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
       >
@@ -143,7 +143,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
       <ha-card>
         <h1 class="card-header">Септик</h1>
         <div class="card-box">
-        <div class ="tank-container">
+        <div class ="cistern-container">
         ${this.renderTank()}
         </div>
           ${this.renderEntities()}
@@ -154,7 +154,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static styles = css`
-    .tank-ball {
+    .cistern {
       width: 100%;
       max-width: 320px;
       aspect-ratio: 1;
@@ -168,7 +168,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
       box-sizing: border-box;
     }
 
-    .tank-container {
+    .cistern-container {
       padding: 0 8px;
     }
 
