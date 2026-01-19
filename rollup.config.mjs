@@ -28,7 +28,7 @@ const plugins = [
 
 export default [
   {
-    input: "src/index.ts",
+    input: "src/gseptik.ts",
     output: {
       file: "dist/gseptik.js",
       format: "es",

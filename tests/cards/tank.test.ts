@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import "@/tile";
+import "@/cards/tank";
 
 import { type LovelaceTestElement, createHassMock } from "@tests/hass";
 
-describe("tile-card", () => {
+describe("tank-card", () => {
   it("renders without crashing when hass and config are provided", async () => {
-    const el = document.createElement("gseptik-tile-card") as LovelaceTestElement;
+    const el = document.createElement("gseptik-tank-card") as LovelaceTestElement;
     el.hass = createHassMock();
     el.setConfig({ entity: "sensor.uroven_zhidkosti_septika" });
 

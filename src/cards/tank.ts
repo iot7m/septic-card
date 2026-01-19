@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel, getLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
@@ -14,55 +16,7 @@ export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
 export class TankCard extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private renderTank() {
-    const level = this.septicLevel;
-    const critical = this.criticalLevel;
-    const isCritical = level >= critical;
-    const showBubbles = level > 10;
-
-    return html`
-      <div class="tank ${isCritical ? "critical" : ""}">
-        <div class="fill" style="height: ${level}%">
-          ${showBubbles
-            ? html`
-                <div class="bubble bubble--1"></div>
-                <div class="bubble bubble--2"></div>
-                <div class="bubble bubble--3"></div>
-                <div class="bubble bubble--4"></div>
-              `
-            : null}
-        </div>
-
-        <div class="critical-line" style="bottom: ${critical}%"></div>
-
-        <div class="value-label">Уровень септика: ${level}%</div>
-      </div>
-    `;
-  }
-
-  private _openMoreInfo(entityId: string) {
-    this.dispatchEvent(
-      new CustomEvent("hass-more-info", {
-        bubbles: true,
-        composed: true,
-        detail: { entityId },
-      }),
-    );
-  }
-
-  firstUpdated() {
-    this.renderTank();
-  }
+  hass?: HomeAssistant;
 
   setConfig(config: EntityCardConfig) {
     if (!config.entity) throw new Error("Entity must be defined");
@@ -74,7 +28,19 @@ export class TankCard extends LitElement implements LovelaceCard {
     return 1;
   }
 
-  hass?: HomeAssistant;
+  firstUpdated() {
+    this.renderTank();
+  }
+
+  private _openMoreInfo(entityId: string) {
+    this.dispatchEvent(
+      new CustomEvent("hass-more-info", {
+        bubbles: true,
+        composed: true,
+        detail: { entityId },
+      }),
+    );
+  }
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;
@@ -117,6 +83,32 @@ export class TankCard extends LitElement implements LovelaceCard {
           </div>
         </div>
       </ha-card>
+    `;
+  }
+
+  private renderTank() {
+    const level = getLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass);
+    const isCritical = level >= criticalLevel;
+    const showBubbles = level > 10;
+
+    return html`
+      <div class="tank ${isCritical ? "critical" : ""}">
+        <div class="fill" style="height: ${level}%">
+          ${showBubbles
+            ? html`
+                <div class="bubble bubble--1"></div>
+                <div class="bubble bubble--2"></div>
+                <div class="bubble bubble--3"></div>
+                <div class="bubble bubble--4"></div>
+              `
+            : null}
+        </div>
+
+        <div class="critical-line" style="bottom: ${criticalLevel}%"></div>
+
+        <div class="value-label">Уровень септика: ${level}%</div>
+      </div>
     `;
   }
 

@@ -6,14 +6,14 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel, getLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
 
 @customElement(CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
-  private _config?: EntityCardConfig;
-
   private readonly _entities = [
     {
       entity: "sensor.uroven_zhidkosti_septika",
@@ -47,45 +47,22 @@ export class CisternCard extends LitElement implements LovelaceCard {
     },
   ];
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  private _config?: EntityCardConfig;
+
+  hass?: HomeAssistant;
+
+  setConfig(config: EntityCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+    this.requestUpdate();
   }
 
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  getCardSize(): number {
+    return 1;
   }
 
-  private renderTank() {
-    const level = this.septicLevel;
-    const critical = this.criticalLevel;
-    const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
-
-    return html`
-      <div
-        class="cistern"
-        style="--level: ${level}; --critical: ${critical}"
-        @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
-      >
-        <div class="scale">
-          ${marks.map(
-            (mark) => html`
-              <div
-                class="mark ${level >= mark ? "active" : ""} ${mark === critical ? "critical-mark" : ""}"
-                data-value="${mark}"
-              >
-                &mdash;${mark}%&mdash;
-              </div>
-            `,
-          )}
-          ${html` <div class="mark-critical">&mdash;${critical}%&mdash;</div> `}
-        </div>
-        <div class="water">
-          <div class="water-line"></div>
-        </div>
-      </div>
-    `;
+  firstUpdated() {
+    this.renderCistern();
   }
 
   private _openMoreInfo(entityId: string) {
@@ -96,6 +73,53 @@ export class CisternCard extends LitElement implements LovelaceCard {
         detail: { entityId },
       }),
     );
+  }
+
+  render() {
+    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
+    return html`
+      <ha-card>
+        <h1 class="card-header">Септик</h1>
+        <div class="card-box">
+        <div class ="cistern-container">
+        ${this.renderCistern()}
+        </div>
+          ${this.renderEntities()}
+          <statistic-box>
+        </div>
+      </ha-card>
+    `;
+  }
+
+  private renderCistern() {
+    const level = getLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass);
+    const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+    return html`
+      <div
+        class="cistern"
+        style="--level: ${level}; --critical: ${criticalLevel}"
+        @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
+      >
+        <div class="scale">
+          ${marks.map(
+            (mark) => html`
+              <div
+                class="mark ${level >= mark ? "active" : ""} ${mark === criticalLevel ? "critical-mark" : ""}"
+                data-value="${mark}"
+              >
+                &mdash;${mark}%&mdash;
+              </div>
+            `,
+          )}
+          ${html` <div class="mark-critical">&mdash;${criticalLevel}%&mdash;</div> `}
+        </div>
+        <div class="water">
+          <div class="water-line"></div>
+        </div>
+      </div>
+    `;
   }
 
   private renderEntities() {
@@ -118,38 +142,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
           `;
         })}
       </div>
-    `;
-  }
-
-  firstUpdated() {
-    this.renderTank();
-  }
-
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-    this.requestUpdate();
-  }
-
-  getCardSize(): number {
-    return 1;
-  }
-
-  hass?: HomeAssistant;
-
-  render() {
-    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    return html`
-      <ha-card>
-        <h1 class="card-header">Септик</h1>
-        <div class="card-box">
-        <div class ="cistern-container">
-        ${this.renderTank()}
-        </div>
-          ${this.renderEntities()}
-          <statistic-box>
-        </div>
-      </ha-card>
     `;
   }
 

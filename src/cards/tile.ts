@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
@@ -16,18 +18,10 @@ interface GspeptikDialogueElement extends HTMLElement {
 }
 
 @customElement(CARD_NAME)
-export class SepticElement extends LitElement implements LovelaceCard {
+export class TileCard extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
+  hass?: HomeAssistant;
 
   setConfig(config: EntityCardConfig) {
     if (!config.entity) throw new Error("Entity must be defined");
@@ -39,8 +33,6 @@ export class SepticElement extends LitElement implements LovelaceCard {
     return 1;
   }
 
-  hass?: HomeAssistant;
-
   private _openDialog() {
     const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
     dialog.hass = this.hass;
@@ -48,15 +40,25 @@ export class SepticElement extends LitElement implements LovelaceCard {
     document.body.appendChild(dialog);
   }
 
+  private get septicLevel() {
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  private get criticalLevel() {
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
   render() {
-    const level = this.septicLevel;
+    const criticalLevel = getCriticalLevel(this.hass);
 
     return html`
       <ha-card @click=${this._openDialog}>
         <h2>Септик</h2>
-        <div class="tank-ball" style="--level:${level}">
+        <div class="tank-ball" style="--level:${criticalLevel}">
           <div class="water"></div>
-          <div class="center-label">${level}%</div>
+          <div class="center-label">${criticalLevel}%</div>
         </div>
       </ha-card>
     `;
