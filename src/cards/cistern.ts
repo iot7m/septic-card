@@ -83,6 +83,22 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
+  render() {
+    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
+    return html`
+      <ha-card>
+        <h1 class="card-header">Септик</h1>
+        <div class="card-box">
+        <div class ="cistern-container">
+        ${this.renderCistern()}
+        </div>
+          ${this.renderEntities()}
+          <statistic-box>
+        </div>
+      </ha-card>
+    `;
+  }
+
   private renderCistern() {
     const level = this.septicLevel;
     const critical = this.criticalLevel;
@@ -134,22 +150,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
           `;
         })}
       </div>
-    `;
-  }
-
-  render() {
-    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    return html`
-      <ha-card>
-        <h1 class="card-header">Септик</h1>
-        <div class="card-box">
-        <div class ="cistern-container">
-        ${this.renderCistern()}
-        </div>
-          ${this.renderEntities()}
-          <statistic-box>
-        </div>
-      </ha-card>
     `;
   }
 
