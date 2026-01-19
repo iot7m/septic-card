@@ -4,7 +4,7 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
-import type { EntityCardConfig } from "@/types/cards";
+import type { GSeptikCardConfig } from "@/types/cards";
 
 import { getCriticalLevel } from "@/utils/gseptik";
 
@@ -19,12 +19,21 @@ interface GspeptikDialogueElement extends HTMLElement {
 
 @customElement(CARD_NAME)
 export class TileCard extends LitElement implements LovelaceCard {
-  private _config?: EntityCardConfig;
+  private _config?: GSeptikCardConfig;
 
   hass?: HomeAssistant;
 
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
+  setConfig(config: GSeptikCardConfig) {
+    if (
+      !config.entities?.level ||
+      !config.entities.temp ||
+      !config.entities.pressure ||
+      !config.entities.x_level ||
+      !config.entities.exceeds_x_level ||
+      !config.entities.error_name
+    ) {
+      throw new Error("All entities must be defined: level, temp, pressure, x_level, exceeds_x_level, error_name");
+    }
     this._config = config;
     this.requestUpdate();
   }
@@ -51,7 +60,7 @@ export class TileCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    const criticalLevel = getCriticalLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
 
     return html`
       <ha-card @click=${this._openDialog}>

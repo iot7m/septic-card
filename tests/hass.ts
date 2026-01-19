@@ -8,44 +8,67 @@ export type HassLike = {
   states: Record<string, HassState>;
 };
 
+export type GSeptikEntitiesConfig = {
+  level: string;
+  temp: string;
+  pressure: string;
+  x_level: string;
+  exceeds_x_level: string;
+  error_name: string;
+};
+
+export type GSeptikCardConfig = {
+  // In real HA this extends LovelaceCardConfig, but for tests we only need "entities".
+  entities: GSeptikEntitiesConfig;
+};
+
 export interface LovelaceTestElement extends HTMLElement {
   hass?: HassLike;
-  setConfig(config: { entity: string }): void;
+  setConfig(config: GSeptikCardConfig): void;
   updateComplete: Promise<void>;
 }
+
+export const ENTITIES: GSeptikEntitiesConfig = {
+  level: "sensor.uroven_zhidkosti_septika",
+  temp: "sensor.temperatura_septika",
+  pressure: "sensor.davlenie_septika",
+  x_level: "sensor.kriticheskii_uroven_septika",
+  exceeds_x_level: "sensor.prevyshen_kriticheskii_uroven_septika",
+  error_name: "sensor.oshibka_septika",
+};
 
 export function createHassMock(): HassLike {
   return {
     states: {
-      "sensor.uroven_zhidkosti_septika": {
+      [ENTITIES.level]: {
         state: "42",
         attributes: { unit_of_measurement: "%" },
-        entity_id: "sensor.uroven_zhidkosti_septika",
+        entity_id: ENTITIES.level,
       },
-      "sensor.temperatura_septika": {
+      [ENTITIES.temp]: {
         state: "5",
         attributes: { unit_of_measurement: "°C" },
-        entity_id: "sensor.temperatura_septika",
+        entity_id: ENTITIES.temp,
       },
-      "sensor.davlenie_septika": {
+      [ENTITIES.pressure]: {
         state: "1010",
         attributes: { unit_of_measurement: "mbar" },
-        entity_id: "sensor.davlenie_septika",
+        entity_id: ENTITIES.pressure,
       },
-      "sensor.kriticheskii_uroven_septika": {
+      [ENTITIES.x_level]: {
         state: "80",
         attributes: { unit_of_measurement: "%" },
-        entity_id: "sensor.kriticheskii_uroven_septika",
+        entity_id: ENTITIES.x_level,
       },
-      "sensor.prevyshen_kriticheskii_uroven_septika": {
+      [ENTITIES.exceeds_x_level]: {
         state: "Нет",
         attributes: {},
-        entity_id: "sensor.prevyshen_kriticheskii_uroven_septika",
+        entity_id: ENTITIES.exceeds_x_level,
       },
-      "sensor.oshibka_septika": {
+      [ENTITIES.error_name]: {
         state: "",
         attributes: {},
-        entity_id: "sensor.oshibka_septika",
+        entity_id: ENTITIES.error_name,
       },
     },
   };
