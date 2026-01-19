@@ -97,3 +97,19 @@ views:
 ```
 
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.
+
+
+### Use ui-gseptik dashboard
+
+To try the demo dashboard, [install HACS](https://blog.iot7m.ru/how-to-setup-hacs?utm_source=github&utm_medium=readme) in your Home Assistant config directory (`.hass`):
+
+```bash
+wget -O - https://get.hacs.xyz | bash -
+```
+
+After installing HACS, install the following frontend cards via HACS:
+- card-mod
+- gauge-card-pro
+- stack-in-card
+
+Then copy the contents of `.hass/ui-gseptik.yaml` and paste it into any dashboard using the Raw configuration editor (YAML mode).

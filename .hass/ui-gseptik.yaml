@@ -2,6 +2,9 @@ views:
   - path: default_view
     title: Entities
     cards:
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
       - type: entities
         title: Entities
         state_color: false
@@ -19,9 +22,122 @@ views:
             icon: mdi:alert-octagon-outline
           - entity: sensor.oshibka_septika
             icon: mdi:alert-circle-outline
-      - type: thermostat
-        entity: climate.ecobee
-        name: Climate
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:gauge-card-pro
+            entity: sensor.uroven_zhidkosti_septika
+            name: Уровень жидкости септика
+            titles:
+              primary: Уровень жидкости септика
+            min: 0
+            max: 100
+            needle: true
+            segments:
+              - from: 0
+                color: "#43A047"
+              - from: 60
+                color: "#FBC02D"
+              - from: 90
+                color: "#E53935"
+            setpoint:
+              type: template
+              value: >
+                {{ states('sensor.kriticheskii_uroven_septika') | float(90) }}
+              color: red
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  box-shadow: none !important;
+                  border: none !important;
+                  padding-bottom: 0 !important;
+                }
+
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: sensor.temperatura_septika
+                name: Температура
+                icon: mdi:thermometer
+              - entity: sensor.davlenie_septika
+                name: Давление
+                icon: mdi:gauge
+              - entity: sensor.kriticheskii_uroven_septika
+                name: Критический уровень
+                icon: mdi:water-alert
+              - entity: sensor.prevyshen_kriticheskii_uroven_septika
+                name: Превышен критический уровень
+                icon: mdi:alert-octagon-outline
+              - entity: sensor.oshibka_septika
+                name: Ошибка
+                icon: mdi:alert-circle-outline
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  box-shadow: none !important;
+                  border: none !important;
+                  padding-top: 0 !important;
+                }
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: var(--ha-card-border-radius, 12px);
+              overflow: hidden;
+            }
+      - type: custom:stack-in-card
+        cards:
+          - type: gauge
+            entity: sensor.uroven_zhidkosti_septika
+            name: Уровень жидкости септика
+            min: 0
+            max: 100
+            needle: true
+            severity:
+              green: 0
+              yellow: 60
+              red: 90
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  box-shadow: none !important;
+                  border: none !important;
+                  padding-bottom: 0 !important;
+                }
+
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: sensor.temperatura_septika
+                name: Температура
+                icon: mdi:thermometer
+              - entity: sensor.davlenie_septika
+                name: Давление
+                icon: mdi:gauge
+              - entity: sensor.kriticheskii_uroven_septika
+                name: Критический уровень
+                icon: mdi:water-alert
+              - entity: sensor.prevyshen_kriticheskii_uroven_septika
+                name: Превышен критический уровень
+                icon: mdi:alert-octagon-outline
+              - entity: sensor.oshibka_septika
+                name: Ошибка
+                icon: mdi:alert-circle-outline
+            card_mod:
+              style: |
+                ha-card {
+                  background: none !important;
+                  box-shadow: none !important;
+                  border: none !important;
+                  padding-top: 0 !important;
+                }
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: var(--ha-card-border-radius, 12px);
+              overflow: hidden;
+            }
       - type: custom:gseptik-cistern-card
         entity: sensor.example_level
       - type: custom:gseptik-tank-card
