@@ -6,7 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { GSeptikCardConfig } from "@/types/cards";
 
-import { getCriticalLevel, getLevel } from "@/utils/gseptik";
+import { assertAllEntities } from "@/utils/asserts";
+import { getCriticalLevel, getLevel } from "@/utils/extractors";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -19,16 +20,7 @@ export class TankCard extends LitElement implements LovelaceCard {
   hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
-    if (
-      !config.entities?.level ||
-      !config.entities.temp ||
-      !config.entities.pressure ||
-      !config.entities.x_level ||
-      !config.entities.exceeds_x_level ||
-      !config.entities.error_name
-    ) {
-      throw new Error("All entities must be defined: level, temp, pressure, x_level, exceeds_x_level, error_name");
-    }
+    assertAllEntities(config);
     this._config = config;
     this.requestUpdate();
   }
@@ -113,9 +105,7 @@ export class TankCard extends LitElement implements LovelaceCard {
               `
             : null}
         </div>
-
         <div class="critical-line" style="bottom: ${criticalLevel}%"></div>
-
         <div class="value-label">Уровень септика: ${level}%</div>
       </div>
     `;
@@ -136,6 +126,7 @@ export class TankCard extends LitElement implements LovelaceCard {
       overflow: hidden;
       box-sizing: border-box;
     }
+
     .fill {
       position: absolute;
       bottom: 0;

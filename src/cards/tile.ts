@@ -6,7 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { GSeptikCardConfig } from "@/types/cards";
 
-import { getCriticalLevel } from "@/utils/gseptik";
+import { assertAllEntities } from "@/utils/asserts";
+import { getCriticalLevel } from "@/utils/extractors";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -24,16 +25,7 @@ export class TileCard extends LitElement implements LovelaceCard {
   hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
-    if (
-      !config.entities?.level ||
-      !config.entities.temp ||
-      !config.entities.pressure ||
-      !config.entities.x_level ||
-      !config.entities.exceeds_x_level ||
-      !config.entities.error_name
-    ) {
-      throw new Error("All entities must be defined: level, temp, pressure, x_level, exceeds_x_level, error_name");
-    }
+    assertAllEntities(config);
     this._config = config;
     this.requestUpdate();
   }
@@ -49,23 +41,13 @@ export class TileCard extends LitElement implements LovelaceCard {
     document.body.appendChild(dialog);
   }
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
   render() {
     const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
 
     return html`
       <ha-card @click=${this._openDialog}>
         <h2>Септик</h2>
-        <div class="tank-ball" style="--level:${criticalLevel}">
+        <div class="tile" style="--level:${criticalLevel}">
           <div class="water"></div>
           <div class="center-label">${criticalLevel}%</div>
         </div>
@@ -78,7 +60,7 @@ export class TileCard extends LitElement implements LovelaceCard {
       padding: 16px;
     }
 
-    .tank-ball {
+    .tile {
       width: 60px;
       aspect-ratio: 1;
       border-radius: 50%;
