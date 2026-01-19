@@ -14,6 +14,8 @@ export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
 export class TankCard extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
+  hass?: HomeAssistant;
+
   private get septicLevel() {
     const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
@@ -73,8 +75,6 @@ export class TankCard extends LitElement implements LovelaceCard {
   getCardSize(): number {
     return 1;
   }
-
-  hass?: HomeAssistant;
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;

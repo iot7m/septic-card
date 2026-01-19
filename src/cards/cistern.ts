@@ -12,8 +12,6 @@ export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
 
 @customElement(CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
-  private _config?: EntityCardConfig;
-
   private readonly _entities = [
     {
       entity: "sensor.uroven_zhidkosti_septika",
@@ -46,6 +44,24 @@ export class CisternCard extends LitElement implements LovelaceCard {
       name: "Ошибка",
     },
   ];
+
+  private _config?: EntityCardConfig;
+
+  hass?: HomeAssistant;
+
+  setConfig(config: EntityCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+    this.requestUpdate();
+  }
+
+  getCardSize(): number {
+    return 1;
+  }
+
+  firstUpdated() {
+    this.renderTank();
+  }
 
   private get septicLevel() {
     const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
@@ -120,22 +136,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
       </div>
     `;
   }
-
-  firstUpdated() {
-    this.renderTank();
-  }
-
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-    this.requestUpdate();
-  }
-
-  getCardSize(): number {
-    return 1;
-  }
-
-  hass?: HomeAssistant;
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;

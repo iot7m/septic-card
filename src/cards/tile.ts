@@ -19,6 +19,8 @@ interface GspeptikDialogueElement extends HTMLElement {
 export class SepticElement extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
+  hass?: HomeAssistant;
+
   private get septicLevel() {
     const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
@@ -38,8 +40,6 @@ export class SepticElement extends LitElement implements LovelaceCard {
   getCardSize(): number {
     return 1;
   }
-
-  hass?: HomeAssistant;
 
   private _openDialog() {
     const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
