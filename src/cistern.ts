@@ -60,14 +60,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
       background: #e6e6e6;
       border: 2px solid #9e9e9e;
       box-sizing: border-box;
-      }
+    }
 
-      .tank-container{
-        padding: 0 8px;
-      }
+    .tank-container {
+      padding: 0 8px;
+    }
 
-    .card-box{
-      display:flex
+    .card-box {
+      display: flex;
       flex-direction: column;
       align-items: stretch;
       gap: 12px;
