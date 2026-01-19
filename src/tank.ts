@@ -33,7 +33,7 @@ export class TankCard extends LitElement implements LovelaceCard {
 
     .tank {
       position: relative;
-      width: clamp(10rem, 15vw, 15rem);
+      width: 8rem;
       height: 100%;
       border: 2px solid #9e9e9e;
       border-radius: 8px;

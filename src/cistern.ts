@@ -26,20 +26,64 @@ interface SepticCardConfig extends LovelaceCardConfig {
 export class CisternCard extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
 
-  static styles = css`
-    ha-card {
-      padding: 16px;
-    }
+  private readonly _entities = [
+    {
+      entity: "sensor.uroven_zhidkosti_septika",
+      icon: "mdi:water-percent",
+      name: "Уровень жидкости",
+    },
+    {
+      entity: "sensor.temperatura_septika",
+      icon: "mdi:thermometer",
+      name: "Температура",
+    },
+    {
+      entity: "sensor.davlenie_septika",
+      icon: "mdi:gauge",
+      name: "Давление",
+    },
+    {
+      entity: "sensor.kriticheskii_uroven_septika",
+      icon: "mdi:water-alert",
+      name: "Критический уровень",
+    },
+    {
+      entity: "sensor.prevyshen_kriticheskii_uroven_septika",
+      icon: "mdi:alert-octagon-outline",
+      name: "Превышение уровня",
+    },
+    {
+      entity: "sensor.oshibka_septika",
+      icon: "mdi:alert-circle-outline",
+      name: "Ошибка",
+    },
+  ];
 
+  static styles = css`
     .tank-ball {
-      width: clamp(120px, 20vw, 25vw);
+      width: 100%;
+      max-width: 320px;
       aspect-ratio: 1;
+      margin: 0 auto;
       border-radius: 50%;
       position: relative;
       overflow: hidden;
+
       background: #e6e6e6;
       border: 2px solid #9e9e9e;
       box-sizing: border-box;
+      }
+
+      .tank-container{
+        padding: 0 8px;
+      }
+
+    .card-box{
+      display:flex
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      min-width: 0;
     }
 
     .water {
@@ -149,35 +193,49 @@ export class CisternCard extends LitElement implements LovelaceCard {
     .mark.critical-mark::before {
       background: #e32636;
     }
-
-    .flex {
+    .entities {
       display: flex;
-      gap: 10px;
-    }
-    good-value {
-      color: green;
-    }
-    bad-value {
-      color: red;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .statistic-card {
-      display: block;
-      min-width: 8rem;
-      max-width: 12rem;
+    .entity-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      align-items: center;
+      gap: 12px;
+
+      padding: 12px 16px;
       cursor: pointer;
-      align-self: stretch;
-      padding: 8px;
-      border-radius: 8px;
-      text-align: center;
-      margin-bottom: 10px;
-      background-color: var(--card-background-color);
+
+      font-family: var(--ha-font-family-body);
+      -webkit-font-smoothing: var(--ha-font-smoothing);
+      font-size: var(--ha-font-size-m);
+      font-weight: var(--ha-font-weight-normal);
+      line-height: var(--ha-line-height-normal);
+      border-bottom: 1px solid var(--divider-color);
     }
-    .statistic-card:last-child {
-      margin-bottom: 0;
+
+    .entity-row:last-child {
+      border-bottom: none;
     }
-    .statistic-card:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+
+    .entity-row:hover {
+      background: var(--secondary-background-color);
+    }
+
+    .entity-name {
+      color: var(--primary-text-color);
+    }
+
+    .entity-state {
+      color: var(--secondary-text-color);
+      white-space: nowrap;
+    }
+
+    .entity-icon {
+      color: var(--state-icon-color);
     }
   `;
 
@@ -197,7 +255,11 @@ export class CisternCard extends LitElement implements LovelaceCard {
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
     return html`
-      <div class="tank-ball" style="--level: ${level}; --critical: ${critical}">
+      <div
+        class="tank-ball"
+        style="--level: ${level}; --critical: ${critical}"
+        @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
+      >
         <div class="scale">
           ${marks.map(
             (mark) => html`
@@ -228,6 +290,29 @@ export class CisternCard extends LitElement implements LovelaceCard {
     );
   }
 
+  private renderEntities() {
+    if (!this.hass) return html``;
+
+    return html`
+      <div class="entities">
+        ${this._entities.map((item) => {
+          const stateObj = this.hass!.states[item.entity];
+          if (!stateObj) return null;
+
+          return html`
+            <div class="entity-row" @click=${() => this._openMoreInfo(item.entity)}>
+              <ha-icon class="entity-icon" icon=${item.icon}></ha-icon>
+
+              <div class="entity-name">${item.name ?? stateObj.attributes.friendly_name}</div>
+
+              <div class="entity-state">${stateObj.state} ${stateObj.attributes.unit_of_measurement ?? ""}</div>
+            </div>
+          `;
+        })}
+      </div>
+    `;
+  }
+
   firstUpdated() {
     this.renderTank();
   }
@@ -246,48 +331,15 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    const uroven_zhidkosti_septika = "sensor.uroven_zhidkosti_septika";
-    const temperatura_septika = "sensor.temperatura_septika";
-    const davlenie_septika = "sensor.davlenie_septika";
-    const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
     return html`
       <ha-card>
-        <h2>Септик</h2>
-        <div class="flex">
-        <div>
-          ${this.renderTank()}
+        <h1 class="card-header">Септик</h1>
+        <div class="card-box">
+        <div class ="tank-container">
+        ${this.renderTank()}
         </div>
+          ${this.renderEntities()}
           <statistic-box>
-          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
-              ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
-                  ? html`<good-value>Уровень септика не превышен</good-value> `
-                  : html`<bad-value>Превышен уровень септика</bad-value>`
-              }
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
-              Критический уровень септика:
-              ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(uroven_zhidkosti_septika)}>
-              Уровень жидкости септика:
-              ${this.hass?.states?.[uroven_zhidkosti_septika].state} %
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
-              <ha-icon icon="mdi:thermometer"></ha-icon>
-              ${
-                Number(this.hass?.states?.[temperatura_septika].state) > 0
-                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
-                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
-              }
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
-                <ha-icon icon="mdi:gauge"></ha-icon>
-                ${this.hass?.states?.[davlenie_septika].state}
-                mbar
-            </ha-card>
-          </div>
         </div>
       </ha-card>
     `;
