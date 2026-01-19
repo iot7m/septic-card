@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
@@ -49,14 +51,14 @@ export class TileCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    const level = this.septicLevel;
+    const criticalLevel = getCriticalLevel(this.hass);
 
     return html`
       <ha-card @click=${this._openDialog}>
         <h2>Септик</h2>
-        <div class="tank-ball" style="--level:${level}">
+        <div class="tank-ball" style="--level:${criticalLevel}">
           <div class="water"></div>
-          <div class="center-label">${level}%</div>
+          <div class="center-label">${criticalLevel}%</div>
         </div>
       </ha-card>
     `;
