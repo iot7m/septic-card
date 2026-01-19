@@ -14,6 +14,112 @@ export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
 export class TankCard extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
+  private get septicLevel() {
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  private get criticalLevel() {
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  private renderTank() {
+    const level = this.septicLevel;
+    const critical = this.criticalLevel;
+    const isCritical = level >= critical;
+    const showBubbles = level > 10;
+
+    return html`
+      <div class="tank ${isCritical ? "critical" : ""}">
+        <div class="fill" style="height: ${level}%">
+          ${showBubbles
+            ? html`
+                <div class="bubble bubble--1"></div>
+                <div class="bubble bubble--2"></div>
+                <div class="bubble bubble--3"></div>
+                <div class="bubble bubble--4"></div>
+              `
+            : null}
+        </div>
+
+        <div class="critical-line" style="bottom: ${critical}%"></div>
+
+        <div class="value-label">Уровень септика: ${level}%</div>
+      </div>
+    `;
+  }
+
+  private _openMoreInfo(entityId: string) {
+    this.dispatchEvent(
+      new CustomEvent("hass-more-info", {
+        bubbles: true,
+        composed: true,
+        detail: { entityId },
+      }),
+    );
+  }
+
+  firstUpdated() {
+    this.renderTank();
+  }
+
+  setConfig(config: EntityCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+    this.requestUpdate();
+  }
+
+  getCardSize(): number {
+    return 1;
+  }
+
+  hass?: HomeAssistant;
+
+  render() {
+    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
+    const temperatura_septika = "sensor.temperatura_septika";
+    const davlenie_septika = "sensor.davlenie_septika";
+    const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
+    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
+    return html`
+      <ha-card>
+        <h2>Септик</h2>
+        <div class="flex">
+        <div>
+          ${this.renderTank()}
+        </div>
+          <statistic-box>
+          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+              ${
+                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
+                  ? html`<good-value>Уровень септика не превышен</good-value> `
+                  : html`<bad-value>Превышен уровень септика</bad-value>`
+              }
+            </ha-card>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
+              Критический уровень септика:
+              ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
+            </ha-card>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
+              <ha-icon icon="mdi:thermometer"></ha-icon>
+              ${
+                Number(this.hass?.states?.[temperatura_septika].state) > 0
+                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
+                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
+              }
+            </ha-card>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
+                <ha-icon icon="mdi:gauge"></ha-icon>
+                ${this.hass?.states?.[davlenie_septika].state}
+                mbar
+            </ha-card>
+          </div>
+        </div>
+      </ha-card>
+    `;
+  }
+
   static styles = css`
     ha-card {
       padding: 16px;
@@ -161,112 +267,6 @@ export class TankCard extends LitElement implements LovelaceCard {
       background-color: rgba(0, 0, 0, 0.05);
     }
   `;
-
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private renderTank() {
-    const level = this.septicLevel;
-    const critical = this.criticalLevel;
-    const isCritical = level >= critical;
-    const showBubbles = level > 10;
-
-    return html`
-      <div class="tank ${isCritical ? "critical" : ""}">
-        <div class="fill" style="height: ${level}%">
-          ${showBubbles
-            ? html`
-                <div class="bubble bubble--1"></div>
-                <div class="bubble bubble--2"></div>
-                <div class="bubble bubble--3"></div>
-                <div class="bubble bubble--4"></div>
-              `
-            : null}
-        </div>
-
-        <div class="critical-line" style="bottom: ${critical}%"></div>
-
-        <div class="value-label">Уровень септика: ${level}%</div>
-      </div>
-    `;
-  }
-
-  private _openMoreInfo(entityId: string) {
-    this.dispatchEvent(
-      new CustomEvent("hass-more-info", {
-        bubbles: true,
-        composed: true,
-        detail: { entityId },
-      }),
-    );
-  }
-
-  firstUpdated() {
-    this.renderTank();
-  }
-
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-    this.requestUpdate();
-  }
-
-  getCardSize(): number {
-    return 1;
-  }
-
-  hass?: HomeAssistant;
-
-  render() {
-    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    const temperatura_septika = "sensor.temperatura_septika";
-    const davlenie_septika = "sensor.davlenie_septika";
-    const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
-    return html`
-      <ha-card>
-        <h2>Септик</h2>
-        <div class="flex">
-        <div>
-          ${this.renderTank()}
-        </div>
-          <statistic-box>
-          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
-              ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
-                  ? html`<good-value>Уровень септика не превышен</good-value> `
-                  : html`<bad-value>Превышен уровень септика</bad-value>`
-              }
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
-              Критический уровень септика:
-              ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
-              <ha-icon icon="mdi:thermometer"></ha-icon>
-              ${
-                Number(this.hass?.states?.[temperatura_septika].state) > 0
-                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
-                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
-              }
-            </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
-                <ha-icon icon="mdi:gauge"></ha-icon>
-                ${this.hass?.states?.[davlenie_septika].state}
-                mbar
-            </ha-card>
-          </div>
-        </div>
-      </ha-card>
-    `;
-  }
 }
 
 window.customCards = window.customCards || [];

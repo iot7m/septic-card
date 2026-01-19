@@ -19,6 +19,49 @@ interface GspeptikDialogueElement extends HTMLElement {
 export class SepticElement extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
+  private get septicLevel() {
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  private get criticalLevel() {
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  setConfig(config: EntityCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+    this.requestUpdate();
+  }
+
+  getCardSize(): number {
+    return 1;
+  }
+
+  hass?: HomeAssistant;
+
+  private _openDialog() {
+    const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
+    dialog.hass = this.hass;
+    dialog.entity = this._config!.entity;
+    document.body.appendChild(dialog);
+  }
+
+  render() {
+    const level = this.septicLevel;
+
+    return html`
+      <ha-card @click=${this._openDialog}>
+        <h2>Септик</h2>
+        <div class="tank-ball" style="--level:${level}">
+          <div class="water"></div>
+          <div class="center-label">${level}%</div>
+        </div>
+      </ha-card>
+    `;
+  }
+
   static styles = css`
     ha-card {
       padding: 16px;
@@ -64,49 +107,6 @@ export class SepticElement extends LitElement implements LovelaceCard {
       pointer-events: none;
     }
   `;
-
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-    this.requestUpdate();
-  }
-
-  getCardSize(): number {
-    return 1;
-  }
-
-  hass?: HomeAssistant;
-
-  private _openDialog() {
-    const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
-    dialog.hass = this.hass;
-    dialog.entity = this._config!.entity;
-    document.body.appendChild(dialog);
-  }
-
-  render() {
-    const level = this.septicLevel;
-
-    return html`
-      <ha-card @click=${this._openDialog}>
-        <h2>Септик</h2>
-        <div class="tank-ball" style="--level:${level}">
-          <div class="water"></div>
-          <div class="center-label">${level}%</div>
-        </div>
-      </ha-card>
-    `;
-  }
 }
 
 window.customCards = window.customCards || [];
