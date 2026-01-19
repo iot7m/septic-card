@@ -60,7 +60,17 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   firstUpdated() {
-    this.renderTank();
+    this.renderCistern();
+  }
+
+  private _openMoreInfo(entityId: string) {
+    this.dispatchEvent(
+      new CustomEvent("hass-more-info", {
+        bubbles: true,
+        composed: true,
+        detail: { entityId },
+      }),
+    );
   }
 
   private get septicLevel() {
@@ -73,7 +83,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
-  private renderTank() {
+  private renderCistern() {
     const level = this.septicLevel;
     const critical = this.criticalLevel;
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
@@ -102,16 +112,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
         </div>
       </div>
     `;
-  }
-
-  private _openMoreInfo(entityId: string) {
-    this.dispatchEvent(
-      new CustomEvent("hass-more-info", {
-        bubbles: true,
-        composed: true,
-        detail: { entityId },
-      }),
-    );
   }
 
   private renderEntities() {
@@ -144,7 +144,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
         <h1 class="card-header">Септик</h1>
         <div class="card-box">
         <div class ="cistern-container">
-        ${this.renderTank()}
+        ${this.renderCistern()}
         </div>
           ${this.renderEntities()}
           <statistic-box>

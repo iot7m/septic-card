@@ -16,6 +16,30 @@ export class TankCard extends LitElement implements LovelaceCard {
 
   hass?: HomeAssistant;
 
+  setConfig(config: EntityCardConfig) {
+    if (!config.entity) throw new Error("Entity must be defined");
+    this._config = config;
+    this.requestUpdate();
+  }
+
+  getCardSize(): number {
+    return 1;
+  }
+
+  firstUpdated() {
+    this.renderTank();
+  }
+
+  private _openMoreInfo(entityId: string) {
+    this.dispatchEvent(
+      new CustomEvent("hass-more-info", {
+        bubbles: true,
+        composed: true,
+        detail: { entityId },
+      }),
+    );
+  }
+
   private get septicLevel() {
     const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
@@ -50,30 +74,6 @@ export class TankCard extends LitElement implements LovelaceCard {
         <div class="value-label">Уровень септика: ${level}%</div>
       </div>
     `;
-  }
-
-  private _openMoreInfo(entityId: string) {
-    this.dispatchEvent(
-      new CustomEvent("hass-more-info", {
-        bubbles: true,
-        composed: true,
-        detail: { entityId },
-      }),
-    );
-  }
-
-  firstUpdated() {
-    this.renderTank();
-  }
-
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
-    this._config = config;
-    this.requestUpdate();
-  }
-
-  getCardSize(): number {
-    return 1;
   }
 
   render() {

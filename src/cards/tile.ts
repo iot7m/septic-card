@@ -16,20 +16,10 @@ interface GspeptikDialogueElement extends HTMLElement {
 }
 
 @customElement(CARD_NAME)
-export class SepticElement extends LitElement implements LovelaceCard {
+export class TileCard extends LitElement implements LovelaceCard {
   private _config?: EntityCardConfig;
 
   hass?: HomeAssistant;
-
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
 
   setConfig(config: EntityCardConfig) {
     if (!config.entity) throw new Error("Entity must be defined");
@@ -46,6 +36,16 @@ export class SepticElement extends LitElement implements LovelaceCard {
     dialog.hass = this.hass;
     dialog.entity = this._config!.entity;
     document.body.appendChild(dialog);
+  }
+
+  private get septicLevel() {
+    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
+  }
+
+  private get criticalLevel() {
+    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
+    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
   render() {
