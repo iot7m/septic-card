@@ -103,7 +103,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
           const uom =
             typeof stateObj.attributes?.unit_of_measurement === "string" ? stateObj.attributes.unit_of_measurement : "";
-
           const name =
             typeof stateObj.attributes?.friendly_name === "string" ? stateObj.attributes.friendly_name : def.label;
 

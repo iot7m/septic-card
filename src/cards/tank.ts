@@ -7,7 +7,7 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 import type { GSeptikCardConfig } from "@/types/cards";
 
 import { assertAllEntities } from "@/utils/asserts";
-import { getCriticalLevel, getLevel } from "@/utils/extractors";
+import { getCriticalLevel, getExceedsCritical, getLevel } from "@/utils/extractors";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -45,10 +45,10 @@ export class TankCard extends LitElement implements LovelaceCard {
 
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;
-    const temperatura_septika = "sensor.temperatura_septika";
-    const davlenie_septika = "sensor.davlenie_septika";
-    const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
+
+    const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
+    const exceedsCritical = getExceedsCritical(this.hass, this._config!.entities.exceeds_x_level);
+
     return html`
       <ha-card>
         <h2>Септик</h2>
@@ -57,28 +57,27 @@ export class TankCard extends LitElement implements LovelaceCard {
           ${this.renderTank()}
         </div>
           <statistic-box>
-          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(prevyshen_kriticheskii_uroven_septika)}>
+          <ha-card class="statistic-card" @click=${() => this._openMoreInfo(this._config!.entities.exceeds_x_level)}>
               ${
-                this.hass?.states?.[prevyshen_kriticheskii_uroven_septika].state === "Нет"
-                  ? html`<good-value>Уровень септика не превышен</good-value> `
-                  : html`<bad-value>Превышен уровень септика</bad-value>`
+                exceedsCritical
+                  ? html`<good-value>Превышен уровень септика</good-value> `
+                  : html`<bad-value>Уровень септика не превышен</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(kriticheskii_uroven_septika)}>
-              Критический уровень септика:
-              ${this.hass?.states?.[kriticheskii_uroven_septika].state} %
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(this._config!.entities.x_level)}>
+              Критический уровень септика: ${criticalLevel} %
             </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(temperatura_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(this._config!.entities.temp)}>
               <ha-icon icon="mdi:thermometer"></ha-icon>
               ${
-                Number(this.hass?.states?.[temperatura_septika].state) > 0
-                  ? html`<good-value>+${this.hass?.states?.[temperatura_septika].state} &deg;C</good-value>`
-                  : html`<bad-value>${this.hass?.states?.[temperatura_septika].state}&deg;C</bad-value>`
+                Number(this.hass?.states?.[this._config!.entities.temp].state) > 0
+                  ? html`<good-value>+${this.hass?.states?.[this._config!.entities.temp].state} &deg;C</good-value>`
+                  : html`<bad-value>${this.hass?.states?.[this._config!.entities.temp].state}&deg;C</bad-value>`
               }
             </ha-card>
-            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(davlenie_septika)}>
+            <ha-card class="statistic-card" @click=${() => this._openMoreInfo(this._config!.entities.pressure)}>
                 <ha-icon icon="mdi:gauge"></ha-icon>
-                ${this.hass?.states?.[davlenie_septika].state}
+                ${this.hass?.states?.[this._config!.entities.pressure].state}
                 mbar
             </ha-card>
           </div>
