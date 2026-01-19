@@ -14,6 +14,8 @@
     "^lit$",
     "^lit/decorators\\.js$",
     "^custom-card-helpers$",
+    "^@/types/(.*)",
+    "^@/const(.*)",
     "^@/(.*)",
     "^@tests/(.*)"
   ],

@@ -2,25 +2,13 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
+
+import type { EntityCardConfig } from "@/types/cards";
 
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
-
-declare global {
-  interface Window {
-    customCards?: Array<{
-      type: string;
-      name: string;
-      description: string;
-    }>;
-  }
-}
-
-interface SepticCardConfig extends LovelaceCardConfig {
-  entity: string;
-}
 
 interface GspeptikDialogueElement extends HTMLElement {
   hass?: HomeAssistant;
@@ -29,7 +17,7 @@ interface GspeptikDialogueElement extends HTMLElement {
 
 @customElement(CARD_NAME)
 export class SepticElement extends LitElement implements LovelaceCard {
-  private _config?: SepticCardConfig;
+  private _config?: EntityCardConfig;
 
   static styles = css`
     ha-card {
@@ -87,7 +75,7 @@ export class SepticElement extends LitElement implements LovelaceCard {
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
-  setConfig(config: SepticCardConfig) {
+  setConfig(config: EntityCardConfig) {
     if (!config.entity) throw new Error("Entity must be defined");
     this._config = config;
     this.requestUpdate();
