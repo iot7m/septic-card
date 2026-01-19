@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel, getLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
@@ -38,16 +40,6 @@ export class TankCard extends LitElement implements LovelaceCard {
         detail: { entityId },
       }),
     );
-  }
-
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
   render() {
@@ -95,9 +87,9 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   private renderTank() {
-    const level = this.septicLevel;
-    const critical = this.criticalLevel;
-    const isCritical = level >= critical;
+    const level = getLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass);
+    const isCritical = level >= criticalLevel;
     const showBubbles = level > 10;
 
     return html`
@@ -113,7 +105,7 @@ export class TankCard extends LitElement implements LovelaceCard {
             : null}
         </div>
 
-        <div class="critical-line" style="bottom: ${critical}%"></div>
+        <div class="critical-line" style="bottom: ${criticalLevel}%"></div>
 
         <div class="value-label">Уровень септика: ${level}%</div>
       </div>

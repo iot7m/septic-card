@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { EntityCardConfig } from "@/types/cards";
 
+import { getCriticalLevel, getLevel } from "@/utils/gseptik";
+
 import { CARD_PREFIX } from "@/const";
 
 export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
@@ -73,16 +75,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
     );
   }
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
   render() {
     if (!this._config) return html`<ha-card>Loading...</ha-card>`;
     return html`
@@ -100,28 +92,28 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   private renderCistern() {
-    const level = this.septicLevel;
-    const critical = this.criticalLevel;
+    const level = getLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass);
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
     return html`
       <div
         class="cistern"
-        style="--level: ${level}; --critical: ${critical}"
+        style="--level: ${level}; --critical: ${criticalLevel}"
         @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
       >
         <div class="scale">
           ${marks.map(
             (mark) => html`
               <div
-                class="mark ${level >= mark ? "active" : ""} ${mark === critical ? "critical-mark" : ""}"
+                class="mark ${level >= mark ? "active" : ""} ${mark === criticalLevel ? "critical-mark" : ""}"
                 data-value="${mark}"
               >
                 &mdash;${mark}%&mdash;
               </div>
             `,
           )}
-          ${html` <div class="mark-critical">&mdash;${critical}%&mdash;</div> `}
+          ${html` <div class="mark-critical">&mdash;${criticalLevel}%&mdash;</div> `}
         </div>
         <div class="water">
           <div class="water-line"></div>
