@@ -87,14 +87,6 @@ views:
           x_level: kriticheskii_uroven_septika
           exceeds_x_level: prevyshen_kriticheskii_uroven_septika
           error_name: oshibka_septika
-      - type: custom:gseptik-tank-card
-        entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
       - type: custom:stack-in-card
         cards:
           - type: gauge
