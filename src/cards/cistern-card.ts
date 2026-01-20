@@ -28,6 +28,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   public hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
+    console.log("NEW CONFIG", config);
     assertAllEntities(config);
     this._config = config;
     this.requestUpdate();
@@ -37,14 +38,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return 1;
   }
 
-  static async getConfigElement() {
-    await import("@/cards/cistern-card-editor");
-    return document.createElement("gseptik-cistern-card-editor");
-  }
-
   static getStubConfig() {
     return {
-      type: CARD_NAME,
+      type: `custom:${CARD_NAME}`,
       entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, `sensor.${String(d.key)}`])),
     };
   }
@@ -52,12 +48,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
   static async getConfigElement() {
     await import("@/cards/cistern-card-editor");
     return document.createElement(`${CARD_PREFIX}-cistern-card-editor`);
-  }
-
-  static getStubConfig() {
-    return {
-      entity: "sensor.uroven_zhidkosti_septika",
-    };
   }
 
   private _openMoreInfo(entityId: string) {

@@ -9,5 +9,5 @@ export interface GSeptikCardConfig extends LovelaceCardConfig {
 }
 
 export interface EntityCardEditorConfig extends LovelaceCardConfig {
-  entity?: string;
+  entities?: GSeptikEntitiesConfig;
 }
