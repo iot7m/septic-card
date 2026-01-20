@@ -4,9 +4,10 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
-import type { EntityCardConfig } from "@/types/cards";
+import type { GSeptikCardConfig } from "@/types/cards";
 
-import { getCriticalLevel } from "@/utils/gseptik";
+import { assertAllEntities } from "@/utils/asserts";
+import { getCriticalLevel } from "@/utils/extractors";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -19,12 +20,12 @@ interface GspeptikDialogueElement extends HTMLElement {
 
 @customElement(CARD_NAME)
 export class TileCard extends LitElement implements LovelaceCard {
-  private _config?: EntityCardConfig;
+  private _config?: GSeptikCardConfig;
 
   hass?: HomeAssistant;
 
-  setConfig(config: EntityCardConfig) {
-    if (!config.entity) throw new Error("Entity must be defined");
+  setConfig(config: GSeptikCardConfig) {
+    assertAllEntities(config);
     this._config = config;
     this.requestUpdate();
   }
@@ -40,23 +41,13 @@ export class TileCard extends LitElement implements LovelaceCard {
     document.body.appendChild(dialog);
   }
 
-  private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
-  private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
-    return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
-  }
-
   render() {
-    const criticalLevel = getCriticalLevel(this.hass);
+    const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
 
     return html`
       <ha-card @click=${this._openDialog}>
         <h2>Септик</h2>
-        <div class="tank-ball" style="--level:${criticalLevel}">
+        <div class="tile" style="--level:${criticalLevel}">
           <div class="water"></div>
           <div class="center-label">${criticalLevel}%</div>
         </div>
@@ -69,7 +60,7 @@ export class TileCard extends LitElement implements LovelaceCard {
       padding: 16px;
     }
 
-    .tank-ball {
+    .tile {
       width: 60px;
       aspect-ratio: 1;
       border-radius: 50%;
