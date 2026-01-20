@@ -34,6 +34,17 @@ export class CisternCard extends LitElement implements LovelaceCard {
     this.renderCistern();
   }
 
+  static async getConfigElement() {
+    await import("@/cards/cistern-card-editor");
+    return document.createElement("gseptik-cistern-card-editor");
+  }
+
+  static getStubConfig() {
+    return {
+      entity: "sensor.uroven_zhidkosti_septika",
+    };
+  }
+
   private _openMoreInfo(entityId: string) {
     this.dispatchEvent(
       new CustomEvent("hass-more-info", {
