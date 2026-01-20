@@ -75,13 +75,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
     const level = getLevel(this.hass, this._config.entities.level);
     const criticalLevel = getCriticalLevel(this.hass, this._config.entities.x_level);
     const levelEntityId = getLevelEntityId(this._config.entities.level);
+    const isCritical = level >= criticalLevel;
 
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
     return html`
       <div
         class="cistern"
-        style="--level: ${level}; --critical: ${criticalLevel}"
+        style="--level: ${level}; --critical: ${criticalLevel}; --is-critical: ${isCritical ? 1 : 0}"
         @click=${() => this._openMoreInfo(levelEntityId)}
       >
         <div class="scale">
@@ -97,8 +98,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
           )}
           <div class="mark-critical">&mdash;${criticalLevel}%&mdash;</div>
         </div>
-
-        <div class="water">
+        <div class="center-label">${Math.round(level)}%</div>
+        <div class="water ${isCritical ? "water-critical" : ""}">
           <div class="water-line"></div>
         </div>
       </div>
@@ -139,8 +140,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
       border-radius: 50%;
       position: relative;
       overflow: hidden;
-      background: #e6e6e6;
-      border: 2px solid #9e9e9e;
+
+      background: var(--secondary-background-color);
+      border: 2px solid var(--divider-color);
       box-sizing: border-box;
     }
 
@@ -150,6 +152,20 @@ export class CisternCard extends LitElement implements LovelaceCard {
       align-items: stretch;
       gap: 12px;
       min-width: 0;
+    }
+
+    .center-label {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--ha-font-family-heading);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--primary-text-color);
+      pointer-events: none;
+      z-index: 4;
     }
 
     .water {
@@ -171,11 +187,15 @@ export class CisternCard extends LitElement implements LovelaceCard {
       box-sizing: border-box;
     }
 
+    .water-critical {
+      background: linear-gradient(to top, var(--error-color, #d32f2f));
+    }
+
     .scale {
-      z-index: 1;
+      z-index: 3;
       box-sizing: border-box;
       position: absolute;
-      inset: 0 45%;
+      inset: 0 62% 0 12%;
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -194,6 +214,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
       box-sizing: border-box;
       white-space: nowrap;
     }
+
     .mark {
       position: absolute;
       left: 0;
