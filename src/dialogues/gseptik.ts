@@ -4,7 +4,9 @@ import { customElement, property, state } from "lit/decorators.js";
 
 import type { HomeAssistant } from "custom-card-helpers";
 
-@customElement("gspeptik-dialogue")
+import { CARD_DIALOG } from "@/const";
+
+@customElement(CARD_DIALOG)
 export class SepticDialog extends LitElement {
   @property({ attribute: false }) hass!: HomeAssistant;
   @property() entity!: string;

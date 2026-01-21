@@ -18,9 +18,7 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
-import { CARD_PREFIX } from "@/const";
-
-export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
+import { CARD_EDITOR_NAME, CARD_NAME } from "@/const";
 
 @customElement(CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
@@ -46,7 +44,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   static async getConfigElement() {
     await import("@/cards/cistern-card-editor");
-    return document.createElement(`${CARD_PREFIX}-cistern-card-editor`);
+    return document.createElement(`${CARD_EDITOR_NAME}`);
   }
 
   private _openMoreInfo(entityId: string) {
@@ -60,7 +58,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    if (!this._config || !this.hass) return html`<ha-card>Loading...</ha-card>`;
+    if (!this._config || !this.hass) return html``;
 
     return html`
       <ha-card>

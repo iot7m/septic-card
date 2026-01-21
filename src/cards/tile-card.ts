@@ -9,16 +9,14 @@ import type { GSeptikCardConfig } from "@/types/cards";
 import { assertAllEntities } from "@/utils/asserts";
 import { getCriticalLevel } from "@/utils/extractors";
 
-import { CARD_PREFIX } from "@/const";
-
-export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
+import { CARD_DIALOG, CARD_TILE } from "@/const";
 
 interface GspeptikDialogueElement extends HTMLElement {
   hass?: HomeAssistant;
   entity: string;
 }
 
-@customElement(CARD_NAME)
+@customElement(CARD_TILE)
 export class TileCard extends LitElement implements LovelaceCard {
   private _config?: GSeptikCardConfig;
   public hass?: HomeAssistant;
@@ -38,7 +36,7 @@ export class TileCard extends LitElement implements LovelaceCard {
       return;
     }
 
-    const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
+    const dialog = document.createElement(CARD_DIALOG) as GspeptikDialogueElement;
 
     dialog.hass = this.hass;
     dialog.entity = this._config.entity;
@@ -47,7 +45,7 @@ export class TileCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    if (!this._config || !this.hass) return html`<ha-card>Loading...</ha-card>`;
+    if (!this._config || !this.hass) return html``;
 
     const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
 
@@ -111,7 +109,7 @@ export class TileCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: CARD_NAME,
+  type: CARD_TILE,
   name: "G-Septik Tile",
   description: "Compact tile card for G-Septik septic sensor",
 });
