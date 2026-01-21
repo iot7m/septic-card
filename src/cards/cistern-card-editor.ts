@@ -4,7 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
-import { EntityCardConfig } from "@/types/cards";
+import { GSpepticCardEditorConfig } from "@/types/cards";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -13,24 +13,61 @@ export const CARD_NAME = `${CARD_PREFIX}-cistern-card-editor` as const;
 @customElement(CARD_NAME)
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) hass!: HomeAssistant;
-  @property({ attribute: false }) private _config!: EntityCardConfig;
+  @property({ attribute: false })
+  private _config: GSpepticCardEditorConfig = {
+    type: `custom:${CARD_NAME}`,
+  };
 
-  setConfig(config: EntityCardConfig) {
+  private _schema = [
+    {
+      name: "level",
+      label: "Показатель уровня жидкости",
+      selector: {
+        entity: {},
+      },
+    },
+    {
+      name: "temp",
+      label: "Показатель температуры",
+      selector: {
+        entity: {},
+      },
+    },
+    {
+      name: "pressure",
+      label: "Показатель давления",
+      selector: {
+        entity: {},
+      },
+    },
+    {
+      name: "x_level",
+      label: "Критический уровень",
+      selector: {
+        entity: {},
+      },
+    },
+    {
+      name: "exceeds_x_level",
+      label: "Флаг превышения уровня",
+      selector: {
+        entity: {},
+      },
+    },
+    {
+      name: "error_name",
+      label: "Сенсор ошибки",
+      selector: {
+        entity: {},
+      },
+    },
+  ];
+
+  setConfig(config: GSpepticCardEditorConfig) {
     this._config = {
       ...config,
-      type: config.type ?? `custom:${CARD_NAME}`,
+      type: config.type ?? `custom:${CARD_PREFIX}-cistern-card`,
     };
-  }
-
-  private _valueChanged(ev: CustomEvent) {
-    const value = ev.detail.value;
-
-    this._config = {
-      ...this._config,
-      entity: value,
-    };
-
-    this._fireConfigChanged();
   }
 
   private _fireConfigChanged() {
@@ -44,19 +81,29 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
   }
 
   render() {
-    if (!this.hass) {
-      return html`<p>HASS not loaded</p>`;
-    }
+    if (!this.hass) return html``;
 
     return html`
-      <ha-entity-picker
+      <ha-form
         .hass=${this.hass}
-        .value=${this._config.entity ?? ""}
-        label="Основная сущность"
-        @value-changed=${this._valueChanged}
+        .data=${this._config.entities}
+        .schema=${this._schema}
+        @value-changed=${this._formChanged}
       >
-      </ha-entity-picker>
+      </ha-form>
     `;
+  }
+
+  private _formChanged(ev: CustomEvent) {
+    this._config = {
+      ...this._config,
+      type: `custom:${CARD_PREFIX}-cistern-card`,
+      entities: {
+        ...this._config.entities,
+        ...ev.detail.value,
+      },
+    };
+    this._fireConfigChanged();
   }
 
   static styles = css`

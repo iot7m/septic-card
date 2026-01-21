@@ -17,13 +17,13 @@ HACS support is planned but not yet available.
 
 ### Manual installation
 
-First, download the latest `gseptik.js` file from the releases page and copy it to your Home Assistant `www` directory: `/config/www/gseptik/gseptik.js`. Then add the resource to Home Assistant using one of the following methods.
+First, download the latest `gseptik-card.js` file from the releases page and copy it to your Home Assistant `www` directory: `/config/www/gseptik/gseptik-card.js`. Then add the resource to Home Assistant using one of the following methods.
 
 #### Using the UI
 
 1. Go to Settings → Dashboards → Resources
 2. Click Add Resource
-3. Set the URL to: `/local/gseptik/gseptik.js`
+3. Set the URL to: `/local/gseptik/gseptik-card.js`
 4. Select **JavaScript Module** as the resource type
 
 #### Using YAML
@@ -32,7 +32,7 @@ Add the following to your Lovelace configuration:
 
 ```yaml
 resources:
-  - url: /local/gseptik/gseptik.js
+  - url: /local/gseptik/gseptik-card.js
     type: module
 ```
 
@@ -66,7 +66,7 @@ Start the Home Assistant server using the command `npm run start:hass`. Home Ass
 frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
-    - http://localhost:4000/gseptik.js
+    - http://localhost:4000/gseptik-card.js
 ```
 
 This demo setup also uses REST sensors defined in `rests.yaml`. In `configuration.yaml` it is included as:
@@ -89,11 +89,21 @@ views:
     title: Home
     cards:
       - type: custom:gseptik-cistern-card
-        entity: sensor.example_level
-      - type: custom:gseptik-tank-card
-        entity: sensor.example_level
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
       - type: custom:gseptik-tile-card
-        entity: sensor.example_level
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
 ```
 
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.

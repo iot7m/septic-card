@@ -8,7 +8,7 @@ views:
     cards:
       - type: tile
         entity: climate.ecobee
-        name: Климат
+        name: Climate
       - type: custom:gseptik-tile-card
         entities:
           level: uroven_zhidkosti_septika
@@ -80,14 +80,6 @@ views:
               overflow: hidden;
             }
       - type: custom:gseptik-cistern-card
-        entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
-      - type: custom:gseptik-tank-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika

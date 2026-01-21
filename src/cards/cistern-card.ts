@@ -8,7 +8,15 @@ import type { GSeptikCardConfig } from "@/types/cards";
 import { GSEPTIK_ENTITY_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
-import { getCriticalLevel, getLevel, toEntityId } from "@/utils/extractors";
+import {
+  getCriticalLevel,
+  getEntityId,
+  getFriendlyName,
+  getLevel,
+  getLevelEntityId,
+  getStateObj,
+  getUnitOfMeasure,
+} from "@/utils/extractors";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -17,8 +25,7 @@ export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
 @customElement(CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
   private _config?: GSeptikCardConfig;
-
-  hass?: HomeAssistant;
+  public hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
     assertAllEntities(config);
@@ -30,19 +37,16 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return 1;
   }
 
-  firstUpdated() {
-    this.renderCistern();
+  static getStubConfig() {
+    return {
+      type: `custom:${CARD_NAME}`,
+      entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, `sensor.${String(d.key)}`])),
+    };
   }
 
   static async getConfigElement() {
     await import("@/cards/cistern-card-editor");
-    return document.createElement("gseptik-cistern-card-editor");
-  }
-
-  static getStubConfig() {
-    return {
-      entity: "sensor.uroven_zhidkosti_septika",
-    };
+    return document.createElement(`${CARD_PREFIX}-cistern-card-editor`);
   }
 
   private _openMoreInfo(entityId: string) {
@@ -56,31 +60,29 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    if (!this._config) return html`<ha-card>Loading...</ha-card>`;
+    if (!this._config || !this.hass) return html`<ha-card>Loading...</ha-card>`;
+
     return html`
       <ha-card>
         <h1 class="card-header">Септик</h1>
-        <div class="card-box">
-        <div class ="cistern-container">
-        ${this.renderCistern()}
-        </div>
-          ${this.renderEntities()}
-          <statistic-box>
-        </div>
+        <div class="card-box">${this.renderCistern()} ${this.renderEntities()}</div>
       </ha-card>
     `;
   }
 
   private renderCistern() {
-    const level = getLevel(this.hass, this._config!.entities.level);
-    const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
+    if (!this.hass || !this._config) return html``;
+    const level = getLevel(this.hass, this._config.entities.level);
+    const criticalLevel = getCriticalLevel(this.hass, this._config.entities.x_level);
+    const levelEntityId = getLevelEntityId(this._config.entities.level);
+
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
     return html`
       <div
         class="cistern"
         style="--level: ${level}; --critical: ${criticalLevel}"
-        @click=${() => this._openMoreInfo(this.hass!.states["sensor.uroven_zhidkosti_septika"].entity_id)}
+        @click=${() => this._openMoreInfo(levelEntityId)}
       >
         <div class="scale">
           ${marks.map(
@@ -93,8 +95,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
               </div>
             `,
           )}
-          ${html` <div class="mark-critical">&mdash;${criticalLevel}%&mdash;</div> `}
+          <div class="mark-critical">&mdash;${criticalLevel}%&mdash;</div>
         </div>
+
         <div class="water">
           <div class="water-line"></div>
         </div>
@@ -103,19 +106,17 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   private renderEntities() {
-    if (!this.hass) return html``;
-
+    if (!this.hass || !this._config) return html``;
     return html`
       <div class="entities">
         ${GSEPTIK_ENTITY_DEFS.map((def) => {
-          const entityId = toEntityId(this._config!.entities[def.key]);
-          const stateObj = this.hass!.states[entityId];
+          const configured = this._config!.entities[def.key];
+          const entityId = getEntityId(configured);
+          const stateObj = getStateObj(this.hass, configured);
           if (!stateObj) return null;
 
-          const uom =
-            typeof stateObj.attributes?.unit_of_measurement === "string" ? stateObj.attributes.unit_of_measurement : "";
-          const name =
-            typeof stateObj.attributes?.friendly_name === "string" ? stateObj.attributes.friendly_name : def.label;
+          const uom = getUnitOfMeasure(stateObj);
+          const name = getFriendlyName(stateObj, def.label);
 
           return html`
             <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
@@ -138,14 +139,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
       border-radius: 50%;
       position: relative;
       overflow: hidden;
-
       background: #e6e6e6;
       border: 2px solid #9e9e9e;
       box-sizing: border-box;
-    }
-
-    .cistern-container {
-      padding: 0 8px;
     }
 
     .card-box {
@@ -173,17 +169,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
       height: 2px;
       background: rgba(255, 255, 255, 0.6);
       box-sizing: border-box;
-    }
-
-    .center-label {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #003366;
-      pointer-events: none;
     }
 
     .scale {
@@ -255,6 +240,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     .mark[data-value="10"] {
       top: calc(90% - 0.7rem / 2);
     }
+
     .mark.active {
       color: #94cfff;
       font-weight: 600;
@@ -263,6 +249,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     .mark.critical-mark::before {
       background: #e32636;
     }
+
     .entities {
       display: flex;
       flex-direction: column;
@@ -284,15 +271,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
       font-size: var(--ha-font-size-m);
       font-weight: var(--ha-font-weight-normal);
       line-height: var(--ha-line-height-normal);
-      border-bottom: 1px solid var(--divider-color);
-    }
-
-    .entity-row:last-child {
-      border-bottom: none;
-    }
-
-    .entity-row:hover {
-      background: var(--secondary-background-color);
     }
 
     .entity-name {

@@ -28,9 +28,9 @@ const plugins = [
 
 export default [
   {
-    input: "src/gseptik.ts",
+    input: "src/index.ts",
     output: {
-      file: "dist/gseptik.js",
+      file: "dist/gseptik-card.js",
       format: "es",
       inlineDynamicImports: true,
     },
