@@ -1,0 +1,6 @@
+{
+  "name": "GSeptik Card",
+  "type": "plugin",
+  "render_readme": true,
+  "filename": "gseptik-card.js"
+}
