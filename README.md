@@ -1,7 +1,5 @@
 # GSeptik
 
-![G-Septik](assets/gseptik.png)
-
 GSeptik is a set of custom Lovelace cards for **Home Assistant** designed to visualize septic tank data in a clear and intuitive way. The project focuses on visual level representation rather than historical charts or complex controls. The goal is to provide simple, readable, and domain-specific UI elements instead of generic gauges or charts.
 
 GSeptik provides visual components to display:
@@ -10,11 +8,34 @@ GSeptik provides visual components to display:
 - Critical level thresholds
 - Related sensor data (temperature, pressure, errors)
 
+![G-Septik](assets/gseptik.png)
+
+## Table of contents
+
+- [Installation](#installation)
+  - [HACS (planned)](#hacs-installation)
+  - [Manual installation](#manual-installation)
+    - [Using the UI](#using-the-ui)
+    - [Using YAML](#using-yaml)
+- [Usage](#usage)
+  - [Using the UI (Visual editor)](#using-the-ui-visual-editor)
+  - [Using YAML (Raw configuration)](#using-yaml-raw-configuration)
+- [Configuration](#configuration)
+  - [Entities](#entities)
+  - [Display options](#display-options)
+  - [Example configuration](#example-configuration)
+- [Development](#development)
+  - [Build module](#build-module)
+  - [Run development server](#run-development-server)
+  - [Run Home Assistant server](#run-home-assistant-server)
+  - [Configure Home Assistant server](#configure-home-assistant-server)
+  - [Use ui-gseptik dashboard](#use-ui-gseptik-dashboard)
+
 ## Installation
 
-### HACS (planned)
+### HACS installation
 
-HACS support is planned but not yet available.
+HACS support is in progress but not yet available.
 
 
 ### Manual installation
@@ -89,6 +110,55 @@ views:
 ```
 
 Save the dashboard configuration. The card will appear immediately after saving.
+
+## Configuration
+
+This section describes all available configuration options for GSeptik cards. New parameters may be added in future versions.
+
+### Entities
+
+Each entity represents a specific septic tank parameter and may define a custom icon.
+
+| Key | Entity example | Icon | Description |
+|----|---------------|------|-------------|
+| `level` | `sensor.uroven_zhidkosti_septika` | `mdi:water-percent` | Current septic tank fill level |
+| `temp` | `sensor.temperatura_septika` | `mdi:thermometer` | Septic tank temperature |
+| `pressure` | `sensor.davlenie_septika` | `mdi:gauge` | Internal pressure |
+| `x_level` | `sensor.kriticheskii_uroven_septika` | `mdi:water-alert` | Critical level threshold |
+| `exceeds_x_level` | `sensor.prevyshen_kriticheskii_uroven_septika` | `mdi:alert-octagon-outline` | Indicates critical level exceeded |
+| `error_name` | `sensor.oshibka_septika` | `mdi:alert-circle-outline` | Error state or error description |
+
+### Display options
+
+| Parameter | Type | Default | Description |
+|---------|------|---------|-------------|
+| `show_title` | boolean | `true` | Show or hide the card title |
+
+### Example configuration
+
+```yaml
+type: custom:gseptik-cistern-card
+show_title: true
+entities:
+  level:
+    entity: sensor.uroven_zhidkosti_septika
+    icon: mdi:water-percent
+  temp:
+    entity: sensor.temperatura_septika
+    icon: mdi:thermometer
+  pressure:
+    entity: sensor.davlenie_septika
+    icon: mdi:gauge
+  x_level:
+    entity: sensor.kriticheskii_uroven_septika
+    icon: mdi:water-alert
+  exceeds_x_level:
+    entity: sensor.prevyshen_kriticheskii_uroven_septika
+    icon: mdi:alert-octagon-outline
+  error_name:
+    entity: sensor.oshibka_septika
+    icon: mdi:alert-circle-outline
+```
 
 ## Development
 
