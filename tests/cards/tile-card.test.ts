@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 
-import "@/const";
 import { TILE_CARD_NAME } from "@/const";
 
 import "@/cards/tile-card";

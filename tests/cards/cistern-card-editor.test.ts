@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 
-import "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 import "@/cards/cistern-card-editor";
