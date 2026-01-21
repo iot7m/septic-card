@@ -28,6 +28,10 @@ jobs:
       - name: Run prettier commands
         shell: bash
         run: npm run prettier
+      - name: Run HACS validation
+        uses: hacs/action@main
+        with:
+          category: plugin
   build:
     needs: lint
     runs-on: ubuntu-latest
