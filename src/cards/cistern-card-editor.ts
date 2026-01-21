@@ -4,7 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
-import { EntityCardEditorConfig } from "@/types/cards";
+import { GSpepticCardEditorConfig } from "@/types/cards";
 
 import { CARD_PREFIX } from "@/const";
 
@@ -14,7 +14,7 @@ export const CARD_NAME = `${CARD_PREFIX}-cistern-card-editor` as const;
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) hass!: HomeAssistant;
   @property({ attribute: false })
-  private _config: EntityCardEditorConfig = {
+  private _config: GSpepticCardEditorConfig = {
     type: `custom:${CARD_NAME}`,
   };
 
@@ -63,7 +63,7 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
     },
   ];
 
-  setConfig(config: EntityCardEditorConfig) {
+  setConfig(config: GSpepticCardEditorConfig) {
     this._config = {
       ...config,
       type: config.type ?? `custom:${CARD_PREFIX}-cistern-card`,

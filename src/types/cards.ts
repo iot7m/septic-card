@@ -8,6 +8,6 @@ export interface GSeptikCardConfig extends LovelaceCardConfig {
   entities: GSeptikEntitiesConfig;
 }
 
-export interface EntityCardEditorConfig extends LovelaceCardConfig {
+export interface GSpepticCardEditorConfig extends LovelaceCardConfig {
   entities?: GSeptikEntitiesConfig;
 }
