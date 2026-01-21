@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 
-import { customElement, property } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
@@ -10,11 +10,18 @@ import { CARD_EDITOR_NAME, CARD_NAME } from "@/const";
 
 @customElement(CARD_EDITOR_NAME)
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
-  @property({ attribute: false }) hass!: HomeAssistant;
-  @property({ attribute: false })
+  private _hass?: HomeAssistant;
   private _config: GSpepticCardEditorConfig = {
     type: `custom:${CARD_EDITOR_NAME}`,
   };
+
+  public set hass(hass: HomeAssistant) {
+    this._hass = hass;
+    this.requestUpdate();
+  }
+  public get hass(): HomeAssistant {
+    return this._hass!;
+  }
 
   private _schema = [
     {
@@ -79,11 +86,11 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
   }
 
   render() {
-    if (!this._config || !this.hass) return html``;
+    if (!this._config || !this._hass) return html``;
 
     return html`
       <ha-form
-        .hass=${this.hass}
+        .hass=${this._hass}
         .data=${this._config.entities}
         .schema=${this._schema}
         @value-changed=${this._formChanged}
