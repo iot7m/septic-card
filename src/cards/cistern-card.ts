@@ -25,17 +25,19 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private _config?: GSeptikCardConfig;
   private _hass?: HomeAssistant;
 
-  public set hass(hass: HomeAssistant) {
-    this._hass = hass;
-    this.requestUpdate();
-  }
-  public get hass(): HomeAssistant {
-    return this._hass!;
-  }
   setConfig(config: GSeptikCardConfig) {
     assertAllEntities(config);
     this._config = config;
     this.requestUpdate();
+  }
+
+  public set hass(hass: HomeAssistant) {
+    this._hass = hass;
+    this.requestUpdate();
+  }
+
+  public get hass(): HomeAssistant {
+    return this._hass!;
   }
 
   getCardSize(): number {

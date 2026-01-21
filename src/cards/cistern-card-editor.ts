@@ -10,15 +10,16 @@ import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_EDITOR_NAME)
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
-  private _hass?: HomeAssistant;
   private _config: GSpepticCardEditorConfig = {
     type: `custom:${CISTERN_CARD_EDITOR_NAME}`,
   };
+  private _hass?: HomeAssistant;
 
   public set hass(hass: HomeAssistant) {
     this._hass = hass;
     this.requestUpdate();
   }
+
   public get hass(): HomeAssistant {
     return this._hass!;
   }
