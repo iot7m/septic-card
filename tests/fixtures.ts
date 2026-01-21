@@ -1,32 +1,6 @@
-export type HassState = {
-  state: string;
-  attributes: Record<string, unknown>;
-  entity_id?: string;
-};
+import { GSeptikEntitiesConfig } from "@/types/cards";
 
-export type HassLike = {
-  states: Record<string, HassState>;
-};
-
-export type GSeptikEntitiesConfig = {
-  level: string;
-  temp: string;
-  pressure: string;
-  x_level: string;
-  exceeds_x_level: string;
-  error_name: string;
-};
-
-export type GSeptikCardConfig = {
-  // In real HA this extends LovelaceCardConfig, but for tests we only need "entities".
-  entities: GSeptikEntitiesConfig;
-};
-
-export interface LovelaceTestElement extends HTMLElement {
-  hass?: HassLike;
-  setConfig(config: GSeptikCardConfig): void;
-  updateComplete: Promise<void>;
-}
+import { HassLike } from "@tests/types";
 
 export const ENTITIES: GSeptikEntitiesConfig = {
   level: "sensor.uroven_zhidkosti_septika",
