@@ -23,8 +23,8 @@ export type GSeptikCardConfig = {
 };
 
 export interface LovelaceTestElement extends HTMLElement {
-  hass?: HassLike;
   setConfig(config: GSeptikCardConfig): void;
+  hass?: HassLike;
   updateComplete: Promise<void>;
 }
 
