@@ -1,0 +1,24 @@
+views:
+  - path: default_view
+    title: G-Septik
+    badges:
+      - type: entity
+        entity: weather.demo_weather_north
+        color: red
+    cards:
+      - type: custom:gseptik-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+      - type: custom:gseptik-tile-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika

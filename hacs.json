@@ -1,6 +1,6 @@
 {
   "name": "GSeptik Card",
-  "type": "plugin",
-  "render_readme": true,
-  "filename": "gseptik-card.js"
+  "filename": "gseptik-card.js",
+  "homeassistant": "2025.6",
+  "render_readme": true
 }
