@@ -30,6 +30,8 @@ jobs:
         run: npm run prettier
       - name: Run HACS validation
         uses: hacs/action@main
+        env:
+          ACTIONS_STEP_DEBUG: "true"
         with:
           category: plugin
   build:
