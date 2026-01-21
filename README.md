@@ -42,12 +42,53 @@ Restart the browser or clear cache if the card does not appear immediately.
 
 ## Usage
 
-After installation, the cards will be available in the dashboard editor as:
+GSeptik cards can be added to a Home Assistant dashboard using either the visual editor (UI) or manual YAML configuration.
 
-- `Custom: GSeptik Tank Card`
-- `Custom: GSeptik Column Card`
+The following cards are available:
+- **GSeptik Cistern Card** (`custom:gseptik-cistern-card`)
+- **GSeptik Tile Card** (`custom:gseptik-tile-card`)
+- **GSeptik Badge** (`custom:gseptik-badge`)
 
-Each card is configured using YAML.
+### Using the UI (Visual editor)
+
+1. Open any dashboard in Home Assistant
+2. Click **Edit dashboard**
+3. Click **Add card**
+4. Select **Manual card**
+5. Paste the configuration below and save
+
+Example configuration:
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika
+  temp: temperatura_septika
+  pressure: davlenie_septika
+  x_level: kriticheskii_uroven_septika
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+  error_name: oshibka_septika
+```
+
+### Using YAML (Raw configuration)
+
+If you are using dashboards in YAML mode, add the card configuration directly to your view definition:
+
+```yaml
+views:
+  - title: Home
+    cards:
+      - type: custom:gseptik-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+```
+
+Save the dashboard configuration. The card will appear immediately after saving.
 
 ## Development
 
