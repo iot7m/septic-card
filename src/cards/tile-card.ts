@@ -9,19 +9,17 @@ import type { GSeptikCardConfig } from "@/types/cards";
 import { assertAllEntities } from "@/utils/asserts";
 import { getCriticalLevel } from "@/utils/extractors";
 
-import { CARD_PREFIX } from "@/const";
-
-export const CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
+import { GSEPTIK_DIALOG_NAME, TILE_CARD_NAME } from "@/const";
 
 interface GspeptikDialogueElement extends HTMLElement {
-  hass?: HomeAssistant;
+  _hass?: HomeAssistant;
   entity: string;
 }
 
-@customElement(CARD_NAME)
+@customElement(TILE_CARD_NAME)
 export class TileCard extends LitElement implements LovelaceCard {
   private _config?: GSeptikCardConfig;
-  public hass?: HomeAssistant;
+  private _hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
     assertAllEntities(config);
@@ -29,21 +27,36 @@ export class TileCard extends LitElement implements LovelaceCard {
     this.requestUpdate();
   }
 
+  public set hass(hass: HomeAssistant) {
+    this._hass = hass;
+    this.requestUpdate();
+  }
+
+  public get hass(): HomeAssistant {
+    return this._hass!;
+  }
+
   getCardSize(): number {
     return 1;
   }
 
   private _openDialog() {
-    const dialog = document.createElement("gspeptik-dialogue") as GspeptikDialogueElement;
-    dialog.hass = this.hass;
-    dialog.entity = this._config!.entity;
+    if (!this._config?.entity) {
+      return;
+    }
+
+    const dialog = document.createElement(GSEPTIK_DIALOG_NAME) as GspeptikDialogueElement;
+
+    dialog._hass = this._hass;
+    dialog.entity = this._config.entity;
+
     document.body.appendChild(dialog);
   }
 
   render() {
-    if (!this._config || !this.hass) return html`<ha-card>Loading...</ha-card>`;
+    if (!this._config || !this._hass) return html``;
 
-    const criticalLevel = getCriticalLevel(this.hass, this._config!.entities.x_level);
+    const criticalLevel = getCriticalLevel(this._hass, this._config!.entities.x_level);
 
     return html`
       <ha-card @click=${this._openDialog}>
@@ -105,7 +118,7 @@ export class TileCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: CARD_NAME,
+  type: TILE_CARD_NAME,
   name: "G-Septik Tile",
   description: "Compact tile card for G-Septik septic sensor",
 });

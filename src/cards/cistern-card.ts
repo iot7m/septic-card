@@ -18,14 +18,12 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
-import { CARD_PREFIX } from "@/const";
+import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
-export const CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
-
-@customElement(CARD_NAME)
+@customElement(CISTERN_CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
   private _config?: GSeptikCardConfig;
-  public hass?: HomeAssistant;
+  private _hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
     assertAllEntities(config);
@@ -33,20 +31,29 @@ export class CisternCard extends LitElement implements LovelaceCard {
     this.requestUpdate();
   }
 
+  public set hass(hass: HomeAssistant) {
+    this._hass = hass;
+    this.requestUpdate();
+  }
+
+  public get hass(): HomeAssistant {
+    return this._hass!;
+  }
+
   getCardSize(): number {
     return 1;
   }
 
-  static async getConfigElement() {
-    await import("@/cards/cistern-card-editor");
-    return document.createElement("gseptik-cistern-card-editor");
-  }
-
   static getStubConfig() {
     return {
-      type: CARD_NAME,
-      entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, `sensor.${String(d.key)}`])),
+      type: `custom:${CISTERN_CARD_NAME}`,
+      entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
     };
+  }
+
+  static async getConfigElement() {
+    await import("@/cards/cistern-card-editor");
+    return document.createElement(`${CISTERN_CARD_EDITOR_NAME}`);
   }
 
   private _openMoreInfo(entityId: string) {
@@ -60,7 +67,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   render() {
-    if (!this._config || !this.hass) return html`<ha-card>Loading...</ha-card>`;
+    if (!this._config || !this._hass) return html``;
 
     return html`
       <ha-card>
@@ -71,9 +78,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   private renderCistern() {
-    if (!this.hass || !this._config) return html``;
-    const level = getLevel(this.hass, this._config.entities.level);
-    const criticalLevel = getCriticalLevel(this.hass, this._config.entities.x_level);
+    if (!this._hass || !this._config) return html``;
+    const level = getLevel(this._hass, this._config.entities.level);
+    const criticalLevel = getCriticalLevel(this._hass, this._config.entities.x_level);
     const levelEntityId = getLevelEntityId(this._config.entities.level);
     const isCritical = level >= criticalLevel;
 
@@ -311,7 +318,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: CARD_NAME,
+  type: CISTERN_CARD_NAME,
   name: "G-Septik Cistern",
   description: "Cistern card for G-Septik septic sensor",
 });

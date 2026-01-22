@@ -1,14 +1,17 @@
 import { describe, expect, it } from "vitest";
 
+import { TILE_CARD_NAME } from "@/const";
+
 import "@/cards/tile-card";
 
-import { ENTITIES, type LovelaceTestElement, createHassMock } from "@tests/hass";
+import { ENTITIES, createHass } from "@tests/fixtures";
+import { type CardTestElement } from "@tests/types";
 
 describe("tile-card", () => {
   it("renders without crashing when hass and config are provided", async () => {
-    const el = document.createElement("gseptik-tile-card") as LovelaceTestElement;
-    el.hass = createHassMock();
-    el.setConfig({ entities: ENTITIES });
+    const el = document.createElement(TILE_CARD_NAME) as CardTestElement;
+    el.setConfig({ type: `custom:${TILE_CARD_NAME}`, entities: ENTITIES });
+    el.hass = createHass();
 
     document.body.appendChild(el);
     await el.updateComplete;

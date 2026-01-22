@@ -8,11 +8,34 @@ GSeptik provides visual components to display:
 - Critical level thresholds
 - Related sensor data (temperature, pressure, errors)
 
+![G-Septik](assets/gseptik.png)
+
+## Table of contents
+
+- [Installation](#installation)
+  - [HACS installation](#hacs-installation)
+  - [Manual installation](#manual-installation)
+    - [Using the UI](#using-the-ui)
+    - [Using YAML](#using-yaml)
+- [Usage](#usage)
+  - [Using the UI (Visual editor)](#using-the-ui-visual-editor)
+  - [Using YAML (Raw configuration)](#using-yaml-raw-configuration)
+- [Configuration](#configuration)
+  - [Entities](#entities)
+  - [Display options](#display-options)
+  - [Example configuration](#example-configuration)
+- [Development](#development)
+  - [Build module](#build-module)
+  - [Run development server](#run-development-server)
+  - [Run Home Assistant server](#run-home-assistant-server)
+  - [Configure Home Assistant server](#configure-home-assistant-server)
+  - [Use ui-gseptik dashboard](#use-ui-gseptik-dashboard)
+
 ## Installation
 
-### HACS (planned)
+### HACS installation
 
-HACS support is planned but not yet available.
+HACS support is in progress but not yet available.
 
 
 ### Manual installation
@@ -40,12 +63,102 @@ Restart the browser or clear cache if the card does not appear immediately.
 
 ## Usage
 
-After installation, the cards will be available in the dashboard editor as:
+GSeptik cards can be added to a Home Assistant dashboard using either the visual editor (UI) or manual YAML configuration.
 
-- `Custom: GSeptik Tank Card`
-- `Custom: GSeptik Column Card`
+The following cards are available:
+- **GSeptik Cistern Card** (`custom:gseptik-cistern-card`)
+- **GSeptik Tile Card** (`custom:gseptik-tile-card`)
+- **GSeptik Badge** (`custom:gseptik-badge`)
 
-Each card is configured using YAML.
+### Using the UI (Visual editor)
+
+1. Open any dashboard in Home Assistant
+2. Click **Edit dashboard**
+3. Click **Add card**
+4. Select **Manual card**
+5. Paste the configuration below and save
+
+Example configuration:
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika
+  temp: temperatura_septika
+  pressure: davlenie_septika
+  x_level: kriticheskii_uroven_septika
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+  error_name: oshibka_septika
+```
+
+### Using YAML (Raw configuration)
+
+If you are using dashboards in YAML mode, add the card configuration directly to your view definition:
+
+```yaml
+views:
+  - title: Home
+    cards:
+      - type: custom:gseptik-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+```
+
+Save the dashboard configuration. The card will appear immediately after saving.
+
+## Configuration
+
+This section describes all available configuration options for GSeptik cards. New parameters may be added in future versions.
+
+### Entities
+
+Each entity represents a specific septic tank parameter and may define a custom icon.
+
+| Key | Entity example | Icon | Description |
+|----|---------------|------|-------------|
+| `level` | `sensor.uroven_zhidkosti_septika` | `mdi:water-percent` | Current septic tank fill level |
+| `temp` | `sensor.temperatura_septika` | `mdi:thermometer` | Septic tank temperature |
+| `pressure` | `sensor.davlenie_septika` | `mdi:gauge` | Internal pressure |
+| `x_level` | `sensor.kriticheskii_uroven_septika` | `mdi:water-alert` | Critical level threshold |
+| `exceeds_x_level` | `sensor.prevyshen_kriticheskii_uroven_septika` | `mdi:alert-octagon-outline` | Indicates critical level exceeded |
+| `error_name` | `sensor.oshibka_septika` | `mdi:alert-circle-outline` | Error state or error description |
+
+### Display options
+
+| Parameter | Type | Default | Description |
+|---------|------|---------|-------------|
+| `show_title` | boolean | `true` | Show or hide the card title |
+
+### Example configuration
+
+```yaml
+type: custom:gseptik-cistern-card
+show_title: true
+entities:
+  level:
+    entity: sensor.uroven_zhidkosti_septika
+    icon: mdi:water-percent
+  temp:
+    entity: sensor.temperatura_septika
+    icon: mdi:thermometer
+  pressure:
+    entity: sensor.davlenie_septika
+    icon: mdi:gauge
+  x_level:
+    entity: sensor.kriticheskii_uroven_septika
+    icon: mdi:water-alert
+  exceeds_x_level:
+    entity: sensor.prevyshen_kriticheskii_uroven_septika
+    icon: mdi:alert-octagon-outline
+  error_name:
+    entity: sensor.oshibka_septika
+    icon: mdi:alert-circle-outline
+```
 
 ## Development
 
@@ -117,3 +230,4 @@ To try the demo dashboard, [install HACS](https://blog.iot7m.ru/how-to-setup-hac
 - stack-in-card
 
 Then copy the contents of `.hass/ui-gseptik.yaml` and paste it into any dashboard using the Raw configuration editor (YAML mode).
+

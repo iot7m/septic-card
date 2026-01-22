@@ -18,12 +18,25 @@ const serveOptions = {
   },
 };
 
+const terserOptions = {
+  module: true,
+  format: {
+    comments: false,
+  },
+  compress: {
+    passes: 2,
+    pure_getters: true,
+    drop_console: true,
+    drop_debugger: true,
+  },
+};
+
 const plugins = [
   typescript({ declaration: false }),
   nodeResolve(),
   json(),
   commonjs(),
-  ...(dev ? [serve(serveOptions)] : [terser()]),
+  ...(dev ? [serve(serveOptions)] : [terser(terserOptions)]),
 ];
 
 export default [
@@ -33,6 +46,7 @@ export default [
       file: "dist/gseptik-card.js",
       format: "es",
       inlineDynamicImports: true,
+      sourcemap: dev,
     },
     plugins,
     moduleContext: (id) => {
