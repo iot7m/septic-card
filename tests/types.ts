@@ -1,29 +1,21 @@
+import type { HomeAssistant } from "custom-card-helpers";
+
 import { GSeptikCardConfig, GSpepticCardEditorConfig } from "@/types/cards";
 
-export type HassState = {
-  state: string;
-  attributes: Record<string, unknown>;
-  entity_id?: string;
-};
-
-export type HassLike = {
-  states: Record<string, HassState>;
-};
-
 export type CardTestElement = HTMLElement & {
-  hass?: HassLike;
+  hass?: HomeAssistant;
   setConfig(config: GSeptikCardConfig): void;
   updateComplete: Promise<void>;
 };
 
 export type CardEditorTestElement = HTMLElement & {
-  hass: unknown;
+  hass: HomeAssistant;
   setConfig(config: GSpepticCardEditorConfig): void;
   updateComplete: Promise<void>;
 };
 
 export type DialogTestElement = HTMLElement & {
-  hass: unknown;
-  entity: unknown;
+  hass: HomeAssistant;
+  entity: string;
   updateComplete: Promise<void>;
 };

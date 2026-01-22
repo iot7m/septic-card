@@ -4,14 +4,14 @@ import { CISTERN_CARD_NAME } from "@/const";
 
 import "@/cards/cistern-card";
 
-import { ENTITIES, createHassMock } from "@tests/fixtures";
+import { ENTITIES, createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";
 
 describe("cistern-card", () => {
   it("renders without crashing when hass and config are provided", async () => {
     const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
     el.setConfig({ type: `custom:${CISTERN_CARD_NAME}`, entities: ENTITIES });
-    el.hass = createHassMock();
+    el.hass = createHass();
 
     document.body.appendChild(el);
     await el.updateComplete;
