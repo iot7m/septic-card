@@ -16,6 +16,6 @@ export type CardEditorTestElement = HTMLElement & {
 
 export type DialogTestElement = HTMLElement & {
   hass: HomeAssistant;
-  entity: unknown;
+  entity: string;
   updateComplete: Promise<void>;
 };
