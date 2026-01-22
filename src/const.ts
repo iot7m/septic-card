@@ -6,4 +6,4 @@ export const CISTERN_CARD_EDITOR_NAME = `${CARD_PREFIX}-cistern-card-editor` as 
 
 export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
-export const GSEPTIK_DIALOGUE_NAME = `${CARD_PREFIX}-dialogue` as const;
+export const GSEPTIK_DIALOG_NAME = `${CARD_PREFIX}-dialogue` as const;

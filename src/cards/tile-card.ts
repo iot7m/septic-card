@@ -9,7 +9,7 @@ import type { GSeptikCardConfig } from "@/types/cards";
 import { assertAllEntities } from "@/utils/asserts";
 import { getCriticalLevel } from "@/utils/extractors";
 
-import { GSEPTIK_DIALOGUE_NAME, TILE_CARD_NAME } from "@/const";
+import { GSEPTIK_DIALOG_NAME, TILE_CARD_NAME } from "@/const";
 
 interface GspeptikDialogueElement extends HTMLElement {
   _hass?: HomeAssistant;
@@ -45,7 +45,7 @@ export class TileCard extends LitElement implements LovelaceCard {
       return;
     }
 
-    const dialog = document.createElement(GSEPTIK_DIALOGUE_NAME) as GspeptikDialogueElement;
+    const dialog = document.createElement(GSEPTIK_DIALOG_NAME) as GspeptikDialogueElement;
 
     dialog._hass = this._hass;
     dialog.entity = this._config.entity;
