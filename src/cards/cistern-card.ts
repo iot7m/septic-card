@@ -163,7 +163,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     .center-label {
       position: absolute;
-      // inset: 0;
       top: 50%;
       transform: translateY(-50%);
       left: 55%;
