@@ -82,6 +82,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     const level = getLevel(this._hass, this._config.entities.level);
     const criticalLevel = getCriticalLevel(this._hass, this._config.entities.x_level);
     const levelEntityId = getLevelEntityId(this._config.entities.level);
+    // Should we use extractor getExceedsCritical?
     const isCritical = level >= criticalLevel;
 
     const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90];
