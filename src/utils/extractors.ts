@@ -132,11 +132,11 @@ export function getPressure(hass: HomeAssistant | undefined, entityId: string): 
  * @returns true/false when recognized, otherwise null
  */
 export function getExceedsCritical(hass: HomeAssistant | undefined, entityId: string): boolean | null {
-  const raw = getStateObj(hass, entityId)?.state;
+  const raw = getStateObj(hass, entityId)?.state.toLowerCase();
   if (!raw) return null;
 
-  if (raw === "Да" || raw === "true" || raw === "on") return true;
-  if (raw === "Нет" || raw === "false" || raw === "off") return false;
+  if (raw === "да" || raw === "true" || raw === "on") return true;
+  if (raw === "нет" || raw === "false" || raw === "off") return false;
   return null;
 }
 
