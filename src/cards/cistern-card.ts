@@ -107,9 +107,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
           <div class="mark-critical"></div>
         </div>
         <div class="center-label">${Math.round(level)}%</div>
-        <div class="water ${isCritical ? "water-critical" : ""}">
-          <div class="water-line"></div>
-        </div>
+        <div class="water ${isCritical ? "water-critical" : ""}"></div>
       </div>
     `;
   }
@@ -170,8 +168,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
       display: grid;
       place-items: center;
       font-family: var(--ha-font-family-heading);
-      font-size: 2.4rem;
-      font-weight: 700;
+      font-size: 57px;
+      font-weight: 400;
       line-height: 1;
       color: var(--primary-text-color);
       pointer-events: none;
@@ -188,17 +186,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
       box-sizing: border-box;
     }
 
-    .water-line {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.6);
-      box-sizing: border-box;
-    }
-
     .water-critical {
-      background: linear-gradient(to top, var(--error-color, #d32f2f));
+      background: linear-gradient(to top, var(--warning-color), var(--error-color));
     }
 
     .scale {
