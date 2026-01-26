@@ -23,5 +23,8 @@
 # Production
 /dist
 
+# Docs
+/docs
+
 # Test and coverage
 /output

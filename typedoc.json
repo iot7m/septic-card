@@ -1,0 +1,25 @@
+{
+  "entryPointStrategy": "expand",
+  "entryPoints": ["src/**/*.ts"],
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true
+  },
+  "outputs": [
+    {
+      "name": "html",
+      "path": "docs",
+      "options": {
+        "navigation": {
+          "includeCategories": true,
+          "includeGroups": true,
+          "excludeReferences": false,
+          "includeFolders": true
+        }
+      }
+    }
+  ],
+  "validation": {
+    "invalidLink": false
+  }
+}
