@@ -1,6 +1,13 @@
 #
 # Package (build and test) application
 #
+# Here is example:
+#- name: Run HACS validation
+#  if: false
+#  uses: hacs/action@main
+#  with:
+#    category: plugin
+
 name: Package Application
 
 on:
