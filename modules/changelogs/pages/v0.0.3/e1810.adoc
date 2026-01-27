@@ -1,2 +1,0 @@
-ifndef::page-locale[:page-locale: en]
-include::partial$actuators/e1810.{page-locale}.adoc[]
