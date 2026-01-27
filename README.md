@@ -30,6 +30,7 @@ GSeptik provides visual components to display:
   - [Run Home Assistant server](#run-home-assistant-server)
   - [Configure Home Assistant server](#configure-home-assistant-server)
   - [Use ui-gseptik dashboard](#use-ui-gseptik-dashboard)
+- [Release workflow](#release-workflow)
 
 ## Installation
 
@@ -231,3 +232,11 @@ To try the demo dashboard, [install HACS](https://blog.iot7m.ru/how-to-setup-hac
 
 Then copy the contents of `.hass/ui-gseptik.yaml` and paste it into any dashboard using the Raw configuration editor (YAML mode).
 
+
+## Release workflow
+
+- update version in package.json and run npm run build
+- add or update changelog files in docs (changelogs/vX.Y.Z)
+- update version in antora.yml to the release version (vX.Y.Z)
+- commit all changes to main and create release vX.Y.Z
+- update antora.yml version in main to latest and push it
