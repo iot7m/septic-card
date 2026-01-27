@@ -1,8 +1,9 @@
 name: gseptik-card
-title: GSeptic Card
+title: GSeptik Card
 version: latest
 prerelease:
 nav:
   - modules/installation/nav.adoc
   - modules/usage/nav.adoc
+  - modules/configuration/nav.adoc
   - modules/changelogs/nav.adoc

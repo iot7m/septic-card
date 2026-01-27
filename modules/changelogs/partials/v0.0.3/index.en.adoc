@@ -1,7 +1,0 @@
-= v0.0.3
-:description: IoT7m Actuators: Zigbee switches and remotes such as IKEA TRÅDFRI E1743 and E1810. Control lights, scenes, and devices via Home Assistant.
-:keywords: IoT7m, smart home, actuators, Home Assistant, Zigbee, IKEA, TRÅDFRI, E1743, E1810, On/Off switch, 5-button remote, lighting control, scenes, automations, Zigbee2MQTT, ZHA
-
-
-TODO on english
-

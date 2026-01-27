@@ -1,18 +1,19 @@
-= GSeptick Card
-:description: IoT7m smart home system with Home Assistant: automation, remote control, Zigbee, Wi-Fi, Z-Wave, and voice assistants with focus on security.
-:keywords: smart home, IoT7m, Home Assistant, automation, remote control, security, Zigbee, Z-Wave, Wi-Fi, ESPHome, Tasmota, leak detector, temperature sensor, motion sensor, relay, valve, smart socket, heating controller, meter, voice control, Yandex Alice, Google Assistant, Siri, scenarios
-:navtitle:  Overview
+= GSeptik Card
+:description: GSeptik Card for Home Assistant — a custom card for monitoring septic tank fill level.
+:keywords: Home Assistant, GSeptik, septic tank, liquid level, sensors, monitoring, dashboard, custom card
+:navtitle: Overview
 
-The *IoT7m* smart home system is a comprehensive solution for automating and remotely managing household devices. At the core of the ecosystem is the *Home Assistant* platform, running locally or in the cloud, with a focus on security, flexibility, and autonomy.
+image:gseptik-en.png[GSeptik Card]
 
-*IoT7m equipment* includes a wide range of devices: leak detectors, temperature and motion sensors, relays, valves, smart sockets, heating controllers, meters, and other modules. These devices connect via various protocols:
+*GSeptik Card* is a custom card for *Home Assistant* designed to visualize and monitor the fill level of a septic tank.
 
-- *Zigbee* – the primary standard for reliable low-power wireless communication;
-- *Wi-Fi* – most commonly used in DIY devices based on *ESPHome* or *Tasmota*;
-- *Z-Wave* – supported if needed, by prior arrangement.
+The card is intended for clear and compact presentation of sensor data used in a septic tank monitoring system.
 
-Control is available via a mobile app, web interface, or *voice assistants such as Yandex Alice*, Google Assistant, and Siri. Using Alice, you can turn lights on and off, run scenarios ("Away", "Good Morning"), check device statuses, and much more.
+The card works with an aggregated sensor entity and displays:
 
-This documentation will help you understand how to connect equipment, configure voice control, and manage the technical aspects of the system.
+- current liquid level
+- configured warning and critical thresholds
+- additional parameters such as temperature and pressure (if available)
+- alarm states and errors
 
-image:gseptik-en.png[GSeptik]
+This documentation describes installation, entity configuration, and usage recommendations within the Home Assistant interface.

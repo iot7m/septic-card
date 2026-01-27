@@ -1,0 +1,21 @@
+= Change history
+:description: Change history of GSeptik Card — new features, improvements, and fixes for Home Assistant.
+:keywords: GSeptik, Home Assistant, changelog, change history, versions, updates, custom card
+:navtitle: Version v0.0.2
+
+Version **v0.0.2** is the first working release of the project and represents the active prototyping stage. This release establishes the core card architecture, introduces support for the Home Assistant visual editor, and lays the foundation for further functional development and expansion of test coverage.
+
+Changelog:
+
+- implemented the Cistern card
+- updated the card contract and parameter schema
+- refactored card design and styles
+- reworked the critical level calculation logic
+- added support for the Home Assistant visual editor (Card Editor)
+- removed hardcoded sensors
+- added source maps for development builds
+- added tests for cards, editor, and dialogs
+- fixed formatting and linting issues
+- set up the basic CI and automated build infrastructure
+- added initial documentation and a usage section to the README
+- added Typedoc documentation generation

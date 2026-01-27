@@ -1,6 +1,0 @@
-= v0.0.3
-:description: Актуаторы IoT7m: Zigbee-переключатели и пульты, включая IKEA TRÅDFRI E1743 и E1810. Управление светом, сценами и устройствами через Home Assistant.
-:keywords: IoT7m, умный дом, актуаторы, Home Assistant, Zigbee, IKEA, TRÅDFRI, E1743, E1810, переключатель, пульт на 5 кнопок, управление светом, сцены, автоматизация, Zigbee2MQTT, ZHA
-
-TODO по русски
-

@@ -1,10 +1,59 @@
 = Usage
-:description: Control IoT7m smart home with Yandex Alice, Google Assistant, and Siri: run scenarios, manage devices, and get voice updates via Home Assistant.
-:keywords: IoT7m, smart home, voice control, Home Assistant, Yandex Alice, Google Assistant, Siri, automation, scenarios, local gateway, cloud integration
+:description: Using GSeptik Card in Home Assistant — adding custom cards to dashboards via the visual editor or YAML configuration.
+:keywords: GSeptik, Home Assistant, usage, dashboard, Lovelace, custom card, YAML, visual editor
+:navtitle: Usage
 
-You can control your *IoT7m* smart home using popular voice assistants such as *Yandex Alice*, *Google Assistant*, and *Apple Siri*.
+*GSeptik Card* is used to display septic tank monitoring data in the *Home Assistant* interface.
 
-This allows you to turn devices on or off, run automation scenarios (e.g., "Good morning", "I’m away"), and get spoken updates about your home’s status.
+The cards can be added to Home Assistant dashboards using standard methods: through the visual editor (UI) or directly via Lovelace YAML configuration.
 
-The system is based on *Home Assistant*, so voice control works through cloud integrations or local gateways.
+The following interface elements are available as part of the project:
 
+- *GSeptik Cistern Card* (`custom:gseptik-cistern-card`)
+- *GSeptik Tile Card* (`custom:gseptik-tile-card`)
+- *GSeptik Badge* (`custom:gseptik-badge`)
+
+== Using the UI (Visual editor)
+
+Adding a card via the visual editor is suitable for most users and does not require manual editing of YAML files.
+
+1. Open any dashboard in Home Assistant.
+2. Click *Edit dashboard*.
+3. Select *Add card*.
+4. Choose *Manual card*.
+5. Paste the card configuration and save the changes.
+
+Example configuration:
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika
+  temp: temperatura_septika
+  pressure: davlenie_septika
+  x_level: kriticheskii_uroven_septika
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+  error_name: oshibka_septika
+```
+
+== Using YAML (Raw configuration)
+
+If Home Assistant dashboards are configured in YAML mode, the card configuration must be added directly to the view definition.
+
+Example dashboard configuration:
+
+```yaml
+views:
+  - title: Home
+    cards:
+      - type: custom:gseptik-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+```
+
+After saving the configuration, the card appears on the dashboard automatically.

@@ -1,0 +1,89 @@
+= Configuration
+:description: Configuration of GSeptik Card in Home Assistant — entity parameters, display options, and a full YAML configuration example.
+:keywords: GSeptik, Home Assistant, configuration, entities, parameters, Lovelace, YAML, custom card
+:navtitle: Configuration
+
+This section describes the available configuration options for *GSeptik Card*.
+
+The card is configured using YAML and relies on Home Assistant entities to display parameters of the septic tank monitoring system. New parameters may be added in future versions.
+
+== Entities
+
+Each entity represents a specific system parameter and may define a custom icon.
+
+[cols="1,2,1,3",options="header"]
+|===
+| Key | Entity example | Icon | Description
+
+| `level`
+| `sensor.uroven_zhidkosti_septika`
+| `mdi:water-percent`
+| Current septic tank fill level
+
+| `temp`
+| `sensor.temperatura_septika`
+| `mdi:thermometer`
+| Septic tank temperature
+
+| `pressure`
+| `sensor.davlenie_septika`
+| `mdi:gauge`
+| Internal pressure
+
+| `x_level`
+| `sensor.kriticheskii_uroven_septika`
+| `mdi:water-alert`
+| Critical level threshold
+
+| `exceeds_x_level`
+| `sensor.prevyshen_kriticheskii_uroven_septika`
+| `mdi:alert-octagon-outline`
+| Indicates critical level exceeded
+
+| `error_name`
+| `sensor.oshibka_septika`
+| `mdi:alert-circle-outline`
+| Error state or error description
+|===
+
+== Display options
+
+Display options control the visual appearance of the card.
+
+[cols="1,1,1,3",options="header"]
+|===
+| Parameter | Type | Default | Description
+
+| `show_title`
+| boolean
+| `true`
+| Show or hide the card title
+|===
+
+== Example configuration
+
+Example of a full card configuration with entities and custom icons:
+
+```yaml
+type: custom:gseptik-cistern-card
+show_title: true
+entities:
+  level:
+    entity: sensor.uroven_zhidkosti_septika
+    icon: mdi:water-percent
+  temp:
+    entity: sensor.temperatura_septika
+    icon: mdi:thermometer
+  pressure:
+    entity: sensor.davlenie_septika
+    icon: mdi:gauge
+  x_level:
+    entity: sensor.kriticheskii_uroven_septika
+    icon: mdi:water-alert
+  exceeds_x_level:
+    entity: sensor.prevyshen_kriticheskii_uroven_septika
+    icon: mdi:alert-octagon-outline
+  error_name:
+    entity: sensor.oshibka_septika
+    icon: mdi:alert-circle-outline
+```

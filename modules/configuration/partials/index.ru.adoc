@@ -1,0 +1,89 @@
+= Конфигурация
+:description: Конфигурация GSeptik Card в Home Assistant — параметры сущностей, настройки отображения и пример полной YAML-конфигурации.
+:keywords: GSeptik, Home Assistant, конфигурация, сущности, параметры, Lovelace, YAML, кастомная карточка
+:navtitle: Конфигурация
+
+Раздел описывает доступные параметры конфигурации *GSeptik Card*.
+
+Карточка настраивается через YAML-конфигурацию и использует набор сущностей Home Assistant для отображения параметров системы мониторинга септика. В будущих версиях список параметров может быть расширен.
+
+== Сущности
+
+Каждая сущность соответствует определённому параметру системы и может иметь собственную иконку.
+
+[cols="1,2,1,3",options="header"]
+|===
+| Ключ | Пример entity | Иконка | Описание
+
+| `level`
+| `sensor.uroven_zhidkosti_septika`
+| `mdi:water-percent`
+| Текущий уровень заполнения септика
+
+| `temp`
+| `sensor.temperatura_septika`
+| `mdi:thermometer`
+| Температура в системе септика
+
+| `pressure`
+| `sensor.davlenie_septika`
+| `mdi:gauge`
+| Внутреннее давление
+
+| `x_level`
+| `sensor.kriticheskii_uroven_septika`
+| `mdi:water-alert`
+| Порог критического уровня
+
+| `exceeds_x_level`
+| `sensor.prevyshen_kriticheskii_uroven_septika`
+| `mdi:alert-octagon-outline`
+| Признак превышения критического уровня
+
+| `error_name`
+| `sensor.oshibka_septika`
+| `mdi:alert-circle-outline`
+| Состояние ошибки или описание ошибки
+|===
+
+== Параметры отображения
+
+Параметры отображения позволяют управлять внешним видом карточки.
+
+[cols="1,1,1,3",options="header"]
+|===
+| Параметр | Тип | По умолчанию | Описание
+
+| `show_title`
+| boolean
+| `true`
+| Показывать или скрывать заголовок карточки
+|===
+
+== Пример конфигурации
+
+Пример полной конфигурации карточки с указанием сущностей и пользовательских иконок:
+
+```yaml
+type: custom:gseptik-cistern-card
+show_title: true
+entities:
+  level:
+    entity: sensor.uroven_zhidkosti_septika
+    icon: mdi:water-percent
+  temp:
+    entity: sensor.temperatura_septika
+    icon: mdi:thermometer
+  pressure:
+    entity: sensor.davlenie_septika
+    icon: mdi:gauge
+  x_level:
+    entity: sensor.kriticheskii_uroven_septika
+    icon: mdi:water-alert
+  exceeds_x_level:
+    entity: sensor.prevyshen_kriticheskii_uroven_septika
+    icon: mdi:alert-octagon-outline
+  error_name:
+    entity: sensor.oshibka_septika
+    icon: mdi:alert-circle-outline
+```
