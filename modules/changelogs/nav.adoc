@@ -1,12 +1,2 @@
 * xref:overview.adoc[]
-** xref:sensors/overview.adoc[]
-*** xref:sensors/hs2fd-ef1-3-0.adoc[]
-*** xref:sensors/szlmr10.adoc[]
-** xref:actuators/overview.adoc[]
-*** xref:actuators/e1743.adoc[]
-*** xref:actuators/e1810.adoc[]
-** xref:meters/overview.adoc[]
-*** xref:meters/ea4161c-bi.adoc[]
-*** xref:meters/pc311-z-ty.adoc[]
-** xref:special/overview.adoc[]
-
+** xref:v0.0.3/overview.adoc[]

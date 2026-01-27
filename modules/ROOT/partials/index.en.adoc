@@ -14,3 +14,5 @@ The *IoT7m* smart home system is a comprehensive solution for automating and rem
 Control is available via a mobile app, web interface, or *voice assistants such as Yandex Alice*, Google Assistant, and Siri. Using Alice, you can turn lights on and off, run scenarios ("Away", "Good Morning"), check device statuses, and much more.
 
 This documentation will help you understand how to connect equipment, configure voice control, and manage the technical aspects of the system.
+
+image:gseptik-en.png[GSeptik]
