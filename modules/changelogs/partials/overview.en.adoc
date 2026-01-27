@@ -8,7 +8,3 @@ Devices are organized into categories — from simple sensors to actuators and s
 
 For convenience, all devices are grouped by function:
 
-* xref:sensors/overview.adoc[*Sensors*] – detect environmental conditions (motion, temperature, leaks, etc.)
-* xref:actuators/overview.adoc[*Actuators*] – perform actions (turning lights on/off, controlling heating, opening valves, etc.)
-* xref:meters/overview.adoc[*Measuring Devices*] – collect data from meters, voltage, power, and more
-* xref:special/overview.adoc[*Specialized Devices*] – non-standard modules like remotes, IR transmitters, displays, and others
