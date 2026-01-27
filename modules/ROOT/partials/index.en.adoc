@@ -16,6 +16,4 @@ The card works with an aggregated sensor entity and displays:
 - additional parameters such as temperature and pressure (if available)
 - alarm states and errors
 
-*GSeptik Card* integrates into Home Assistant dashboards and can be used in both local installations and cloud-based setups.
-
 This documentation describes installation, entity configuration, and usage recommendations within the Home Assistant interface.
