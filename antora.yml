@@ -1,6 +1,6 @@
 name: gseptik-card
 title: GSeptik Card
-version: v0.0.2
+version: latest
 prerelease:
 nav:
   - modules/installation/nav.adoc
