@@ -1,2 +1,2 @@
-* xref:overview.adoc[]
-** xref:v0.0.3/overview.adoc[]
+* xref:index.adoc[]
+** xref:v0.0.3/index.adoc[]
