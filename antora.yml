@@ -5,4 +5,4 @@ prerelease:
 nav:
   - modules/installation/nav.adoc
   - modules/usage/nav.adoc
-  - modules/usage/changelogs.adoc
+  - modules/changelogs/nav.adoc
