@@ -1,0 +1,59 @@
+= Использование
+:description: Использование GSeptik Card в Home Assistant — добавление карточек на дашборд через визуальный редактор или YAML-конфигурацию.
+:keywords: GSeptik, Home Assistant, использование, дашборд, Lovelace, кастомная карточка, YAML, визуальный редактор
+:navtitle: Использование
+
+*GSeptik Card* используется для отображения данных системы мониторинга септика в интерфейсе *Home Assistant*.
+
+Карточки добавляются в дашборды Home Assistant стандартными способами: через визуальный редактор интерфейса или напрямую через YAML-конфигурацию Lovelace.
+
+В составе проекта доступны следующие элементы интерфейса:
+
+- *GSeptik Cistern Card* (`custom:gseptik-cistern-card`)
+- *GSeptik Tile Card* (`custom:gseptik-tile-card`)
+- *GSeptik Badge* (`custom:gseptik-badge`)
+
+== Использование через интерфейс (визуальный редактор)
+
+Добавление карточки через визуальный редактор подходит для большинства пользователей и не требует ручного редактирования YAML-файлов.
+
+1. Откройте любой дашборд в Home Assistant.
+2. Нажмите *Редактировать дашборд*.
+3. Выберите *Добавить карточку*.
+4. Выберите тип *Ручная карточка*.
+5. Вставьте конфигурацию карточки и сохраните изменения.
+
+Пример конфигурации:
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika
+  temp: temperatura_septika
+  pressure: davlenie_septika
+  x_level: kriticheskii_uroven_septika
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+  error_name: oshibka_septika
+```
+
+== Использование через YAML (ручная конфигурация)
+
+Если дашборды Home Assistant настроены в режиме YAML, конфигурацию карточки необходимо добавить непосредственно в описание представления.
+
+Пример конфигурации дашборда:
+
+```yaml
+views:
+  - title: Home
+    cards:
+      - type: custom:gseptik-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+```
+
+После сохранения конфигурации карточка появляется на дашборде автоматически.
