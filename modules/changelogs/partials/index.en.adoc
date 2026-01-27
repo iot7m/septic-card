@@ -1,10 +1,11 @@
 = Changelogs
-:description: IoT7m smart home devices: sensors, actuators, meters, and specialized modules integrated via Home Assistant with Zigbee, Wi-Fi, or Z-Wave.
-:keywords: IoT7m, smart home, devices, Home Assistant, Zigbee, Z-Wave, Wi-Fi, ESPHome, Tasmota, sensors, motion, temperature, leak, actuators, lights, heating, valves, meters, power monitoring, remotes, IR transmitters, displays
+:description: Change history of GSeptik Card — new features, improvements, and fixes for Home Assistant.
+:keywords: GSeptik, Home Assistant, changelog, change history, versions, releases, custom card
+:navtitle: Changelogs
 
-The *IoT7m* system supports a wide range of devices for home automation and monitoring. All hardware integrates via the *Home Assistant* platform using Zigbee, Wi-Fi (ESPHome, Tasmota), and optionally Z-Wave protocols.
+This section contains the change history of *GSeptik Card*. Here you can find information about new features, behavior changes, user interface improvements, and bug fixes. Each version is documented on a separate page and corresponds to a published project release.
 
-Devices are organized into categories — from simple sensors to actuators and specialized modules — allowing for both basic and advanced smart home scenarios.
 
-For convenience, all devices are grouped by function:
+Versions:
 
+- xref:v0.0.2/index.adoc[v0.0.2]
