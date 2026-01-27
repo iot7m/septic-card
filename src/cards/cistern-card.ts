@@ -29,9 +29,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
   setConfig(config: GSeptikCardConfig) {
     const extendedConfig = {
       ...config,
-      show_pressure: this._config?.show_pressure ?? true,
-      show_x_level: this._config?.show_x_level ?? true,
-      show_header: this._config?.show_header ?? false,
+      show_pressure: config.show_pressure ?? true,
+      show_x_level: config.show_x_level ?? true,
+      show_header: config.show_header ?? false,
     };
     assertAllEntities(extendedConfig);
     this._config = extendedConfig;
@@ -123,6 +123,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   private renderEntities() {
     if (!this.hass || !this._config) return html``;
+    const config = this._config;
     return html`
       <div class="entities">
         ${GSEPTIK_ENTITY_DEFS.filter((def) => {
@@ -137,8 +138,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
               return !!this._config?.show_exceeds_x_level !== false;
             case "temp":
               return !!this._config?.show_temp !== false;
-            case "error_name":
-              return !!this._config?.show_error_name !== false;
+            case "error_name": {
+              const configured = config.entities.error_name;
+              const stateObj = getStateObj(this.hass, configured);
+              if (!stateObj) return false;
+
+              const state = stateObj.state.toLowerCase();
+              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+            }
             default:
               return false;
           }
@@ -179,6 +186,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     }
 
     .card-box {
+      padding: 16px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
