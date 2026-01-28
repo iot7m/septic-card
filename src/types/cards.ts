@@ -5,15 +5,24 @@ import type { GSeptikEntityKey } from "@/types/defs";
 export type GSeptikEntitiesConfig = Record<GSeptikEntityKey, string>;
 
 interface GsepticHeader {
-  text: string;
+  label: string;
+  show: boolean;
+}
+interface GsepticEntityItem {
+  label: string;
+  icon: string;
   show: boolean;
 }
 
 export interface GSeptikCardConfig extends LovelaceCardConfig {
   entities: GSeptikEntitiesConfig;
-  show_pressure: boolean;
-  show_x_level: boolean;
-  header: GsepticHeader;
+  header?: GsepticHeader;
+  pressure?: GsepticEntityItem;
+  x_level?: GsepticEntityItem;
+  level?: GsepticEntityItem;
+  temp?: GsepticEntityItem;
+  exceeds_x_level?: GsepticEntityItem;
+  error_name?: GsepticEntityItem;
 }
 
 export interface GSpepticCardEditorConfig extends LovelaceCardConfig {
