@@ -10,8 +10,8 @@ interface GSeptikHeaderConfig {
 }
 
 interface GSeptikItemConfig {
-  label: string;
-  icon: string;
+  label?: string;
+  icon?: string;
   show: boolean;
 }
 

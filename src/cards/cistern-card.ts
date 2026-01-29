@@ -28,8 +28,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   setConfig(config: GSeptikCardConfig) {
     const extendedConfig = {
-      pressure: { show: true, label: "Давление", icon: "mdi:gauge" },
-      x_level: { show: true, label: "Критический уровень", icon: "mdi:water-alert" },
+      pressure: { show: true },
+      x_level: { show: true },
       header: { show: config.header?.show ?? false, label: config.header?.label ?? "Септик" },
       ...config,
     };
@@ -55,9 +55,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return {
       type: `custom:${CISTERN_CARD_NAME}`,
       entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
-      header: { show: false, label: "Септик" },
-      pressure: { show: true, label: "Давление", icon: "mdi:gauge" },
-      x_level: { show: true, label: "Критический уровень", icon: "mdi:water-alert" },
     };
   }
 
@@ -134,7 +131,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
             const configured = config.entities.error_name;
             const stateObj = getStateObj(this.hass, configured);
             if (!stateObj) return false;
-
             const state = stateObj.state.toLowerCase();
             return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
           }
