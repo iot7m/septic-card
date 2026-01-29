@@ -9,7 +9,7 @@ views:
       - type: tile
         entity: climate.ecobee
         name: Climate
-      - type: custom:gseptik-tile-card
+      - type: custom:septic-tile-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -79,7 +79,7 @@ views:
               border-radius: var(--ha-card-border-radius, 12px);
               overflow: hidden;
             }
-      - type: custom:gseptik-cistern-card
+      - type: custom:septic-cistern-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika

@@ -1,9 +1,9 @@
 = Configuration
-:description: Configuration of GSeptik Card in Home Assistant — entity parameters, display options, and a full YAML configuration example.
-:keywords: GSeptik, Home Assistant, configuration, entities, parameters, Lovelace, YAML, custom card
+:description: Configuration of Septic Card in Home Assistant — entity parameters, display options, and a full YAML configuration example.
+:keywords: Septic, Home Assistant, configuration, entities, parameters, Lovelace, YAML, custom card
 :navtitle: Configuration
 
-This section describes the available configuration options for *GSeptik Card*.
+This section describes the available configuration options for *Septic Card*.
 
 The card is configured using YAML and relies on Home Assistant entities to display parameters of the septic tank monitoring system. New parameters may be added in future versions.
 
@@ -65,7 +65,7 @@ Display options control the visual appearance of the card.
 Example of a full card configuration with entities and custom icons:
 
 ```yaml
-type: custom:gseptik-cistern-card
+type: custom:septic-cistern-card
 show_title: true
 entities:
   level:
