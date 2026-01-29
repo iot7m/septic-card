@@ -79,7 +79,7 @@ The following cards are available:
 4. Select **Manual card**
 5. Paste the configuration below and save
 
-Example configuration:
+Basic/Minimal? Example configuration:
 
 ```yaml
 type: custom:septic-cistern-card
@@ -114,6 +114,10 @@ Save the dashboard configuration. The card will appear immediately after saving.
 
 ## Configuration
 
+Display entities in a predefined logical order.
+Use domain-specific icons.
+Hide the error_name entity when no error is present.
+
 This section describes all available configuration options for Septic cards. New parameters may be added in future versions.
 
 ### Entities
@@ -131,35 +135,154 @@ Each entity represents a specific septic tank parameter and may define a custom 
 
 ### Display options
 
-| Parameter | Type | Default | Description |
-|---------|------|---------|-------------|
-| `show_title` | boolean | `true` | Show or hide the card title |
+The section specifies the properties of displaying entities on the card.
 
-### Example configuration
+| Parameter | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| `header` | object | ✖ | — | Card header configuration |
+| `pressure` | object | ✖ | — | Pressure entity display options |
+| `x_level` | object | ✖ | — | Critical level threshold display options |
+| `level` | object | ✖ | — | Current level display options |
+| `temp` | object | ✖ | — | Temperature display options |
+| `exceeds_x_level` | object | ✖ | — | Critical level exceeded indicator options |
+| `error_name` | object | ✖ | — | Error display options |
+
+Header configuration
+
+| Parameter | Type    | Required | Default | Description              |
+| --------- | ------- | -------- | ------- | ------------------------ |
+| `label`   | string  | ✖        | —       | Header text              |
+| `show`    | boolean | ✖        | `false` | Show or hide card header |
+
+Example:
 
 ```yaml
-type: custom:septic-cistern-card
-show_title: true
-entities:
-  level:
-    entity: sensor.uroven_zhidkosti_septika
-    icon: mdi:water-percent
-  temp:
-    entity: sensor.temperatura_septika
-    icon: mdi:thermometer
-  pressure:
-    entity: sensor.davlenie_septika
-    icon: mdi:gauge
-  x_level:
-    entity: sensor.kriticheskii_uroven_septika
-    icon: mdi:water-alert
-  exceeds_x_level:
-    entity: sensor.prevyshen_kriticheskii_uroven_septika
-    icon: mdi:alert-octagon-outline
-  error_name:
-    entity: sensor.oshibka_septika
-    icon: mdi:alert-circle-outline
+header:
+  label: Septic system
+  show: true
 ```
+
+Entity display configuration
+
+Each entity (pressure, level, temp, etc.) supports the same configuration options.
+
+| Parameter | Type    | Required | Default        | Description       |
+| --------- | ------- | -------- | -------------- | ----------------- |
+| `show`| boolean | ✖ | `true`| Show or hide the entity |
+| `label`| string| ✖ | entity friendly name | Custom label |
+| `icon`| string| ✖ | card default icon | Custom icon |
+
+Example:
+
+```yaml
+pressure:
+  show: true
+  label: Pressure
+  icon: mdi:gauge
+```
+
+Error entity behavior (error_name)
+
+The error_name entity has special behavior.
+
+It is displayed only when an error is present, even if show is set to true.
+
+The entity is automatically hidden when its state is:
+
+- ok
+- ок
+- unknown
+- unavailable
+
+Example:
+
+```yaml
+error_name:
+  show: true
+  label: Error
+  icon: mdi:alert-circle-outline
+
+```
+
+### Full example configuration
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika
+  temp: temperatura_septika
+  pressure: davlenie_septika
+  x_level: kriticheskii_uroven_septika
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+  error_name: oshibka_septika
+header:
+  show: true
+  label: My Septic
+level:
+  show: true
+  icon: mdi:water-percent
+  label: Water level
+temp:
+  show: true
+  label: Water temperature
+  icon: mdi:coolant-temperature
+pressure:
+  show: true
+  label: Water pressure
+  icon: mdi:gauge
+x_level:
+  show: true
+  label: Critical water level
+  icon: mdi:water-alert
+exceeds_x_level:
+  show: true
+  label: Exceeding the water level
+  icon: mdi:alert-octagon-outline
+error_name:
+  show: true
+  label: Error
+  icon: mdi:alert-circle-outline
+```
+
+### Multiple cards
+
+Multiple Septic cards can be used on the same dashboard:
+
+
+```yaml
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika_1
+  temp: temperatura_septika_1
+  pressure: davlenie_septika_1
+  x_level: kriticheskii_uroven_septika_1
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika_1
+  error_name: oshibka_septika_1
+header:
+  show: true
+  label: My Septic 1
+
+type: custom:gseptik-cistern-card
+entities:
+  level: uroven_zhidkosti_septika_2
+  temp: temperatura_septika_2
+  pressure: davlenie_septika_2
+  x_level: kriticheskii_uroven_septika_2
+  exceeds_x_level: prevyshen_kriticheskii_uroven_septika_2
+  error_name: oshibka_septika_2
+header:
+  show: true
+  label: My Septic 2
+```
+Each card operates independently.
+
+### Notes
+
+All configuration blocks are optional unless marked as Required
+
+Unconfigured entities are automatically ignored
+
+The card remains functional even if only level is provided
 
 ## Development
 
