@@ -127,27 +127,16 @@ export class CisternCard extends LitElement implements LovelaceCard {
     return html`
       <div class="entities">
         ${GSEPTIK_ENTITY_DEFS.filter((def) => {
-          switch (def.key) {
-            case "pressure":
-              return !!this._config?.pressure?.show !== false;
-            case "x_level":
-              return !!this._config?.x_level?.show !== false;
-            case "level":
-              return !!this._config?.level?.show !== false;
-            case "exceeds_x_level":
-              return !!this._config?.exceeds_x_level?.show !== false;
-            case "temp":
-              return !!this._config?.temp?.show !== false;
-            case "error_name": {
-              const configured = config.entities.error_name;
-              const stateObj = getStateObj(this.hass, configured);
-              if (!stateObj) return false;
+          if (this._config?.[def.key]) {
+            return !!this._config?.[def.key]?.show !== false;
+          }
+          if (def.key === "error_name") {
+            const configured = config.entities.error_name;
+            const stateObj = getStateObj(this.hass, configured);
+            if (!stateObj) return false;
 
-              const state = stateObj.state.toLowerCase();
-              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
-            }
-            default:
-              return false;
+            const state = stateObj.state.toLowerCase();
+            return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
           }
         }).map((def) => {
           const configured = this._config!.entities[def.key];
