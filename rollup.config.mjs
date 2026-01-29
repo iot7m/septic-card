@@ -43,7 +43,7 @@ export default [
   {
     input: "src/index.ts",
     output: {
-      file: "dist/gseptik-card.js",
+      file: "dist/septic-card.js",
       format: "es",
       inlineDynamicImports: true,
       sourcemap: dev,

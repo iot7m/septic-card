@@ -1,9 +1,9 @@
 = Installation
-:description: Installation of GSeptik Card for Home Assistant — connecting a custom card for monitoring septic tank fill level.
-:keywords: GSeptik, Home Assistant, installation, custom card, Lovelace, dashboard, septic monitoring
+:description: Installation of Septic Card for Home Assistant — connecting a custom card for monitoring septic tank fill level.
+:keywords: Septic, Home Assistant, installation, custom card, Lovelace, dashboard, septic monitoring
 :navtitle: Installation
 
-This section describes how to install *GSeptik Card* in *Home Assistant*.
+This section describes how to install *Septic Card* in *Home Assistant*.
 
 The card is distributed as a custom frontend component and is connected to the Home Assistant interface via Lovelace resources.
 
@@ -17,10 +17,10 @@ Manual installation is recommended.
 
 For manual installation, download the card file and add it to the Home Assistant resources.
 
-First, download the latest `gseptik-card.js` file from the project releases page and copy it to the Home Assistant directory:
+First, download the latest `septic-card.js` file from the project releases page and copy it to the Home Assistant directory:
 
 ```
-/config/www/gseptik/gseptik-card.js
+/config/www/septic/septic-card.js
 ```
 
 After that, add the card as a resource using one of the methods described below.
@@ -30,7 +30,7 @@ After that, add the card as a resource using one of the methods described below.
 1. Go to *Settings* → *Dashboards* → *Resources*.
 2. Click *Add Resource*.
 3. Set the file path to:
-`/local/gseptik/gseptik-card.js`
+`/local/septic/septic-card.js`
 4. Select *JavaScript Module* as the resource type.
 
 === Adding the resource via YAML
@@ -39,7 +39,7 @@ Add the resource to your Lovelace configuration:
 
 ```yaml
 resources:
-  - url: /local/gseptik/gseptik-card.js
+  - url: /local/septic/septic-card.js
     type: module
 ```
 

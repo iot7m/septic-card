@@ -1,11 +1,11 @@
-= GSeptik Card
-:description: GSeptik Card for Home Assistant — a custom card for monitoring septic tank fill level.
-:keywords: Home Assistant, GSeptik, septic tank, liquid level, sensors, monitoring, dashboard, custom card
+= Septic Card
+:description: Septic Card for Home Assistant — a custom card for monitoring septic tank fill level.
+:keywords: Home Assistant, Septic, septic tank, liquid level, sensors, monitoring, dashboard, custom card
 :navtitle: Overview
 
-image:gseptik-en.png[GSeptik Card]
+image:septic-en.png[Septic Card]
 
-*GSeptik Card* is a custom card for *Home Assistant* designed to visualize and monitor the fill level of a septic tank.
+*Septic Card* is a custom card for *Home Assistant* designed to visualize and monitor the fill level of a septic tank.
 
 The card is intended for clear and compact presentation of sensor data used in a septic tank monitoring system.
 

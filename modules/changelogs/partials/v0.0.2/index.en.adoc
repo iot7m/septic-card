@@ -1,6 +1,6 @@
 = Change history
-:description: Change history of GSeptik Card — new features, improvements, and fixes for Home Assistant.
-:keywords: GSeptik, Home Assistant, changelog, change history, versions, updates, custom card
+:description: Change history of Septic Card — new features, improvements, and fixes for Home Assistant.
+:keywords: Septic, Home Assistant, changelog, change history, versions, updates, custom card
 :navtitle: Version v0.0.2
 
 Version **v0.0.2** is the first working release of the project and represents the active prototyping stage. This release establishes the core card architecture, introduces support for the Home Assistant visual editor, and lays the foundation for further functional development and expansion of test coverage.

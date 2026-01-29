@@ -1,14 +1,14 @@
-# GSeptik
+# Septic
 
-GSeptik is a set of custom Lovelace cards for **Home Assistant** designed to visualize septic tank data in a clear and intuitive way. The project focuses on visual level representation rather than historical charts or complex controls. The goal is to provide simple, readable, and domain-specific UI elements instead of generic gauges or charts.
+Septic is a set of custom Lovelace cards for **Home Assistant** designed to visualize septic tank data in a clear and intuitive way. The project focuses on visual level representation rather than historical charts or complex controls. The goal is to provide simple, readable, and domain-specific UI elements instead of generic gauges or charts.
 
-GSeptik provides visual components to display:
+Septic provides visual components to display:
 
 - Septic tank fill level
 - Critical level thresholds
 - Related sensor data (temperature, pressure, errors)
 
-![G-Septik](assets/gseptik.png)
+![G-Septik](assets/septic.png)
 
 ## Table of contents
 
@@ -29,7 +29,7 @@ GSeptik provides visual components to display:
   - [Run development server](#run-development-server)
   - [Run Home Assistant server](#run-home-assistant-server)
   - [Configure Home Assistant server](#configure-home-assistant-server)
-  - [Use ui-gseptik dashboard](#use-ui-gseptik-dashboard)
+  - [Use ui-septic dashboard](#use-ui-septic-dashboard)
 - [Release workflow](#release-workflow)
 
 ## Installation
@@ -41,13 +41,13 @@ HACS support is in progress but not yet available.
 
 ### Manual installation
 
-First, download the latest `gseptik-card.js` file from the releases page and copy it to your Home Assistant `www` directory: `/config/www/gseptik/gseptik-card.js`. Then add the resource to Home Assistant using one of the following methods.
+First, download the latest `septic-card.js` file from the releases page and copy it to your Home Assistant `www` directory: `/config/www/septic/septic-card.js`. Then add the resource to Home Assistant using one of the following methods.
 
 #### Using the UI
 
 1. Go to Settings → Dashboards → Resources
 2. Click Add Resource
-3. Set the URL to: `/local/gseptik/gseptik-card.js`
+3. Set the URL to: `/local/septic/septic-card.js`
 4. Select **JavaScript Module** as the resource type
 
 #### Using YAML
@@ -56,7 +56,7 @@ Add the following to your Lovelace configuration:
 
 ```yaml
 resources:
-  - url: /local/gseptik/gseptik-card.js
+  - url: /local/septic/septic-card.js
     type: module
 ```
 
@@ -64,12 +64,12 @@ Restart the browser or clear cache if the card does not appear immediately.
 
 ## Usage
 
-GSeptik cards can be added to a Home Assistant dashboard using either the visual editor (UI) or manual YAML configuration.
+Septic cards can be added to a Home Assistant dashboard using either the visual editor (UI) or manual YAML configuration.
 
 The following cards are available:
-- **GSeptik Cistern Card** (`custom:gseptik-cistern-card`)
-- **GSeptik Tile Card** (`custom:gseptik-tile-card`)
-- **GSeptik Badge** (`custom:gseptik-badge`)
+- **Septic Cistern Card** (`custom:septic-cistern-card`)
+- **Septic Tile Card** (`custom:septic-tile-card`)
+- **Septic Badge** (`custom:septic-badge`)
 
 ### Using the UI (Visual editor)
 
@@ -82,7 +82,7 @@ The following cards are available:
 Example configuration:
 
 ```yaml
-type: custom:gseptik-cistern-card
+type: custom:septic-cistern-card
 entities:
   level: uroven_zhidkosti_septika
   temp: temperatura_septika
@@ -100,7 +100,7 @@ If you are using dashboards in YAML mode, add the card configuration directly to
 views:
   - title: Home
     cards:
-      - type: custom:gseptik-cistern-card
+      - type: custom:septic-cistern-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -114,7 +114,7 @@ Save the dashboard configuration. The card will appear immediately after saving.
 
 ## Configuration
 
-This section describes all available configuration options for GSeptik cards. New parameters may be added in future versions.
+This section describes all available configuration options for Septic cards. New parameters may be added in future versions.
 
 ### Entities
 
@@ -138,7 +138,7 @@ Each entity represents a specific septic tank parameter and may define a custom 
 ### Example configuration
 
 ```yaml
-type: custom:gseptik-cistern-card
+type: custom:septic-cistern-card
 show_title: true
 entities:
   level:
@@ -180,7 +180,7 @@ Start the Home Assistant server using the command `npm run start:hass`. Home Ass
 frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
-    - http://localhost:4000/gseptik-card.js
+    - http://localhost:4000/septic-card.js
 ```
 
 This demo setup also uses REST sensors defined in `rests.yaml`. In `configuration.yaml` it is included as:
@@ -191,7 +191,7 @@ This demo setup also uses REST sensors defined in `rests.yaml`. In `configuratio
 rest: !include rests.yaml
 ```
 
-The REST sensors use a public endpoint like `https://data.gseptik.ru/Api/public/v2/home-assistant/readings/<TOKEN>`. If you need your own token, you can get it from the GSeptik personal account at https://gseptik.ru/. The website also supports “login as guest” for a quick demo.
+The REST sensors use a public endpoint like `https://data.septic.ru/Api/public/v2/home-assistant/readings/<TOKEN>`. If you need your own token, you can get it from the Septic personal account at https://septic.ru/. The website also supports “login as guest” for a quick demo.
 
 ### Configure Home Assistant server
 
@@ -202,7 +202,7 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:gseptik-cistern-card
+      - type: custom:septic-cistern-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -210,7 +210,7 @@ views:
           x_level: kriticheskii_uroven_septika
           exceeds_x_level: prevyshen_kriticheskii_uroven_septika
           error_name: oshibka_septika
-      - type: custom:gseptik-tile-card
+      - type: custom:septic-tile-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -223,14 +223,14 @@ views:
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.
 
 
-### Use ui-gseptik dashboard
+### Use ui-septic dashboard
 
 To try the demo dashboard, [install HACS](https://blog.iot7m.ru/how-to-setup-hacs?utm_source=github&utm_medium=readme) in your Home Assistant config directory (`.hass`). After installing HACS, install the following frontend cards via HACS:
 - card-mod
 - gauge-card-pro
 - stack-in-card
 
-Then copy the contents of `.hass/ui-gseptik.yaml` and paste it into any dashboard using the Raw configuration editor (YAML mode).
+Then copy the contents of `.hass/ui-septic.yaml` and paste it into any dashboard using the Raw configuration editor (YAML mode).
 
 
 ## Release workflow
