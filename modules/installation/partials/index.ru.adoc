@@ -1,9 +1,9 @@
 = Установка
-:description: Установка GSeptik Card для Home Assistant — подключение кастомной карточки для мониторинга уровня заполнения септика.
-:keywords: GSeptik, Home Assistant, установка, кастомная карточка, Lovelace, дашборд, мониторинг септика
+:description: Установка Septic Card для Home Assistant — подключение кастомной карточки для мониторинга уровня заполнения септика.
+:keywords: Septic, Home Assistant, установка, кастомная карточка, Lovelace, дашборд, мониторинг септика
 :navtitle: Установка
 
-Раздел описывает способы установки *GSeptik Card* в системе *Home Assistant*.
+Раздел описывает способы установки *Septic Card* в системе *Home Assistant*.
 
 Карточка распространяется как кастомный фронтенд-компонент и подключается к интерфейсу Home Assistant через механизм ресурсов Lovelace.
 
@@ -17,10 +17,10 @@
 
 Для ручной установки необходимо скачать файл карточки и добавить его в список ресурсов Home Assistant.
 
-Сначала загрузите последнюю версию файла `gseptik-card.js` со страницы релизов проекта и скопируйте его в каталог Home Assistant:
+Сначала загрузите последнюю версию файла `septic-card.js` со страницы релизов проекта и скопируйте его в каталог Home Assistant:
 
 ```
-/config/www/gseptik/gseptik-card.js
+/config/www/septic/septic-card.js
 ```
 
 После этого добавьте карточку как ресурс одним из способов, описанных ниже.
@@ -30,7 +30,7 @@
 1. Перейдите в *Настройки* → *Панели* → *Ресурсы*.
 2. Нажмите *Добавить ресурс*.
 3. Укажите путь к файлу:
-`/local/gseptik/gseptik-card.js`
+`/local/septic/septic-card.js`
 4. Выберите тип ресурса *JavaScript Module*.
 
 === Добавление ресурса через YAML
@@ -39,7 +39,7 @@
 
 ```yaml
 resources:
-  - url: /local/gseptik/gseptik-card.js
+  - url: /local/septic/septic-card.js
     type: module
 ```
 

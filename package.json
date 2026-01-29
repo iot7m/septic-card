@@ -1,11 +1,11 @@
 {
-  "name": "gseptik-card",
+  "name": "septic-card",
   "version": "0.0.2",
   "type": "module",
   "author": "IoT7m",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iot7m/gseptik-card"
+    "url": "https://github.com/iot7m/septic-card"
   },
   "scripts": {
     "build": "rollup -c",

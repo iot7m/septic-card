@@ -1,9 +1,9 @@
 = Changelogs
-:description: Change history of GSeptik Card — new features, improvements, and fixes for Home Assistant.
-:keywords: GSeptik, Home Assistant, changelog, change history, versions, releases, custom card
+:description: Change history of Septic Card — new features, improvements, and fixes for Home Assistant.
+:keywords: Septic, Home Assistant, changelog, change history, versions, releases, custom card
 :navtitle: Changelogs
 
-This section contains the change history of *GSeptik Card*. Here you can find information about new features, behavior changes, user interface improvements, and bug fixes. Each version is documented on a separate page and corresponds to a published project release.
+This section contains the change history of *Septic Card*. Here you can find information about new features, behavior changes, user interface improvements, and bug fixes. Each version is documented on a separate page and corresponds to a published project release.
 
 
 Versions:
