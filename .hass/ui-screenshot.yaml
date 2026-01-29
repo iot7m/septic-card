@@ -6,7 +6,7 @@ views:
         entity: weather.demo_weather_north
         color: red
     cards:
-      - type: custom:gseptik-cistern-card
+      - type: custom:septic-cistern-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -14,7 +14,7 @@ views:
           x_level: kriticheskii_uroven_septika
           exceeds_x_level: prevyshen_kriticheskii_uroven_septika
           error_name: oshibka_septika
-      - type: custom:gseptik-tile-card
+      - type: custom:septic-tile-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
