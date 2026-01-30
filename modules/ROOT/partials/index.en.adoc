@@ -17,3 +17,10 @@ The card works with an aggregated sensor entity and displays:
 - alarm states and errors
 
 This documentation describes installation, entity configuration, and usage recommendations within the Home Assistant interface.
+
+== Supported hardware
+
+Septic Card is used with real-world hardware for monitoring septic systems.
+Below is a list of manufacturers and solutions with which the card has been tested.
+
+* https://gseptik.ru/[G-Septik] — septic system monitoring solution with a cloud API and Home Assistant support
