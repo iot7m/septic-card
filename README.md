@@ -114,10 +114,6 @@ Save the dashboard configuration. The card will appear immediately after saving.
 
 ## Configuration
 
-Display entities in a predefined logical order.
-Use domain-specific icons.
-Hide the error_name entity when no error is present.
-
 This section describes all available configuration options for Septic cards. New parameters may be added in future versions.
 
 ### Entities
