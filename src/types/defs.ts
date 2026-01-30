@@ -7,10 +7,10 @@ export type SepticEntityDef = {
 };
 
 export const SEPTIC_ENTITY_DEFS: ReadonlyArray<SepticEntityDef> = [
-  { key: "level", icon: "mdi:water-percent", label: "Уровень жидкости" },
-  { key: "temp", icon: "mdi:thermometer", label: "Температура" },
-  { key: "pressure", icon: "mdi:gauge", label: "Давление" },
-  { key: "x_level", icon: "mdi:water-alert", label: "Критический уровень" },
-  { key: "exceeds_x_level", icon: "mdi:alert-octagon-outline", label: "Превышение уровня" },
-  { key: "error_name", icon: "mdi:alert-circle-outline", label: "Ошибка" },
+  { key: "level", icon: "mdi:water-percent", label: "Liquid level" },
+  { key: "temp", icon: "mdi:thermometer", label: "Temperature" },
+  { key: "pressure", icon: "mdi:gauge", label: "Pressure" },
+  { key: "x_level", icon: "mdi:water-alert", label: "Critical level" },
+  { key: "exceeds_x_level", icon: "mdi:alert-octagon-outline", label: "Exceeding the liquid level" },
+  { key: "error_name", icon: "mdi:alert-circle-outline", label: "Error" },
 ];
