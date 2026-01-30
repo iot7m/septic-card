@@ -119,6 +119,6 @@ export class TileCard extends LitElement implements LovelaceCard {
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: TILE_CARD_NAME,
-  name: "G-Septik Tile",
-  description: "Compact tile card for G-Septik septic sensor",
+  name: "Septic Tile Card",
+  description: "Septic tile card for septic tank",
 });

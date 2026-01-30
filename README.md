@@ -8,7 +8,7 @@ Septic provides visual components to display:
 - Critical level thresholds
 - Related sensor data (temperature, pressure, errors)
 
-![G-Septik](assets/septic.png)
+![Septic](assets/septic.png)
 
 ## Table of contents
 
@@ -222,7 +222,7 @@ This example demonstrates a complete configuration of the Septic cistern card, i
 
 
 ```yaml
-type: custom:gseptik-cistern-card
+type: custom:septic-cistern-card
 entities:
   level: uroven_zhidkosti_septika
   temp: temperatura_septika
@@ -264,7 +264,7 @@ error_name:
 This example demonstrates how to use multiple Septic cards on the same dashboard, each with its own independent configuration.
 
 ```yaml
-- type: custom:gseptik-cistern-card
+- type: custom:septic-cistern-card
   entities:
     level: uroven_zhidkosti_septika_1
     temp: temperatura_septika_1
@@ -276,7 +276,7 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
     show: true
     label: My Septic 1
 
-- type: custom:gseptik-cistern-card
+- type: custom:septic-cistern-card
   entities:
     level: uroven_zhidkosti_septika_2
     temp: temperatura_septika_2

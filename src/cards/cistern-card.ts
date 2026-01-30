@@ -343,6 +343,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: CISTERN_CARD_NAME,
-  name: "G-Septik Cistern",
-  description: "Cistern card for G-Septik septic sensor",
+  name: "Septic Cistern Card",
+  description: "Septic cistern card for septic tank",
 });
