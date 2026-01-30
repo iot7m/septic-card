@@ -203,11 +203,7 @@ Controls how the critical level exceeded indicator (`exceeds_x_level`) is displa
 
 Controls how the error entity (`error_name`) is displayed on the card.  By default, the error entity is shown using the card’s predefined icon and the entity’s friendly name.
 
-The `error_name` entity has special behavior.  It is displayed only when an error is present, even if `show` is set to `true`. The entity is automatically hidden when its state is:
-- `ok`
-- `ок`
-- `unknown`
-- `unavailable`
+The `error_name` entity has special behavior.  It is displayed if `show` is set to `true` and when an error occurs, even if `show` is set to `false`. The entity is hidden when its state is `ok`, `ок`, `unknown`, or `unavailable`.
 
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
