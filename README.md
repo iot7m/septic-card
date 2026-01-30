@@ -142,7 +142,7 @@ Each entity represents a specific septic tank parameter and may define a custom 
 The header section controls the card title displayed at the top of the card.  By default, the header is hidden. You can enable the header and optionally provide a custom label.
 
 | Parameter | Type    | Required | Default | Description              |
-| --------- | ------- | -------- | ------- | ------------------------ |
+|-----------|---------|----------|---------|--------------------------|
 | `label`   | string  | No       | —       | Header text              |
 | `show`    | boolean | No       | `false` | Show or hide card header |
 
@@ -151,10 +151,10 @@ The header section controls the card title displayed at the top of the card.  By
 Controls how the pressure  (`pressure`) entity is displayed on the card.  By default, the pressure entity is shown using the card’s predefined icon and the entity’s friendly name.
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 
 ### Critical level display options
@@ -162,10 +162,10 @@ Controls how the pressure  (`pressure`) entity is displayed on the card.  By def
 Controls how the critical level threshold (`x_level`) entity is displayed on the card.  By default, the critical level entity is shown using the card’s predefined icon and the entity’s friendly name.
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 
 ### Level display options
@@ -173,10 +173,10 @@ Controls how the critical level threshold (`x_level`) entity is displayed on the
 Controls how the current fill level (`level`) entity is displayed on the card. By default, the level entity is shown using the card’s predefined icon and the entity’s friendly name.
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 
 ### Temperature display options
@@ -184,20 +184,20 @@ Controls how the current fill level (`level`) entity is displayed on the card. B
 Controls how the temperature (`temp`) entity is displayed on the card. By default, the temperature entity is shown using the card’s predefined icon and the entity’s friendly name.
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 ### Critical level exceeded indicator display options
 
 Controls how the critical level exceeded indicator (`exceeds_x_level`) is displayed on the card. By default, the indicator is shown using the card’s predefined icon and the entity’s friendly name.
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 ### Error display options
 
@@ -210,10 +210,10 @@ The `error_name` entity has special behavior.  It is displayed only when an erro
 - `unavailable`
 
 | Parameter | Type    | Required | Default              | Description             |
-|----------|---------|----------|----------------------|-------------------------|
-| `show`   | boolean | No       | `true`               | Show or hide the entity |
-| `label`  | string  | No       | entity friendly name | Custom label            |
-| `icon`   | string  | No       | card default icon    | Custom icon             |
+|-----------|---------|----------|----------------------|-------------------------|
+| `show`    | boolean | No       | `true`               | Show or hide the entity |
+| `label`   | string  | No       | entity friendly name | Custom label            |
+| `icon`    | string  | No       | card default icon    | Custom icon             |
 
 
 ### Complete configuration example
