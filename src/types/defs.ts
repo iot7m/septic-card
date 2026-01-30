@@ -1,12 +1,12 @@
-export type GSeptikEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name";
+export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name";
 
-export type GSeptikEntityDef = {
-  key: GSeptikEntityKey;
+export type SepticEntityDef = {
+  key: SepticEntityKey;
   icon: string;
   label: string;
 };
 
-export const GSEPTIK_ENTITY_DEFS: ReadonlyArray<GSeptikEntityDef> = [
+export const SEPTIC_ENTITY_DEFS: ReadonlyArray<SepticEntityDef> = [
   { key: "level", icon: "mdi:water-percent", label: "Уровень жидкости" },
   { key: "temp", icon: "mdi:thermometer", label: "Температура" },
   { key: "pressure", icon: "mdi:gauge", label: "Давление" },

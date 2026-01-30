@@ -1,8 +1,8 @@
 import type { HomeAssistant } from "custom-card-helpers";
 
-import { GSeptikEntitiesConfig } from "@/types/cards";
+import { SepticEntitiesConfig } from "@/types/cards";
 
-export const ENTITIES: GSeptikEntitiesConfig = {
+export const ENTITIES: SepticEntitiesConfig = {
   level: "sensor.uroven_zhidkosti_septika",
   temp: "sensor.temperatura_septika",
   pressure: "sensor.davlenie_septika",
