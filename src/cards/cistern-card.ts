@@ -27,9 +27,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private _hass?: HomeAssistant;
 
   setConfig(config: SepticCardConfig) {
+    const defaultConfig = SEPTIC_ENTITY_DEFS.reduce(function (result, entity) {
+      return {
+        ...result,
+        [entity.key]: { label: entity.label, icon: entity.icon, show: entity.show },
+      };
+    }, {});
     const extendedConfig = {
-      pressure: { show: true },
-      temp: { show: true },
+      ...defaultConfig,
       header: { show: config.header?.show ?? false, label: config.header?.label ?? "Septic" },
       ...config,
     };
