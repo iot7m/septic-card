@@ -27,8 +27,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private _hass?: HomeAssistant;
 
   setConfig(config: GSeptikCardConfig) {
-    assertAllEntities(config);
-    this._config = config;
+    const extendedConfig = {
+      pressure: { show: true },
+      x_level: { show: true },
+      header: { show: config.header?.show ?? false, label: config.header?.label ?? "Септик" },
+      ...config,
+    };
+    assertAllEntities(extendedConfig);
+    this._config = extendedConfig;
     this.requestUpdate();
   }
 
@@ -72,7 +78,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card>
-        <h1 class="card-header">Септик</h1>
+        ${this._config.header?.show ? html`<h1 class="card-header">${this._config.header.label}</h1>` : null}
         <div class="card-box">${this.renderCistern()} ${this.renderEntities()}</div>
       </ha-card>
     `;
@@ -114,9 +120,21 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   private renderEntities() {
     if (!this.hass || !this._config) return html``;
+    const config = this._config;
     return html`
       <div class="entities">
-        ${GSEPTIK_ENTITY_DEFS.map((def) => {
+        ${GSEPTIK_ENTITY_DEFS.filter((def) => {
+          if (this._config?.[def.key]) {
+            return !!this._config?.[def.key]?.show !== false;
+          }
+          if (def.key === "error_name") {
+            const configured = config.entities.error_name;
+            const stateObj = getStateObj(this.hass, configured);
+            if (!stateObj) return false;
+            const state = stateObj.state.toLowerCase();
+            return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+          }
+        }).map((def) => {
           const configured = this._config!.entities[def.key];
           const entityId = getEntityId(configured);
           const stateObj = getStateObj(this.hass, configured);
@@ -125,10 +143,12 @@ export class CisternCard extends LitElement implements LovelaceCard {
           const uom = getUnitOfMeasure(stateObj);
           const name = getFriendlyName(stateObj, def.label);
 
+          const icon = config[def.key]?.icon ?? def.icon;
+          const label = config[def.key]?.label ?? name;
           return html`
             <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
-              <ha-icon class="entity-icon" icon=${def.icon}></ha-icon>
-              <div class="entity-name">${name}</div>
+              <ha-icon class="entity-icon" icon=${icon}></ha-icon>
+              <div class="entity-name">${label}</div>
               <div class="entity-state">${stateObj.state} ${uom}</div>
             </div>
           `;
@@ -153,6 +173,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     }
 
     .card-box {
+      padding: 16px;
       display: flex;
       flex-direction: column;
       align-items: stretch;

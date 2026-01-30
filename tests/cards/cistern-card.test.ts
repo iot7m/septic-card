@@ -10,13 +10,17 @@ import { type CardTestElement } from "@tests/types";
 describe("cistern-card", () => {
   it("renders without crashing when hass and config are provided", async () => {
     const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
-    el.setConfig({ type: `custom:${CISTERN_CARD_NAME}`, entities: ENTITIES });
+    el.setConfig({
+      type: `custom:${CISTERN_CARD_NAME}`,
+      entities: ENTITIES,
+      header: { show: true, label: "Septic" },
+    });
     el.hass = createHass();
 
     document.body.appendChild(el);
     await el.updateComplete;
 
     expect(el.shadowRoot).toBeTruthy();
-    expect(el.shadowRoot!.textContent).toContain("Септик");
+    expect(el.shadowRoot!.textContent).toContain("Septic");
   });
 });
