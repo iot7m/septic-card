@@ -4,10 +4,10 @@ import { customElement, state } from "lit/decorators.js";
 
 import type { HomeAssistant } from "custom-card-helpers";
 
-import { GSEPTIK_DIALOG_NAME } from "@/const";
+import { SEPTIC_DIALOG_NAME } from "@/const";
 
-@customElement(GSEPTIK_DIALOG_NAME)
-export class GSeptikDialog extends LitElement {
+@customElement(SEPTIC_DIALOG_NAME)
+export class SepticDialog extends LitElement {
   private entity!: string;
   private _hass?: HomeAssistant;
   @state() declare private _tab: number;

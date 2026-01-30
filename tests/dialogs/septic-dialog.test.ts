@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { GSEPTIK_DIALOG_NAME } from "@/const";
+import { SEPTIC_DIALOG_NAME } from "@/const";
 
-import "@/dialogs/gseptik-dialog";
+import "@/dialogs/septic-dialog";
 
 import { createHass } from "@tests/fixtures";
 import type { DialogTestElement } from "@tests/types";
 
-describe("gseptik-dialog", () => {
+describe("septic-dialog", () => {
   it("renders dialog when hass and entity are provided", async () => {
-    const el = document.createElement(GSEPTIK_DIALOG_NAME) as DialogTestElement;
+    const el = document.createElement(SEPTIC_DIALOG_NAME) as DialogTestElement;
     el.entity = "sensor.uroven_zhidkosti_septika";
     el.hass = createHass();
 

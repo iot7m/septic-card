@@ -1,31 +1,31 @@
 import type { LovelaceCardConfig } from "custom-card-helpers";
 
-import type { GSeptikEntityKey } from "@/types/defs";
+import type { SepticEntityKey } from "@/types/defs";
 
-export type GSeptikEntitiesConfig = Record<GSeptikEntityKey, string>;
+export type SepticEntitiesConfig = Record<SepticEntityKey, string>;
 
-interface GSeptikHeaderConfig {
+interface SepticHeaderConfig {
   label: string;
   show: boolean;
 }
 
-interface GSeptikItemConfig {
+interface SepticItemConfig {
   label?: string;
   icon?: string;
   show: boolean;
 }
 
-export interface GSeptikCardConfig extends LovelaceCardConfig {
-  entities: GSeptikEntitiesConfig;
-  header?: GSeptikHeaderConfig;
-  pressure?: GSeptikItemConfig;
-  x_level?: GSeptikItemConfig;
-  level?: GSeptikItemConfig;
-  temp?: GSeptikItemConfig;
-  exceeds_x_level?: GSeptikItemConfig;
-  error_name?: GSeptikItemConfig;
+export interface SepticCardConfig extends LovelaceCardConfig {
+  entities: SepticEntitiesConfig;
+  header?: SepticHeaderConfig;
+  pressure?: SepticItemConfig;
+  x_level?: SepticItemConfig;
+  level?: SepticItemConfig;
+  temp?: SepticItemConfig;
+  exceeds_x_level?: SepticItemConfig;
+  error_name?: SepticItemConfig;
 }
 
 export interface GSpepticCardEditorConfig extends LovelaceCardConfig {
-  entities?: GSeptikEntitiesConfig;
+  entities?: SepticEntitiesConfig;
 }

@@ -3,7 +3,7 @@ import type { HomeAssistant } from "custom-card-helpers";
 import type { HassState } from "@/types/hass";
 
 /**
- * Normalizes a GSeptik entity identifier to a full Home Assistant `entity_id`.
+ * Normalizes a Septic entity identifier to a full Home Assistant `entity_id`.
  *
  * Card configuration may use a shortened form without the `sensor.` prefix
  * for readability. Home Assistant, however, stores all states using full

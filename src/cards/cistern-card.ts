@@ -4,8 +4,8 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
-import type { GSeptikCardConfig } from "@/types/cards";
-import { GSEPTIK_ENTITY_DEFS } from "@/types/defs";
+import type { SepticCardConfig } from "@/types/cards";
+import { SEPTIC_ENTITY_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
@@ -23,10 +23,10 @@ import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_NAME)
 export class CisternCard extends LitElement implements LovelaceCard {
-  private _config?: GSeptikCardConfig;
+  private _config?: SepticCardConfig;
   private _hass?: HomeAssistant;
 
-  setConfig(config: GSeptikCardConfig) {
+  setConfig(config: SepticCardConfig) {
     const extendedConfig = {
       pressure: { show: true },
       x_level: { show: true },
@@ -54,7 +54,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   static getStubConfig() {
     return {
       type: `custom:${CISTERN_CARD_NAME}`,
-      entities: Object.fromEntries(GSEPTIK_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
+      entities: Object.fromEntries(SEPTIC_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
     };
   }
 
@@ -123,7 +123,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
     const config = this._config;
     return html`
       <div class="entities">
-        ${GSEPTIK_ENTITY_DEFS.filter((def) => {
+        ${SEPTIC_ENTITY_DEFS.filter((def) => {
           if (this._config?.[def.key]) {
             return !!this._config?.[def.key]?.show !== false;
           }
