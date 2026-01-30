@@ -29,8 +29,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
   setConfig(config: SepticCardConfig) {
     const extendedConfig = {
       pressure: { show: true },
-      x_level: { show: true },
-      header: { show: config.header?.show ?? false, label: config.header?.label ?? "Септик" },
+      temp: { show: true },
+      header: { show: config.header?.show ?? false, label: config.header?.label ?? "Septic" },
       ...config,
     };
     assertAllEntities(extendedConfig);
