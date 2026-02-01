@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_ENTITY_DEFS } from "@/types/defs";
+import { SEPTIC_CONFIG_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
 
@@ -18,7 +18,7 @@ describe("assertAllEntities", () => {
   });
 
   it("throws with a clear message when a required entity is missing", () => {
-    const missingKey = SEPTIC_ENTITY_DEFS[0].key;
+    const missingKey = Object.keys(SEPTIC_CONFIG_DEFS.entities)[0];
     const entities: Record<string, string> = { ...ENTITIES };
     delete entities[missingKey];
 

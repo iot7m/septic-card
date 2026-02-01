@@ -1,17 +1,22 @@
-export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name";
+import { SepticCardConfig } from "./cards";
 
-export type SepticEntityDef = {
-  key: SepticEntityKey;
-  icon: string;
-  label: string;
-  show: boolean;
+import { CISTERN_CARD_NAME } from "@/const";
+
+export const SEPTIC_CONFIG_DEFS: Readonly<SepticCardConfig> = {
+  entities: {
+    level: "level",
+    temp: "temp",
+    pressure: "pressure",
+    x_level: "x_level",
+    exceeds_x_level: "exceeds_x_level",
+    error_name: "error_name",
+  },
+  type: `custom:${CISTERN_CARD_NAME}`,
+  header: { show: false, label: "Septic" },
+  level: { show: false, icon: "mdi:water-percent", label: "Liquid level" },
+  temp: { show: true, icon: "mdi:thermometer", label: "Temperature" },
+  pressure: { show: true, icon: "mdi:gauge", label: "Pressure" },
+  x_level: { show: false, icon: "mdi:water-alert", label: "Critical level" },
+  exceeds_x_level: { show: false, icon: "mdi:alert-octagon-outline", label: "Exceeding the liquid level" },
+  error_name: { show: false, icon: "mdi:alert-circle-outline", label: "Error" },
 };
-
-export const SEPTIC_ENTITY_DEFS: ReadonlyArray<SepticEntityDef> = [
-  { key: "level", icon: "mdi:water-percent", label: "Liquid level", show: false },
-  { key: "temp", icon: "mdi:thermometer", label: "Temperature", show: true },
-  { key: "pressure", icon: "mdi:gauge", label: "Pressure", show: true },
-  { key: "x_level", icon: "mdi:water-alert", label: "Critical level", show: false },
-  { key: "exceeds_x_level", icon: "mdi:alert-octagon-outline", label: "Exceeding the liquid level", show: false },
-  { key: "error_name", icon: "mdi:alert-circle-outline", label: "Error", show: false },
-];

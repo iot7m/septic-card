@@ -4,13 +4,13 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
-import { GSpepticCardEditorConfig } from "@/types/cards";
+import { SpepticCardEditorConfig } from "@/types/cards";
 
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_EDITOR_NAME)
 export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
-  private _config: GSpepticCardEditorConfig = {
+  private _config: SpepticCardEditorConfig = {
     type: `custom:${CISTERN_CARD_EDITOR_NAME}`,
   };
   private _hass?: HomeAssistant;
@@ -69,7 +69,7 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
     },
   ];
 
-  setConfig(config: GSpepticCardEditorConfig) {
+  setConfig(config: SpepticCardEditorConfig) {
     this._config = {
       ...config,
       type: config.type ?? `custom:${CISTERN_CARD_NAME}`,
