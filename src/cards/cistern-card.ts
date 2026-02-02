@@ -18,7 +18,7 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
-import { SEPTIC_CONFIG_DEFS } from "@/const";
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_NAME)
@@ -28,7 +28,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   setConfig(config: SepticCardConfig) {
     const extendedConfig = {
-      ...SEPTIC_CONFIG_DEFS,
+      ...SEPTIC_CARD_DEFAULT_CONFIG,
       ...config,
     };
     assertAllEntities(extendedConfig);
@@ -50,12 +50,16 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static getStubConfig() {
-    const entities = Object.fromEntries(Object.keys(SEPTIC_CONFIG_DEFS.entities).map((key) => [key, getEntityId(key)]));
+    const entities = Object.fromEntries(
+      Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
+    );
     console.log(entities);
 
     return {
       type: `custom:${CISTERN_CARD_NAME}`,
-      entities: Object.fromEntries(Object.keys(SEPTIC_CONFIG_DEFS.entities).map((key) => [key, getEntityId(key)])),
+      entities: Object.fromEntries(
+        Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
+      ),
     };
   }
 
@@ -122,7 +126,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private renderEntities() {
     if (!this.hass || !this._config) return html``;
     const config = this._config;
-    const keys = Object.keys(SEPTIC_CONFIG_DEFS.entities) as Array<keyof typeof SEPTIC_CONFIG_DEFS.entities>;
+    const keys = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities) as Array<
+      keyof typeof SEPTIC_CARD_DEFAULT_CONFIG.entities
+    >;
 
     return html`
       <div class="entities">
@@ -146,9 +152,9 @@ export class CisternCard extends LitElement implements LovelaceCard {
             if (!stateObj) return null;
 
             const uom = getUnitOfMeasure(stateObj);
-            const name = getFriendlyName(stateObj, SEPTIC_CONFIG_DEFS[def]?.label ?? def);
+            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
-            const icon = config[def]?.icon ?? SEPTIC_CONFIG_DEFS[def]?.icon;
+            const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
             const label = config[def]?.label ?? name;
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>

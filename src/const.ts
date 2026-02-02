@@ -10,7 +10,7 @@ export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
 export const SEPTIC_DIALOG_NAME = `${CARD_PREFIX}-dialog` as const;
 
-export const SEPTIC_CONFIG_DEFS: Readonly<SepticCardConfig> = {
+export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   entities: {
     level: "level",
     temp: "temp",
@@ -19,6 +19,7 @@ export const SEPTIC_CONFIG_DEFS: Readonly<SepticCardConfig> = {
     exceeds_x_level: "exceeds_x_level",
     error_name: "error_name",
   },
+
   type: `custom:${CISTERN_CARD_NAME}`,
   header: { show: false, label: "Septic" },
   level: { show: false, icon: "mdi:water-percent", label: "Liquid level" },

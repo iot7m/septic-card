@@ -4,7 +4,7 @@ import type { SepticCardConfig } from "@/types/cards";
 
 import { assertAllEntities } from "@/utils/asserts";
 
-import { SEPTIC_CONFIG_DEFS } from "@/const";
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 
 import { ENTITIES } from "@tests/fixtures";
 
@@ -19,7 +19,7 @@ describe("assertAllEntities", () => {
   });
 
   it("throws with a clear message when a required entity is missing", () => {
-    const missingKey = Object.keys(SEPTIC_CONFIG_DEFS.entities)[0];
+    const missingKey = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities)[0];
     const entities: Record<string, string> = { ...ENTITIES };
     delete entities[missingKey];
 

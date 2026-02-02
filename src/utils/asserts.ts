@@ -1,13 +1,15 @@
 import type { SepticCardConfig } from "@/types/cards";
 
-import { SEPTIC_CONFIG_DEFS } from "@/const";
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 
 export function assertAllEntities(config: SepticCardConfig): void {
   if (!config.entities) {
     throw new Error("Missing entities configuration");
   }
 
-  const requiredKeys = Object.keys(SEPTIC_CONFIG_DEFS.entities) as Array<keyof typeof SEPTIC_CONFIG_DEFS.entities>;
+  const requiredKeys = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities) as Array<
+    keyof typeof SEPTIC_CARD_DEFAULT_CONFIG.entities
+  >;
 
   for (const key of requiredKeys) {
     const entityId = config.entities[key];
