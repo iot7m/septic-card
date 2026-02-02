@@ -36,7 +36,6 @@ jobs:
         shell: bash
         run: npm run prettier
       - name: Run HACS validation
-        if: false
         uses: hacs/action@main
         with:
           category: plugin
