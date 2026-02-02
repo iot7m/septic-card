@@ -2,7 +2,7 @@ import { SepticCardConfig } from "./cards";
 
 import { CISTERN_CARD_NAME } from "@/const";
 
-export const SEPTIC_CONFIG_DEFS: Readonly<SepticCardConfig> = {
+export const SEPTIC_CONFIG_DEFS1: Readonly<SepticCardConfig> = {
   entities: {
     level: "level",
     temp: "temp",

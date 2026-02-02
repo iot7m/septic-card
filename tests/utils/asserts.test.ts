@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_CONFIG_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
+
+import { SEPTIC_CONFIG_DEFS } from "@/const";
 
 import { ENTITIES } from "@tests/fixtures";
 

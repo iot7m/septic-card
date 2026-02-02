@@ -5,7 +5,6 @@ import { customElement } from "lit/decorators.js";
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_CONFIG_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
@@ -19,6 +18,7 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
+import { SEPTIC_CONFIG_DEFS } from "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_NAME)

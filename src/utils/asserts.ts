@@ -1,5 +1,6 @@
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_CONFIG_DEFS } from "@/types/defs";
+
+import { SEPTIC_CONFIG_DEFS } from "@/const";
 
 export function assertAllEntities(config: SepticCardConfig): void {
   if (!config.entities) {
