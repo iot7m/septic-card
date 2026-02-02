@@ -5,7 +5,6 @@ import { customElement } from "lit/decorators.js";
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_ENTITY_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
@@ -19,6 +18,7 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_NAME)
@@ -28,9 +28,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   setConfig(config: SepticCardConfig) {
     const extendedConfig = {
-      pressure: { show: true },
-      temp: { show: true },
-      header: { show: config.header?.show ?? false, label: config.header?.label ?? "Septic" },
+      ...SEPTIC_CARD_DEFAULT_CONFIG,
       ...config,
     };
     assertAllEntities(extendedConfig);
@@ -52,9 +50,16 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static getStubConfig() {
+    const entities = Object.fromEntries(
+      Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
+    );
+    console.log(entities);
+
     return {
       type: `custom:${CISTERN_CARD_NAME}`,
-      entities: Object.fromEntries(SEPTIC_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
+      entities: Object.fromEntries(
+        Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
+      ),
     };
   }
 
@@ -121,38 +126,44 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private renderEntities() {
     if (!this.hass || !this._config) return html``;
     const config = this._config;
+    const keys = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities) as Array<
+      keyof typeof SEPTIC_CARD_DEFAULT_CONFIG.entities
+    >;
+
     return html`
       <div class="entities">
-        ${SEPTIC_ENTITY_DEFS.filter((def) => {
-          if (this._config?.[def.key]) {
-            return !!this._config?.[def.key]?.show !== false;
-          }
-          if (def.key === "error_name") {
-            const configured = config.entities.error_name;
+        ${keys
+          .filter((def) => {
+            if (this._config?.[def]) {
+              return !!this._config?.[def]?.show !== false;
+            }
+            if (def === "error_name") {
+              const configured = config.entities.error_name;
+              const stateObj = getStateObj(this.hass, configured);
+              if (!stateObj) return false;
+              const state = stateObj.state.toLowerCase();
+              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+            }
+          })
+          .map((def) => {
+            const configured = this._config!.entities[def];
+            const entityId = getEntityId(configured);
             const stateObj = getStateObj(this.hass, configured);
-            if (!stateObj) return false;
-            const state = stateObj.state.toLowerCase();
-            return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
-          }
-        }).map((def) => {
-          const configured = this._config!.entities[def.key];
-          const entityId = getEntityId(configured);
-          const stateObj = getStateObj(this.hass, configured);
-          if (!stateObj) return null;
+            if (!stateObj) return null;
 
-          const uom = getUnitOfMeasure(stateObj);
-          const name = getFriendlyName(stateObj, def.label);
+            const uom = getUnitOfMeasure(stateObj);
+            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
-          const icon = config[def.key]?.icon ?? def.icon;
-          const label = config[def.key]?.label ?? name;
-          return html`
-            <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
-              <ha-icon class="entity-icon" icon=${icon}></ha-icon>
-              <div class="entity-name">${label}</div>
-              <div class="entity-state">${stateObj.state} ${uom}</div>
-            </div>
-          `;
-        })}
+            const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
+            const label = config[def]?.label ?? name;
+            return html`
+              <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
+                <ha-icon class="entity-icon" icon=${icon}></ha-icon>
+                <div class="entity-name">${label}</div>
+                <div class="entity-state">${stateObj.state} ${uom}</div>
+              </div>
+            `;
+          })}
       </div>
     `;
   }
