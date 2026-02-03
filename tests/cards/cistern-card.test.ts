@@ -29,6 +29,8 @@ describe("cistern-card", () => {
     el.setConfig({
       type: `custom:${CISTERN_CARD_NAME}`,
       entities: ENTITIES,
+      temp: { show: true, icon: "mdi:thermometer", label: "Temperature" },
+      pressure: { show: true, icon: "mdi:gauge", label: "Pressure" },
     });
     el.hass = createHass();
 
