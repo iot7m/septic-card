@@ -21,11 +21,11 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   },
 
   type: `custom:${CISTERN_CARD_NAME}`,
-  header: { show: false, label: "Septic" },
-  level: { show: false, icon: "mdi:water-percent", label: "Liquid level" },
-  temp: { show: true, icon: "mdi:thermometer", label: "Temperature" },
-  pressure: { show: true, icon: "mdi:gauge", label: "Pressure" },
-  x_level: { show: false, icon: "mdi:water-alert", label: "Critical level" },
-  exceeds_x_level: { show: false, icon: "mdi:alert-octagon-outline", label: "Exceeding the liquid level" },
-  error_name: { show: false, icon: "mdi:alert-circle-outline", label: "Error" },
+  header: { show: false, label: "card.header.label" },
+  level: { show: false, icon: "mdi:water-percent", label: "card.entities.level" },
+  temp: { show: true, icon: "mdi:thermometer", label: "card.entities.temp" },
+  pressure: { show: true, icon: "mdi:gauge", label: "card.entities.pressure" },
+  x_level: { show: false, icon: "mdi:water-alert", label: "card.entities.x_level" },
+  exceeds_x_level: { show: false, icon: "mdi:alert-octagon-outline", label: "card.entities.exceeds_x_level" },
+  error_name: { show: false, icon: "mdi:alert-circle-outline", label: "card.entities.error_name" },
 };

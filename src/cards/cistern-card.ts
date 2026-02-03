@@ -17,6 +17,7 @@ import {
   getStateObj,
   getUnitOfMeasure,
 } from "@/utils/extractors";
+import { localize } from "@/utils/localize";
 
 import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
@@ -83,7 +84,11 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card>
-        ${this._config.header?.show ? html`<h1 class="card-header">${this._config.header.label}</h1>` : null}
+        ${this._config.header?.show
+          ? html`<h1 class="card-header">
+              ${localize(this._config.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.header?.label, this.hass.language)}
+            </h1>`
+          : null}
         <div class="card-box">${this.renderCistern()} ${this.renderEntities()}</div>
       </ha-card>
     `;
@@ -155,7 +160,10 @@ export class CisternCard extends LitElement implements LovelaceCard {
             const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
             const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
-            const label = config[def]?.label ?? name;
+            const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
+            const label =
+              labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
+
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
                 <ha-icon class="entity-icon" icon=${icon}></ha-icon>
