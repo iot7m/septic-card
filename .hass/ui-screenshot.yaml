@@ -6,14 +6,6 @@ views:
         entity: weather.demo_weather_north
         color: red
     cards:
-      - type: custom:septic-cistern-card
-        entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
       - type: custom:septic-tile-card
         entities:
           level: uroven_zhidkosti_septika
@@ -22,3 +14,33 @@ views:
           x_level: kriticheskii_uroven_septika
           exceeds_x_level: prevyshen_kriticheskii_uroven_septika
           error_name: oshibka_septika
+      - type: custom:septic-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+      - type: custom:septic-cistern-card
+        entities:
+          level: uroven_zhidkosti_septika
+          temp: temperatura_septika
+          pressure: davlenie_septika
+          x_level: kriticheskii_uroven_septika
+          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
+          error_name: oshibka_septika
+        header:
+          show: true
+        level:
+          show: true
+        temp:
+          show: true
+        pressure:
+          show: true
+        x_level:
+          show: true
+        exceeds_x_level:
+          show: true
+        error_name:
+          show: true
