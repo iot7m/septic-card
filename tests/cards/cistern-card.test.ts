@@ -8,6 +8,38 @@ import { ENTITIES, createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";
 
 describe("cistern-card", () => {
+  it("renders without crashing when hass and default lengauge", async () => {
+    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    el.setConfig({
+      type: `custom:${CISTERN_CARD_NAME}`,
+      entities: ENTITIES,
+    });
+    el.hass = createHass();
+
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    expect(el.shadowRoot).toBeTruthy();
+    expect(el.shadowRoot!.textContent).toContain("Pressure");
+    expect(el.shadowRoot!.textContent).toContain("Temperature");
+  });
+
+  it("renders without crashing when hass and lengauge ru", async () => {
+    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    el.setConfig({
+      type: `custom:${CISTERN_CARD_NAME}`,
+      entities: ENTITIES,
+    });
+    el.hass = createHass();
+    el.hass.language = "ru";
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    expect(el.shadowRoot).toBeTruthy();
+    expect(el.shadowRoot!.textContent).toContain("Давление");
+    expect(el.shadowRoot!.textContent).toContain("Температура");
+  });
+
   it("renders without crashing when hass and config are provided", async () => {
     const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
     el.setConfig({
