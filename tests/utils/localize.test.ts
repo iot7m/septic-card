@@ -6,11 +6,11 @@ import en from "@/i18n/en.json";
 
 describe("extractors", () => {
   it("get localize value", () => {
-    const result = localize("card.header.title", "en");
+    const result = localize("card.header.label", "en");
     expect(result).toBe("Septic");
   });
   it("returns translation for nested key", () => {
-    const result = getTranslation(en, ["card", "header", "title"]);
+    const result = getTranslation(en, ["card", "header", "label"]);
     expect(result).toBe("Septic");
   });
   it("returns translation for shallow key", () => {
