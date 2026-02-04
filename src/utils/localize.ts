@@ -1,5 +1,5 @@
-import en from "../i18n/en.json";
-import ru from "../i18n/ru.json";
+import en from "@/i18n/en.json";
+import ru from "@/i18n/ru.json";
 
 type TranslationValue = string | TranslationMap;
 interface TranslationMap {

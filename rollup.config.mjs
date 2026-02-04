@@ -1,11 +1,17 @@
+import alias from "@rollup/plugin-alias";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
+import path from "path";
 import serve from "rollup-plugin-serve";
+import { fileURLToPath } from "url";
 
 const dev = process.env.ROLLUP_WATCH;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const serveOptions = {
   contentBase: ["./dist"],
@@ -34,6 +40,14 @@ const terserOptions = {
 const plugins = [
   typescript({ declaration: false }),
   nodeResolve(),
+  alias({
+    entries: [
+      {
+        find: "@",
+        replacement: path.resolve(__dirname, "src"),
+      },
+    ],
+  }),
   json(),
   commonjs(),
   ...(dev ? [serve(serveOptions)] : [terser(terserOptions)]),
