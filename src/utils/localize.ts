@@ -11,7 +11,7 @@ const languages: Record<string, TranslationMap> = {
   ru,
 };
 
-export type LanguageCode = "en" | "ru";
+export type LanguageCode = string;
 
 export type LocalizationArgs = ReadonlyArray<string>;
 
