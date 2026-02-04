@@ -51,11 +51,6 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static getStubConfig() {
-    const entities = Object.fromEntries(
-      Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
-    );
-    console.log(entities);
-
     return {
       type: `custom:${CISTERN_CARD_NAME}`,
       entities: Object.fromEntries(
