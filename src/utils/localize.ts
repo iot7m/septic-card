@@ -2,6 +2,7 @@ import en from "@/i18n/en.json";
 import ru from "@/i18n/ru.json";
 
 type TranslationValue = string | TranslationMap;
+
 interface TranslationMap {
   [key: string]: TranslationValue;
 }
@@ -26,7 +27,7 @@ export interface GetTranslation {
   (dict: TranslationMap, path: ReadonlyArray<string>): string | undefined;
 }
 
-const getTranslation: GetTranslation = (dict, path) => {
+export const getTranslation: GetTranslation = (dict, path) => {
   let current: TranslationValue = dict;
 
   for (const key of path) {
