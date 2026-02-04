@@ -5,6 +5,7 @@
     "moduleResolution": "Node",
     "lib": ["ESNext", "DOM"],
     "strict": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,

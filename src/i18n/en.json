@@ -1,0 +1,15 @@
+{
+  "card": {
+    "header": {
+      "label": "Septic"
+    },
+    "entities": {
+      "level": "Liquid level",
+      "temp": "Temperature",
+      "pressure": "Pressure",
+      "x_level": "Critical level",
+      "exceeds_x_level": "Exceeding the liquid level",
+      "error_name": "Error"
+    }
+  }
+}
