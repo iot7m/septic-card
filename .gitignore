@@ -14,7 +14,9 @@
 .hass/*
 !.hass/automations.yaml
 !.hass/configuration.yaml
-!.hass/inputs.yaml
+!.hass/input_numbers.yaml
+!.hass/input_booleans.yaml
+!.hass/input_texts.yaml
 !.hass/rests.yaml
 !.hass/scenes.yaml
 !.hass/scripts.yaml
