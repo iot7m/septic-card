@@ -20,7 +20,7 @@
 !.hass/rests.yaml
 !.hass/scenes.yaml
 !.hass/scripts.yaml
-!.hass/templates.yaml.yaml
+!.hass/templates.yaml
 !.hass/ui-gseptik.yaml
 !.hass/ui-screenshot.yaml
 
