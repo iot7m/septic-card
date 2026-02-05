@@ -17,3 +17,7 @@ demo:
 
 # Include extra configuration
 rest: !include rests.yaml
+input_number: !include input_numbers.yaml
+input_boolean: !include input_booleans.yaml
+input_text: !include input_texts.yaml
+template: !include templates.yaml
