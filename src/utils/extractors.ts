@@ -3,24 +3,6 @@ import type { HomeAssistant } from "custom-card-helpers";
 import type { HassState } from "@/types/hass";
 
 /**
- * Normalizes a Septic entity identifier to a full Home Assistant `entity_id`.
- *
- * Card configuration may use a shortened form without the `sensor.` prefix
- * for readability. Home Assistant, however, stores all states using full
- * `entity_id`s (e.g. `sensor.uroven_zhidkosti_septika`).
- *
- * This helper allows both forms to be used safely. Accepted inputs:
- * - `"uroven_zhidkosti_septika"` → `"sensor.uroven_zhidkosti_septika"`
- * - `"sensor.uroven_zhidkosti_septika"` → unchanged
- *
- * @param entityId - Entity identifier from card configuration
- * @returns Normalized Home Assistant `entity_id` with `sensor.` prefix
- */
-export function getEntityId(entityId: string): string {
-  return entityId.startsWith("sensor.") ? entityId : `sensor.${entityId}`;
-}
-
-/**
  * Returns a state object (`hass.states[entity_id]`) for the given configured entity id.
  *
  * This is the single access point to Home Assistant state in the extractor layer.
@@ -30,7 +12,7 @@ export function getEntityId(entityId: string): string {
  * @returns State object or undefined if missing
  */
 export function getStateObj(hass: HomeAssistant | undefined, entityId: string): HassState | undefined {
-  return hass?.states?.[getEntityId(entityId)] as HassState | undefined;
+  return hass?.states?.[entityId] as HassState | undefined;
 }
 
 /**
@@ -57,8 +39,6 @@ export function getFriendlyName(stateObj: HassState | undefined, fallback: strin
 }
 
 /**
- * Semantic alias for `getEntityId()` used for the level entity.
- *
  * The function exists to make call sites self-documenting
  * (e.g. open more-info for "level" specifically).
  *
@@ -66,7 +46,7 @@ export function getFriendlyName(stateObj: HassState | undefined, fallback: strin
  * @returns Normalized `sensor.*` entity_id
  */
 export function getLevelEntityId(entityId: string): string {
-  return getEntityId(entityId);
+  return entityId;
 }
 
 /**
