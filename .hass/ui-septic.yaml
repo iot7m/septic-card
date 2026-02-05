@@ -16,7 +16,7 @@ views:
           temp: septic_tank_temperature
           pressure: septic_tank_pressure
           x_level: septic_tank_critical_level
-          exceeds_x_level: septic_tank_exceeds_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
           error_name: septic_tank_error
           sdt: septic_tank_sdt
 
@@ -93,7 +93,7 @@ views:
           temp: septic_tank_temperature
           pressure: septic_tank_pressure
           x_level: septic_tank_critical_level
-          exceeds_x_level: septic_tank_exceeds_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
           error_name: septic_tank_error
           sdt: septic_tank_sdt
 
