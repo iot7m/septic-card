@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { CISTERN_CARD_NAME } from "@/const";
+import { TANK_CARD_NAME } from "@/const";
 
-import "@/cards/cistern-card";
+import "@/cards/tank-card";
 
 import { ENTITIES, createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";
 
-describe("cistern-card", () => {
+describe("tank-card", () => {
   it("renders without crashing when hass and default lengauge", async () => {
-    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
     });
     el.hass = createHass();
@@ -25,9 +25,9 @@ describe("cistern-card", () => {
   });
 
   it("renders without crashing when hass and lengauge ru", async () => {
-    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
     });
     el.hass = createHass();
@@ -41,9 +41,9 @@ describe("cistern-card", () => {
   });
 
   it("renders without crashing when hass and config are provided", async () => {
-    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
       header: { show: true, label: "Septic" },
     });
@@ -57,9 +57,9 @@ describe("cistern-card", () => {
   });
 
   it("renders without crashing when default config", async () => {
-    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
       temp: { show: true, icon: "mdi:thermometer", label: "Temperature" },
       pressure: { show: true, icon: "mdi:gauge", label: "Pressure" },
@@ -75,9 +75,9 @@ describe("cistern-card", () => {
   });
 
   it("renders without crashing when error_name config are provided", async () => {
-    const el = document.createElement(CISTERN_CARD_NAME) as CardTestElement;
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
       error_name: { show: true, label: "Error" },
     });

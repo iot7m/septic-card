@@ -75,7 +75,7 @@ Restart the browser or clear cache if the card does not appear immediately.
 Septic cards can be added to a Home Assistant dashboard using either the visual editor (UI) or manual YAML configuration.
 
 The following cards are available:
-- **Septic Cistern Card** (`custom:septic-cistern-card`)
+- **Septic Tank Card** (`custom:septic-tank-card`)
 - **Septic Tile Card** (`custom:septic-tile-card`)
 - **Septic Badge** (`custom:septic-badge`)
 
@@ -90,7 +90,7 @@ The following cards are available:
 Basic configuration example:
 
 ```yaml
-type: custom:septic-cistern-card
+type: custom:septic-tank-card
 entities:
   level: uroven_zhidkosti_septika
   temp: temperatura_septika
@@ -108,7 +108,7 @@ If you are using dashboards in YAML mode, add the card configuration directly to
 views:
   - title: Home
     cards:
-      - type: custom:septic-cistern-card
+      - type: custom:septic-tank-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
@@ -214,11 +214,11 @@ The `error_name` entity has special behavior.  It is displayed if `show` is set 
 
 ### Complete configuration example
 
-This example demonstrates a complete configuration of the Septic cistern card, including all supported entities and display options.
+This example demonstrates a complete configuration of the Septic tank card, including all supported entities and display options.
 
 
 ```yaml
-type: custom:septic-cistern-card
+type: custom:septic-tank-card
 entities:
   level: uroven_zhidkosti_septika
   temp: temperatura_septika
@@ -260,7 +260,7 @@ error_name:
 This example demonstrates how to use multiple Septic cards on the same dashboard, each with its own independent configuration.
 
 ```yaml
-- type: custom:septic-cistern-card
+- type: custom:septic-tank-card
   entities:
     level: uroven_zhidkosti_septika_1
     temp: temperatura_septika_1
@@ -272,7 +272,7 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
     show: true
     label: My Septic 1
 
-- type: custom:septic-cistern-card
+- type: custom:septic-tank-card
   entities:
     level: uroven_zhidkosti_septika_2
     temp: temperatura_septika_2
@@ -327,7 +327,7 @@ views:
   - path: default_view
     title: Home
     cards:
-      - type: custom:septic-cistern-card
+      - type: custom:septic-tank-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika

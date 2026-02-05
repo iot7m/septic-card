@@ -1,5 +1,5 @@
 // Import files
-import "@/cards/cistern-card";
-import "@/cards/cistern-card-editor";
+import "@/cards/tank-card";
+import "@/cards/tank-card-editor";
 import "@/cards/tile-card";
-import "@/dialogs/septic-dialog";
+import "@/dialogs/tank-dialog";

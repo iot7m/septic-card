@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { SEPTIC_DIALOG_NAME } from "@/const";
 
-import "@/dialogs/septic-dialog";
+import "@/dialogs/tank-dialog";
 
 import { createHass } from "@tests/fixtures";
 import type { DialogTestElement } from "@tests/types";

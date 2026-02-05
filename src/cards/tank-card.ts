@@ -20,10 +20,10 @@ import {
 import { localize } from "@/utils/localize";
 
 import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
-import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
+import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
-@customElement(CISTERN_CARD_NAME)
-export class CisternCard extends LitElement implements LovelaceCard {
+@customElement(TANK_CARD_NAME)
+export class TankCard extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
   private _hass?: HomeAssistant;
 
@@ -52,7 +52,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   static getStubConfig() {
     return {
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: Object.fromEntries(
         Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
       ),
@@ -60,8 +60,8 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static async getConfigElement() {
-    await import("@/cards/cistern-card-editor");
-    return document.createElement(`${CISTERN_CARD_EDITOR_NAME}`);
+    await import("@/cards/tank-card-editor");
+    return document.createElement(`${TANK_CARD_EDITOR_NAME}`);
   }
 
   private _openMoreInfo(entityId: string) {
@@ -84,12 +84,12 @@ export class CisternCard extends LitElement implements LovelaceCard {
               ${localize(this._config.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.header?.label, this.hass.language)}
             </h1>`
           : null}
-        <div class="card-box">${this.renderCistern()} ${this.renderEntities()}</div>
+        <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
       </ha-card>
     `;
   }
 
-  private renderCistern() {
+  private renderTank() {
     if (!this._hass || !this._config) return html``;
     const level = getLevel(this._hass, this._config.entities.level);
     const criticalLevel = getCriticalLevel(this._hass, this._config.entities.x_level);
@@ -100,7 +100,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <div
-        class="cistern"
+        class="tank"
         style="--level: ${level}; --critical: ${criticalLevel}; --is-critical: ${isCritical ? 1 : 0}"
         @click=${() => this._openMoreInfo(levelEntityId)}
       >
@@ -172,7 +172,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static styles = css`
-    .cistern {
+    .tank {
       width: 100%;
       max-width: 320px;
       aspect-ratio: 1;
@@ -356,7 +356,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: CISTERN_CARD_NAME,
-  name: "Septic Cistern Card",
-  description: "Septic cistern card for septic tank",
+  type: TANK_CARD_NAME,
+  name: "Septic Tank Card",
+  description: "Septic tank card for septic tank",
 });

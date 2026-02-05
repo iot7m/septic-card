@@ -9,7 +9,7 @@
 
 В составе проекта доступны следующие элементы интерфейса:
 
-- *Septic Cistern Card* (`custom:septic-cistern-card`)
+- *Septic Tank Card* (`custom:septic-tank-card`)
 - *Septic Tile Card* (`custom:septic-tile-card`)
 - *Septic Badge* (`custom:septic-badge`)
 
@@ -26,7 +26,7 @@
 Пример конфигурации:
 
 ```yaml
-type: custom:septic-cistern-card
+type: custom:septic-tank-card
 entities:
   level: uroven_zhidkosti_septika
   temp: temperatura_septika
@@ -46,7 +46,7 @@ entities:
 views:
   - title: Home
     cards:
-      - type: custom:septic-cistern-card
+      - type: custom:septic-tank-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika
