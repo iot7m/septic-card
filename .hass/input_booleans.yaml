@@ -1,3 +1,8 @@
 septic_tank_exceeds_x_level:
   name: Exceeding the liquid level
   initial: false
+
+# The second one septic tank
+septic_tank2_exceeds_x_level:
+  name: Exceeding the liquid level
+  initial: true
