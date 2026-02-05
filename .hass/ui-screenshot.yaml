@@ -6,6 +6,15 @@ views:
         entity: weather.demo_weather_north
         color: red
     cards:
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
+      - type: thermostat
+        entity: climate.ecobee
+        name: Climate
       - type: custom:septic-tank-card
         entities:
           level: sensor.septic_tank_liquid_level
