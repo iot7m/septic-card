@@ -65,7 +65,7 @@ Display options control the visual appearance of the card.
 Example of a full card configuration with entities and custom icons:
 
 ```yaml
-type: custom:septic-cistern-card
+type: custom:septic-tank-card
 show_title: true
 entities:
   level:

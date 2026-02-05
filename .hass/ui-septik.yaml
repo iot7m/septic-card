@@ -79,7 +79,7 @@ views:
               border-radius: var(--ha-card-border-radius, 12px);
               overflow: hidden;
             }
-      - type: custom:septic-cistern-card
+      - type: custom:septic-tank-card
         entities:
           level: uroven_zhidkosti_septika
           temp: temperatura_septika

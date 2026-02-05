@@ -2,9 +2,9 @@ import { SepticCardConfig } from "@/types/cards";
 
 export const CARD_PREFIX = "septic" as const;
 
-export const CISTERN_CARD_NAME = `${CARD_PREFIX}-cistern-card` as const;
+export const TANK_CARD_NAME = `${CARD_PREFIX}-tank-card` as const;
 
-export const CISTERN_CARD_EDITOR_NAME = `${CARD_PREFIX}-cistern-card-editor` as const;
+export const TANK_CARD_EDITOR_NAME = `${CARD_PREFIX}-tank-card-editor` as const;
 
 export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
@@ -20,7 +20,7 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
     error_name: "error_name",
   },
 
-  type: `custom:${CISTERN_CARD_NAME}`,
+  type: `custom:${TANK_CARD_NAME}`,
   header: { show: false, label: "card.header.label" },
   level: { show: false, icon: "mdi:water-percent", label: "card.entities.level" },
   temp: { show: true, icon: "mdi:thermometer", label: "card.entities.temp" },
