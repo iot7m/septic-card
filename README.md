@@ -278,13 +278,13 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
 
 - type: custom:septic-tank-card
   entities:
-    level: sensor.septic_tank_liquid_level_2
-    temp: sensor.septic_tank_temperature_2
-    pressure: sensor.septic_tank_pressure_2
-    x_level: sensor.septic_tank_critical_level_2
-    exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level_2
-    sdt: sensor.septic_tank_sdt_2
-    error_name: sensor.septic_tank_error_2
+    level: sensor.septic_2_tank_liquid_level
+    temp: sensor.septic_2_tank_temperature
+    pressure: sensor.septic_2_tank_pressure
+    x_level: sensor.septic_2_tank_critical_level
+    exceeds_x_level: binary_sensor.septic_2_tank_exceeds_critical_level
+    sdt: sensor.septic_2_tank_sdt
+    error_name: sensor.septic_2_tank_error
   header:
     show: true
     label: My Septic 2

@@ -1,3 +1,8 @@
 septic_tank_error_name:
   name: Error
   initial: "OK"
+
+# The second one septic tank
+septic2_tank_error_name:
+  name: Error
+  initial: "No connection"
