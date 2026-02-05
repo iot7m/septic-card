@@ -91,13 +91,13 @@ Basic configuration example:
 ```yaml
 type: custom:septic-tank-card
 entities:
-  level: septic_tank_liquid_level
-  temp: septic_tank_temperature
-  pressure: septic_tank_pressure
-  x_level: septic_tank_critical_level
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
   exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-  sdt: septic_tank_sdt
-  error_name: septic_tank_error
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
 ```
 
 ### Using YAML (Raw configuration)
@@ -110,13 +110,13 @@ views:
     cards:
       - type: custom:septic-tank-card
         entities:
-          level: septic_tank_liquid_level
-          temp: septic_tank_temperature
-          pressure: septic_tank_pressure
-          x_level: septic_tank_critical_level
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          sdt: septic_tank_sdt
-          error_name: septic_tank_error
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
 ```
 
 Save the dashboard configuration. The card will appear immediately after saving.
@@ -222,13 +222,13 @@ This example demonstrates a complete configuration of the Septic tank card, incl
 ```yaml
 type: custom:septic-tank-card
 entities:
-  level: septic_tank_liquid_level
-  temp: septic_tank_temperature
-  pressure: septic_tank_pressure
-  x_level: septic_tank_critical_level
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
   exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-  sdt: septic_tank_sdt
-  error_name: septic_tank_error
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
 header:
   show: true
   label: My Septic
@@ -265,26 +265,26 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
 ```yaml
 - type: custom:septic-tank-card
   entities:
-    level: septic_tank_liquid_level
-    temp: septic_tank_temperature
-    pressure: septic_tank_pressure
-    x_level: septic_tank_critical_level
+    level: sensor.septic_tank_liquid_level
+    temp: sensor.septic_tank_temperature
+    pressure: sensor.septic_tank_pressure
+    x_level: sensor.septic_tank_critical_level
     exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-    sdt: septic_tank_sdt
-    error_name: septic_tank_error
+    sdt: sensor.septic_tank_sdt
+    error_name: sensor.septic_tank_error
   header:
     show: true
     label: My Septic 1
 
 - type: custom:septic-tank-card
   entities:
-    level: septic_tank_liquid_level_2
-    temp: septic_tank_temperature_2
-    pressure: septic_tank_pressure_2
-    x_level: septic_tank_critical_level_2
+    level: sensor.septic_tank_liquid_level_2
+    temp: sensor.septic_tank_temperature_2
+    pressure: sensor.septic_tank_pressure_2
+    x_level: sensor.septic_tank_critical_level_2
     exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level_2
-    sdt: septic_tank_sdt_2
-    error_name: septic_tank_error_2
+    sdt: sensor.septic_tank_sdt_2
+    error_name: sensor.septic_tank_error_2
   header:
     show: true
     label: My Septic 2
@@ -313,7 +313,7 @@ frontend:
     - http://localhost:4000/septic-card.js
 ```
 
-This demo setup also uses REST sensors defined in `rests.yaml`. In `configuration.yaml` it is included as:
+This demo setup uses Home Assistant helpers (`input_number`, `input_boolean`, `input_text`) combined with template sensors to emulate septic tank data locally. This allows running the demo without any external services or network dependencies. In `configuration.yaml` it is included as:
 
 
 ```
@@ -323,8 +323,6 @@ input_boolean: !include input_booleans.yaml
 input_text: !include input_texts.yaml
 template: !include templates.yaml
 ```
-
-This demo setup uses Home Assistant helpers (`input_number`, `input_boolean`, `input_text`) combined with template sensors to emulate septic tank data locally. This allows running the demo without any external services or network dependencies.
 
 ### Configure Home Assistant server
 
@@ -337,22 +335,22 @@ views:
     cards:
       - type: custom:septic-tank-card
         entities:
-          level: septic_tank_liquid_level
-          temp: septic_tank_temperature
-          pressure: septic_tank_pressure
-          x_level: septic_tank_critical_level
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          sdt: septic_tank_sdt
-          error_name: septic_tank_error
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
       - type: custom:septic-tile-card
         entities:
-          level: septic_tank_liquid_level
-          temp: septic_tank_temperature
-          pressure: septic_tank_pressure
-          x_level: septic_tank_critical_level
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          sdt: septic_tank_sdt
-          error_name: septic_tank_error
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
 ```
 
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.
