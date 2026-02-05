@@ -4,7 +4,6 @@ import type { HassState } from "@/types/hass";
 
 import {
   getCriticalLevel,
-  getEntityId,
   getErrorName,
   getExceedsCritical,
   getFriendlyName,
@@ -19,10 +18,6 @@ import {
 import { ENTITIES, createHass } from "@tests/fixtures";
 
 describe("extractors", () => {
-  it("getEntityId adds sensor prefix", () => {
-    expect(getEntityId("uroven_zhidkosti_septika")).toBe("sensor.uroven_zhidkosti_septika");
-  });
-
   it("getStateObj returns state object", () => {
     const hass = createHass();
     expect(getStateObj(hass, ENTITIES.level)?.state).toBe("42");
@@ -37,14 +32,14 @@ describe("extractors", () => {
   it("getFriendlyName returns friendly_name", () => {
     const state: HassState = {
       state: "42",
-      attributes: { friendly_name: "Уровень жидкости септика" },
+      attributes: { friendly_name: "Liquid level" },
     };
 
-    expect(getFriendlyName(state, "Fallback")).toBe("Уровень жидкости септика");
+    expect(getFriendlyName(state, "Fallback")).toBe("Liquid level");
   });
 
   it("getLevelEntityId returns normalized id", () => {
-    expect(getLevelEntityId("uroven")).toBe("sensor.uroven");
+    expect(getLevelEntityId("sensor.septic_tank_liquid_level")).toBe("sensor.septic_tank_liquid_level");
   });
 
   it("getLevel returns numeric level", () => {

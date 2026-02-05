@@ -9,7 +9,6 @@ import type { SepticCardConfig } from "@/types/cards";
 import { assertAllEntities } from "@/utils/asserts";
 import {
   getCriticalLevel,
-  getEntityId,
   getExceedsCritical,
   getFriendlyName,
   getLevel,
@@ -53,9 +52,7 @@ export class TankCard extends LitElement implements LovelaceCard {
   static getStubConfig() {
     return {
       type: `custom:${TANK_CARD_NAME}`,
-      entities: Object.fromEntries(
-        Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, getEntityId(key)]),
-      ),
+      entities: Object.fromEntries(Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, key])),
     };
   }
 
@@ -147,7 +144,7 @@ export class TankCard extends LitElement implements LovelaceCard {
           })
           .map((def) => {
             const configured = this._config!.entities[def];
-            const entityId = getEntityId(configured);
+            const entityId = configured;
             const stateObj = getStateObj(this.hass, configured);
             if (!stateObj) return null;
 
