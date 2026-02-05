@@ -1,34 +1,33 @@
-template:
-  - sensor:
-      - name: "Septic tank liquid level"
-        unique_id: sensor_septic_tank_liquid_level
-        state: "{{ states('input_number.septic_tank_level') }}"
-        unit_of_measurement: "%"
+- sensor:
+    - name: "Septic tank liquid level"
+      unique_id: sensor_septic_tank_liquid_level
+      state: "{{ states('input_number.septic_tank_level') }}"
+      unit_of_measurement: "%"
 
-      - name: "Septic tank temperature"
-        unique_id: sensor_septic_tank_temperature
-        state: "{{ states('input_number.septic_tank_temp') }}"
-        unit_of_measurement: "°C"
+    - name: "Septic tank temperature"
+      unique_id: sensor_septic_tank_temperature
+      state: "{{ states('input_number.septic_tank_temp') }}"
+      unit_of_measurement: "°C"
 
-      - name: "Septic tank pressure"
-        unique_id: sensor_septic_tank_pressure
-        state: "{{ states('input_number.septic_tank_pressure') }}"
-        unit_of_measurement: "mbar"
+    - name: "Septic tank pressure"
+      unique_id: sensor_septic_tank_pressure
+      state: "{{ states('input_number.septic_tank_pressure') }}"
+      unit_of_measurement: "mbar"
 
-      - name: "Septic tank critical level"
-        unique_id: sensor_septic_tank_x_level
-        state: "{{ states('input_number.septic_tank_x_level') }}"
-        unit_of_measurement: "%"
+    - name: "Septic tank critical level"
+      unique_id: sensor_septic_tank_x_level
+      state: "{{ states('input_number.septic_tank_x_level') }}"
+      unit_of_measurement: "%"
 
-      - name: "Septic tank SDT"
-        unique_id: sensor_septic_tank_sdt
-        state: "{{ states('input_number.septic_tank_sdt') }}"
+    - name: "Septic tank SDT"
+      unique_id: sensor_septic_tank_sdt
+      state: "{{ states('input_number.septic_tank_sdt') }}"
 
-      - name: "Septic tank error"
-        unique_id: sensor_septic_tank_error_name
-        state: "{{ states('input_text.septic_tank_error_name') }}"
+    - name: "Septic tank error"
+      unique_id: sensor_septic_tank_error_name
+      state: "{{ states('input_text.septic_tank_error_name') }}"
 
-  - binary_sensor:
-      - name: "Septic tank exceeds critical level"
-        unique_id: binary_sensor_septic_tank_exceeds_x_level
-        state: "{{ is_state('input_boolean.septic_tank_exceeds_x_level', 'on') }}"
+- binary_sensor:
+    - name: "Septic tank exceeds critical level"
+      unique_id: binary_sensor_septic_tank_exceeds_x_level
+      state: "{{ is_state('input_boolean.septic_tank_exceeds_x_level', 'on') }}"

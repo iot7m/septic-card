@@ -1,42 +1,38 @@
-input_number:
-  septic_tank_level:
-    name: Liquid level
-    min: 0
-    max: 100
-    step: 0.1
-    unit_of_measurement: "%"
+septic_tank_level:
+  name: Liquid level
+  min: 0
+  max: 100
+  step: 0.1
+  unit_of_measurement: "%"
+  initial: 46.37
 
-  septic_tank_temp:
-    name: Temperature
-    min: -20
-    max: 80
-    step: 0.1
-    unit_of_measurement: "°C"
+septic_tank_temp:
+  name: Temperature
+  min: -20
+  max: 80
+  step: 0.1
+  unit_of_measurement: "°C"
+  initial: 26
 
-  septic_tank_pressure:
-    name: Pressure
-    min: 0
-    max: 2000
-    step: 1
-    unit_of_measurement: "mbar"
+septic_tank_pressure:
+  name: Pressure
+  min: 0
+  max: 2000
+  step: 1
+  unit_of_measurement: "mbar"
+  initial: 191
 
-  septic_tank_x_level:
-    name: Critical level
-    min: 0
-    max: 100
-    step: 0.1
-    unit_of_measurement: "%"
+septic_tank_x_level:
+  name: Critical level
+  min: 0
+  max: 100
+  step: 0.1
+  unit_of_measurement: "%"
+  initial: 66.48
 
-  septic_tank_sdt:
-    name: SDT
-    min: 0
-    max: 3650
-    step: 1
-
-input_boolean:
-  septic_tank_exceeds_x_level:
-    name: Exceeding the liquid level
-
-input_text:
-  septic_tank_error_name:
-    name: Error
+septic_tank_sdt:
+  name: SDT
+  min: 0
+  max: 3650
+  step: 1
+  initial: 75
