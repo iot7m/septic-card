@@ -1,4 +1,4 @@
-# Septic
+# Septic Tank
 
 Septic is a set of custom Lovelace cards for **Home Assistant** designed to visualize septic tank data in a clear and intuitive way. The project focuses on visual level representation rather than historical charts or complex controls. The goal is to provide simple, readable, and domain-specific UI elements instead of generic gauges or charts.
 
@@ -44,8 +44,7 @@ Septic provides visual components to display:
 
 ### HACS installation
 
-HACS support is in progress but not yet available.
-
+The card can be installed via HACS custom repository.
 
 ### Manual installation
 
@@ -92,12 +91,13 @@ Basic configuration example:
 ```yaml
 type: custom:septic-tank-card
 entities:
-  level: uroven_zhidkosti_septika
-  temp: temperatura_septika
-  pressure: davlenie_septika
-  x_level: kriticheskii_uroven_septika
-  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-  error_name: oshibka_septika
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
+  exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
 ```
 
 ### Using YAML (Raw configuration)
@@ -110,12 +110,13 @@ views:
     cards:
       - type: custom:septic-tank-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
 ```
 
 Save the dashboard configuration. The card will appear immediately after saving.
@@ -135,6 +136,7 @@ Each entity represents a specific septic tank parameter and may define a custom 
 | `pressure`        | entity | Yes      | —       | Internal pressure                                   |
 | `x_level`         | entity | Yes      | —       | Critical level threshold                            |
 | `exceeds_x_level` | entity | Yes      | —       | Indicates that the critical level has been exceeded |
+| `sdt`             | entity | No       | —       | Signal level (SDT)                                  |
 | `error_name`      | entity | Yes      | —       | Error state or error description                    |
 
 ### Header display options
@@ -203,7 +205,7 @@ Controls how the critical level exceeded indicator (`exceeds_x_level`) is displa
 
 Controls how the error entity (`error_name`) is displayed on the card.  By default, the error entity is shown using the card’s predefined icon and the entity’s friendly name.
 
-The `error_name` entity has special behavior.  It is displayed if `show` is set to `true` and when an error occurs, even if `show` is set to `false`. The entity is hidden when its state is `ok`, `ок`, `unknown`, or `unavailable`.
+The `error_name` entity has special behavior.  It is displayed if `show` is set to `true` and when an error occurs, even if `show` is set to `false`. The entity is hidden when its state is `ok`, `unknown`, or `unavailable`.
 
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
@@ -220,12 +222,13 @@ This example demonstrates a complete configuration of the Septic tank card, incl
 ```yaml
 type: custom:septic-tank-card
 entities:
-  level: uroven_zhidkosti_septika
-  temp: temperatura_septika
-  pressure: davlenie_septika
-  x_level: kriticheskii_uroven_septika
-  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-  error_name: oshibka_septika
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
+  exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
 header:
   show: true
   label: My Septic
@@ -262,24 +265,26 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
 ```yaml
 - type: custom:septic-tank-card
   entities:
-    level: uroven_zhidkosti_septika_1
-    temp: temperatura_septika_1
-    pressure: davlenie_septika_1
-    x_level: kriticheskii_uroven_septika_1
-    exceeds_x_level: prevyshen_kriticheskii_uroven_septika_1
-    error_name: oshibka_septika_1
+    level: sensor.septic_tank_liquid_level
+    temp: sensor.septic_tank_temperature
+    pressure: sensor.septic_tank_pressure
+    x_level: sensor.septic_tank_critical_level
+    exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+    sdt: sensor.septic_tank_sdt
+    error_name: sensor.septic_tank_error
   header:
     show: true
     label: My Septic 1
 
 - type: custom:septic-tank-card
   entities:
-    level: uroven_zhidkosti_septika_2
-    temp: temperatura_septika_2
-    pressure: davlenie_septika_2
-    x_level: kriticheskii_uroven_septika_2
-    exceeds_x_level: prevyshen_kriticheskii_uroven_septika_2
-    error_name: oshibka_septika_2
+    level: sensor.septic_tank_liquid_level_2
+    temp: sensor.septic_tank_temperature_2
+    pressure: sensor.septic_tank_pressure_2
+    x_level: sensor.septic_tank_critical_level_2
+    exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level_2
+    sdt: sensor.septic_tank_sdt_2
+    error_name: sensor.septic_tank_error_2
   header:
     show: true
     label: My Septic 2
@@ -308,15 +313,16 @@ frontend:
     - http://localhost:4000/septic-card.js
 ```
 
-This demo setup also uses REST sensors defined in `rests.yaml`. In `configuration.yaml` it is included as:
+This demo setup uses Home Assistant helpers (`input_number`, `input_boolean`, `input_text`) combined with template sensors to emulate septic tank data locally. This allows running the demo without any external services or network dependencies. In `configuration.yaml` it is included as:
 
 
 ```
 # Include extra configuration
-rest: !include rests.yaml
+input_number: !include input_numbers.yaml
+input_boolean: !include input_booleans.yaml
+input_text: !include input_texts.yaml
+template: !include templates.yaml
 ```
-
-The REST sensors use a public endpoint like `https://data.septic.ru/Api/public/v2/home-assistant/readings/<TOKEN>`. If you need your own token, you can get it from the Septic personal account at https://septic.ru/. The website also supports “login as guest” for a quick demo.
 
 ### Configure Home Assistant server
 
@@ -329,20 +335,22 @@ views:
     cards:
       - type: custom:septic-tank-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
       - type: custom:septic-tile-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
 ```
 
 Save the dashboard. If the development server is running on port 4000, the cards should render immediately using the live development build.

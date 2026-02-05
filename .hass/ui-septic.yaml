@@ -12,13 +12,13 @@ views:
 
       - type: custom:septic-tile-card
         entities:
-          level: septic_tank_liquid_level
-          temp: septic_tank_temperature
-          pressure: septic_tank_pressure
-          x_level: septic_tank_critical_level
-          exceeds_x_level: septic_tank_exceeds_critical_level
-          error_name: septic_tank_error
-          sdt: septic_tank_sdt
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          error_name: sensor.septic_tank_error
+          sdt: sensor.septic_tank_sdt
 
       - type: custom:stack-in-card
         cards:
@@ -89,13 +89,13 @@ views:
 
       - type: custom:septic-tank-card
         entities:
-          level: septic_tank_liquid_level
-          temp: septic_tank_temperature
-          pressure: septic_tank_pressure
-          x_level: septic_tank_critical_level
-          exceeds_x_level: septic_tank_exceeds_critical_level
-          error_name: septic_tank_error
-          sdt: septic_tank_sdt
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          error_name: sensor.septic_tank_error
+          sdt: sensor.septic_tank_sdt
 
       - type: custom:stack-in-card
         cards:
