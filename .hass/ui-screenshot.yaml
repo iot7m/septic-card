@@ -13,6 +13,7 @@ views:
           pressure: septic_tank_pressure
           x_level: septic_tank_critical_level
           exceeds_x_level: septic_tank_exceeds_critical_level
+          sdt: septic_tank_sdt
           error_name: septic_tank_error
       - type: custom:septic-tank-card
         entities:
@@ -21,6 +22,7 @@ views:
           pressure: septic_tank_pressure
           x_level: septic_tank_critical_level
           exceeds_x_level: septic_tank_exceeds_critical_level
+          sdt: septic_tank_sdt
           error_name: septic_tank_error
       - type: custom:septic-tank-card
         entities:
@@ -29,6 +31,7 @@ views:
           pressure: septic_tank_pressure
           x_level: septic_tank_critical_level
           exceeds_x_level: septic_tank_exceeds_critical_level
+          sdt: septic_tank_sdt
           error_name: septic_tank_error
         header:
           show: true
