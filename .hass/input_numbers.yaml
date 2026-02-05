@@ -38,7 +38,7 @@ septic_tank_sdt:
   initial: 75
 
 # The second one septic tank
-septic2_tank_level:
+septic_tank2_level:
   name: Liquid level
   min: 0
   max: 100
@@ -46,7 +46,7 @@ septic2_tank_level:
   unit_of_measurement: "%"
   initial: 95.37
 
-septic2_tank_temp:
+septic_tank2_temp:
   name: Temperature
   min: -20
   max: 80
@@ -54,7 +54,7 @@ septic2_tank_temp:
   unit_of_measurement: "°C"
   initial: 26
 
-septic2_tank_pressure:
+septic_tank2_pressure:
   name: Pressure
   min: 0
   max: 2000
@@ -62,7 +62,7 @@ septic2_tank_pressure:
   unit_of_measurement: "mbar"
   initial: 191
 
-septic2_tank_x_level:
+septic_tank2_x_level:
   name: Critical level
   min: 0
   max: 100
@@ -70,7 +70,7 @@ septic2_tank_x_level:
   unit_of_measurement: "%"
   initial: 66.48
 
-septic2_tank_sdt:
+septic_tank2_sdt:
   name: SDT
   min: 0
   max: 3650
