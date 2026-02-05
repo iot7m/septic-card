@@ -1,6 +1,6 @@
 views:
   - path: default_view
-    title: G-Septik
+    title: Septic
     badges:
       - type: entity
         entity: weather.demo_weather_north
@@ -9,21 +9,24 @@ views:
       - type: tile
         entity: climate.ecobee
         name: Climate
+
       - type: custom:septic-tile-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: septic_tank_liquid_level
+          temp: septic_tank_temperature
+          pressure: septic_tank_pressure
+          x_level: septic_tank_critical_level
+          exceeds_x_level: septic_tank_exceeds_critical_level
+          error_name: septic_tank_error
+          sdt: septic_tank_sdt
+
       - type: custom:stack-in-card
         cards:
           - type: custom:gauge-card-pro
-            entity: sensor.uroven_zhidkosti_septika
-            name: Уровень жидкости септика
+            entity: sensor.septic_tank_liquid_level
+            name: Septic tank liquid level
             titles:
-              primary: Уровень жидкости септика
+              primary: Septic tank liquid level
             min: 0
             max: 100
             needle: true
@@ -37,7 +40,7 @@ views:
             setpoint:
               type: template
               value: >
-                {{ states('sensor.kriticheskii_uroven_septika') | float(90) }}
+                {{ states('sensor.septic_tank_critical_level') | float(90) }}
               color: red
             card_mod:
               style: |
@@ -47,24 +50,28 @@ views:
                   border: none !important;
                   padding-bottom: 0 !important;
                 }
+
           - type: entities
             show_header_toggle: false
             entities:
-              - entity: sensor.temperatura_septika
-                name: Температура
+              - entity: sensor.septic_tank_temperature
+                name: Temperature
                 icon: mdi:thermometer
-              - entity: sensor.davlenie_septika
-                name: Давление
+              - entity: sensor.septic_tank_pressure
+                name: Pressure
                 icon: mdi:gauge
-              - entity: sensor.kriticheskii_uroven_septika
-                name: Критический уровень
+              - entity: sensor.septic_tank_critical_level
+                name: Critical level
+                icon: mdi:water-minus
+              - entity: binary_sensor.septic_tank_exceeds_critical_level
+                name: Exceeds critical level
                 icon: mdi:water-alert
-              - entity: sensor.prevyshen_kriticheskii_uroven_septika
-                name: Превышен критический уровень
-                icon: mdi:alert-octagon-outline
-              - entity: sensor.oshibka_septika
-                name: Ошибка
-                icon: mdi:alert-circle-outline
+              - entity: sensor.septic_tank_sdt
+                name: SDT
+                icon: mdi:counter
+              - entity: sensor.septic_tank_error
+                name: Error
+                icon: mdi:alert-decagram-outline
             card_mod:
               style: |
                 ha-card {
@@ -79,19 +86,22 @@ views:
               border-radius: var(--ha-card-border-radius, 12px);
               overflow: hidden;
             }
+
       - type: custom:septic-tank-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: septic_tank_liquid_level
+          temp: septic_tank_temperature
+          pressure: septic_tank_pressure
+          x_level: septic_tank_critical_level
+          exceeds_x_level: septic_tank_exceeds_critical_level
+          error_name: septic_tank_error
+          sdt: septic_tank_sdt
+
       - type: custom:stack-in-card
         cards:
           - type: gauge
-            entity: sensor.uroven_zhidkosti_septika
-            name: Уровень жидкости септика
+            entity: sensor.septic_tank_liquid_level
+            name: Septic tank liquid level
             min: 0
             max: 100
             needle: true
@@ -107,24 +117,28 @@ views:
                   border: none !important;
                   padding-bottom: 0 !important;
                 }
+
           - type: entities
             show_header_toggle: false
             entities:
-              - entity: sensor.temperatura_septika
-                name: Температура
+              - entity: sensor.septic_tank_temperature
+                name: Temperature
                 icon: mdi:thermometer
-              - entity: sensor.davlenie_septika
-                name: Давление
+              - entity: sensor.septic_tank_pressure
+                name: Pressure
                 icon: mdi:gauge
-              - entity: sensor.kriticheskii_uroven_septika
-                name: Критический уровень
+              - entity: sensor.septic_tank_critical_level
+                name: Critical level
+                icon: mdi:water-minus
+              - entity: binary_sensor.septic_tank_exceeds_critical_level
+                name: Exceeds critical level
                 icon: mdi:water-alert
-              - entity: sensor.prevyshen_kriticheskii_uroven_septika
-                name: Превышен критический уровень
-                icon: mdi:alert-octagon-outline
-              - entity: sensor.oshibka_septika
-                name: Ошибка
-                icon: mdi:alert-circle-outline
+              - entity: sensor.septic_tank_sdt
+                name: SDT
+                icon: mdi:counter
+              - entity: sensor.septic_tank_error
+                name: Error
+                icon: mdi:alert-decagram-outline
             card_mod:
               style: |
                 ha-card {
@@ -139,23 +153,33 @@ views:
               border-radius: var(--ha-card-border-radius, 12px);
               overflow: hidden;
             }
+
       - type: entities
-        title: G-Septic
+        title: Septic
         state_color: false
         show_header_toggle: false
         entities:
-          - entity: sensor.uroven_zhidkosti_septika
+          - entity: sensor.septic_tank_liquid_level
+            name: Liquid level
             icon: mdi:water-percent
-          - entity: sensor.temperatura_septika
+          - entity: sensor.septic_tank_temperature
+            name: Temperature
             icon: mdi:thermometer
-          - entity: sensor.davlenie_septika
+          - entity: sensor.septic_tank_pressure
+            name: Pressure
             icon: mdi:gauge
-          - entity: sensor.kriticheskii_uroven_septika
+          - entity: sensor.septic_tank_critical_level
+            name: Critical level
+            icon: mdi:water-minus
+          - entity: binary_sensor.septic_tank_exceeds_critical_level
+            name: Exceeds critical level
             icon: mdi:water-alert
-          - entity: sensor.prevyshen_kriticheskii_uroven_septika
-            icon: mdi:alert-octagon-outline
-          - entity: sensor.oshibka_septika
-            icon: mdi:alert-circle-outline
+          - entity: sensor.septic_tank_sdt
+            name: SDT
+            icon: mdi:counter
+          - entity: sensor.septic_tank_error
+            name: Error
+            icon: mdi:alert-decagram-outline
       - type: thermostat
         entity: climate.ecobee
         name: Climate
