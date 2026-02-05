@@ -9,10 +9,12 @@ describe("extractors", () => {
     const result = localize("card.header.label", "en");
     expect(result).toBe("Septic");
   });
+
   it("returns translation for nested key", () => {
     const result = getTranslation(en, ["card", "header", "label"]);
     expect(result).toBe("Septic");
   });
+
   it("returns translation for shallow key", () => {
     const result = getTranslation(en, ["card"]);
     expect(result).toBeUndefined();
