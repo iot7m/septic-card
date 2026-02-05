@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { CISTERN_CARD_NAME } from "@/const";
 
-import "@/cards/cistern-card";
+import "@/cards/tank-card";
 
 import { ENTITIES, createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";

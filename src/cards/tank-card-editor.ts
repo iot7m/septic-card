@@ -9,7 +9,7 @@ import { SpepticCardEditorConfig } from "@/types/cards";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_EDITOR_NAME)
-export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
+export class TankCardEditor extends LitElement implements LovelaceCardEditor {
   private _config: SpepticCardEditorConfig = {
     type: `custom:${CISTERN_CARD_EDITOR_NAME}`,
   };

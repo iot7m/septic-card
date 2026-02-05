@@ -23,7 +23,7 @@ import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
 
 @customElement(CISTERN_CARD_NAME)
-export class CisternCard extends LitElement implements LovelaceCard {
+export class TankCard extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
   private _hass?: HomeAssistant;
 
@@ -60,7 +60,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
   }
 
   static async getConfigElement() {
-    await import("@/cards/cistern-card-editor");
+    await import("@/cards/tank-card-editor");
     return document.createElement(`${CISTERN_CARD_EDITOR_NAME}`);
   }
 
