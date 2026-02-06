@@ -7,7 +7,7 @@ Version **v0.0.2** is the first working release of the project and represents th
 
 Changelog:
 
-- implemented the Cistern card
+- implemented the Tank card
 - updated the card contract and parameter schema
 - refactored card design and styles
 - reworked the critical level calculation logic

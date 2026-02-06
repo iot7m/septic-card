@@ -1,6 +1,6 @@
 import type { HomeAssistant } from "custom-card-helpers";
 
-import { GSpepticCardEditorConfig, SepticCardConfig } from "@/types/cards";
+import { SepticCardConfig, SpepticCardEditorConfig } from "@/types/cards";
 
 export type CardTestElement = HTMLElement & {
   hass?: HomeAssistant;
@@ -10,7 +10,7 @@ export type CardTestElement = HTMLElement & {
 
 export type CardEditorTestElement = HTMLElement & {
   hass: HomeAssistant;
-  setConfig(config: GSpepticCardEditorConfig): void;
+  setConfig(config: SpepticCardEditorConfig): void;
   updateComplete: Promise<void>;
 };
 

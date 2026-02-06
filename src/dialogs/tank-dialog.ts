@@ -7,7 +7,7 @@ import type { HomeAssistant } from "custom-card-helpers";
 import { SEPTIC_DIALOG_NAME } from "@/const";
 
 @customElement(SEPTIC_DIALOG_NAME)
-export class SepticDialog extends LitElement {
+export class TankDialog extends LitElement {
   private entity!: string;
   private _hass?: HomeAssistant;
   @state() declare private _tab: number;

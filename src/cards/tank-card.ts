@@ -5,12 +5,10 @@ import { customElement } from "lit/decorators.js";
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
 import type { SepticCardConfig } from "@/types/cards";
-import { SEPTIC_ENTITY_DEFS } from "@/types/defs";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
   getCriticalLevel,
-  getEntityId,
   getExceedsCritical,
   getFriendlyName,
   getLevel,
@@ -18,19 +16,19 @@ import {
   getStateObj,
   getUnitOfMeasure,
 } from "@/utils/extractors";
+import { localize } from "@/utils/localize";
 
-import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
+import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
-@customElement(CISTERN_CARD_NAME)
-export class CisternCard extends LitElement implements LovelaceCard {
+@customElement(TANK_CARD_NAME)
+export class TankCard extends LitElement implements LovelaceCard {
   private _config?: SepticCardConfig;
   private _hass?: HomeAssistant;
 
   setConfig(config: SepticCardConfig) {
     const extendedConfig = {
-      pressure: { show: true },
-      temp: { show: true },
-      header: { show: config.header?.show ?? false, label: config.header?.label ?? "Septic" },
+      ...SEPTIC_CARD_DEFAULT_CONFIG,
       ...config,
     };
     assertAllEntities(extendedConfig);
@@ -53,14 +51,14 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
   static getStubConfig() {
     return {
-      type: `custom:${CISTERN_CARD_NAME}`,
-      entities: Object.fromEntries(SEPTIC_ENTITY_DEFS.map((d) => [d.key, getEntityId(String(d.key))])),
+      type: `custom:${TANK_CARD_NAME}`,
+      entities: Object.fromEntries(Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).map((key) => [key, key])),
     };
   }
 
   static async getConfigElement() {
-    await import("@/cards/cistern-card-editor");
-    return document.createElement(`${CISTERN_CARD_EDITOR_NAME}`);
+    await import("@/cards/tank-card-editor");
+    return document.createElement(`${TANK_CARD_EDITOR_NAME}`);
   }
 
   private _openMoreInfo(entityId: string) {
@@ -78,13 +76,17 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card>
-        ${this._config.header?.show ? html`<h1 class="card-header">${this._config.header.label}</h1>` : null}
-        <div class="card-box">${this.renderCistern()} ${this.renderEntities()}</div>
+        ${this._config.header?.show
+          ? html`<h1 class="card-header">
+              ${localize(this._config.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.header?.label, this.hass.language)}
+            </h1>`
+          : null}
+        <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
       </ha-card>
     `;
   }
 
-  private renderCistern() {
+  private renderTank() {
     if (!this._hass || !this._config) return html``;
     const level = getLevel(this._hass, this._config.entities.level);
     const criticalLevel = getCriticalLevel(this._hass, this._config.entities.x_level);
@@ -95,7 +97,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
     return html`
       <div
-        class="cistern"
+        class="tank"
         style="--level: ${level}; --critical: ${criticalLevel}; --is-critical: ${isCritical ? 1 : 0}"
         @click=${() => this._openMoreInfo(levelEntityId)}
       >
@@ -121,44 +123,53 @@ export class CisternCard extends LitElement implements LovelaceCard {
   private renderEntities() {
     if (!this.hass || !this._config) return html``;
     const config = this._config;
+    const keys = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities) as Array<
+      keyof typeof SEPTIC_CARD_DEFAULT_CONFIG.entities
+    >;
+
     return html`
       <div class="entities">
-        ${SEPTIC_ENTITY_DEFS.filter((def) => {
-          if (this._config?.[def.key]) {
-            return !!this._config?.[def.key]?.show !== false;
-          }
-          if (def.key === "error_name") {
-            const configured = config.entities.error_name;
+        ${keys
+          .filter((def) => {
+            if (this._config?.[def]) {
+              return !!this._config?.[def]?.show !== false;
+            }
+            if (def === "error_name") {
+              const configured = config.entities.error_name;
+              const stateObj = getStateObj(this.hass, configured);
+              if (!stateObj) return false;
+              const state = stateObj.state.toLowerCase();
+              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+            }
+          })
+          .map((def) => {
+            const configured = this._config!.entities[def];
+            const entityId = configured;
             const stateObj = getStateObj(this.hass, configured);
-            if (!stateObj) return false;
-            const state = stateObj.state.toLowerCase();
-            return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
-          }
-        }).map((def) => {
-          const configured = this._config!.entities[def.key];
-          const entityId = getEntityId(configured);
-          const stateObj = getStateObj(this.hass, configured);
-          if (!stateObj) return null;
+            if (!stateObj) return null;
 
-          const uom = getUnitOfMeasure(stateObj);
-          const name = getFriendlyName(stateObj, def.label);
+            const uom = getUnitOfMeasure(stateObj);
+            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
-          const icon = config[def.key]?.icon ?? def.icon;
-          const label = config[def.key]?.label ?? name;
-          return html`
-            <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
-              <ha-icon class="entity-icon" icon=${icon}></ha-icon>
-              <div class="entity-name">${label}</div>
-              <div class="entity-state">${stateObj.state} ${uom}</div>
-            </div>
-          `;
-        })}
+            const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
+            const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
+            const label =
+              labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
+
+            return html`
+              <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
+                <ha-icon class="entity-icon" icon=${icon}></ha-icon>
+                <div class="entity-name">${label}</div>
+                <div class="entity-state">${stateObj.state} ${uom}</div>
+              </div>
+            `;
+          })}
       </div>
     `;
   }
 
   static styles = css`
-    .cistern {
+    .tank {
       width: 100%;
       max-width: 320px;
       aspect-ratio: 1;
@@ -342,7 +353,7 @@ export class CisternCard extends LitElement implements LovelaceCard {
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: CISTERN_CARD_NAME,
-  name: "Septic Cistern Card",
-  description: "Septic cistern card for septic tank",
+  type: TANK_CARD_NAME,
+  name: "Septic Tank Card",
+  description: "Septic tank card for septic tank",
 });

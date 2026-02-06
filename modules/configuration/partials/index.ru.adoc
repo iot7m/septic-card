@@ -65,7 +65,7 @@
 Пример полной конфигурации карточки с указанием сущностей и пользовательских иконок:
 
 ```yaml
-type: custom:septic-cistern-card
+type: custom:septic-tank-card
 show_title: true
 entities:
   level:

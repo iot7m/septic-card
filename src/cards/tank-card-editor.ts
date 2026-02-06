@@ -4,14 +4,14 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
-import { GSpepticCardEditorConfig } from "@/types/cards";
+import { SpepticCardEditorConfig } from "@/types/cards";
 
-import { CISTERN_CARD_EDITOR_NAME, CISTERN_CARD_NAME } from "@/const";
+import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
-@customElement(CISTERN_CARD_EDITOR_NAME)
-export class CisternCardEditor extends LitElement implements LovelaceCardEditor {
-  private _config: GSpepticCardEditorConfig = {
-    type: `custom:${CISTERN_CARD_EDITOR_NAME}`,
+@customElement(TANK_CARD_EDITOR_NAME)
+export class TankCardEditor extends LitElement implements LovelaceCardEditor {
+  private _config: SpepticCardEditorConfig = {
+    type: `custom:${TANK_CARD_EDITOR_NAME}`,
   };
   private _hass?: HomeAssistant;
 
@@ -69,10 +69,10 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
     },
   ];
 
-  setConfig(config: GSpepticCardEditorConfig) {
+  setConfig(config: SpepticCardEditorConfig) {
     this._config = {
       ...config,
-      type: config.type ?? `custom:${CISTERN_CARD_NAME}`,
+      type: config.type ?? `custom:${TANK_CARD_NAME}`,
     };
   }
 
@@ -103,7 +103,7 @@ export class CisternCardEditor extends LitElement implements LovelaceCardEditor 
   private _formChanged(ev: CustomEvent) {
     this._config = {
       ...this._config,
-      type: `custom:${CISTERN_CARD_NAME}`,
+      type: `custom:${TANK_CARD_NAME}`,
       entities: {
         ...this._config.entities,
         ...ev.detail.value,
