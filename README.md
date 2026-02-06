@@ -230,7 +230,7 @@ The `error_name` entity has special behavior.  It is displayed if `show` is set 
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
 | `label`   | string  | No       | `Error`              | Custom label            |
-| `icon`    | string  | No       | `mdi:alert-decagram-outline`    | Custom icon             |
+| `icon`    | string  | No       | `mdi:alert-decagram-outline` | Custom icon             |
 
 
 ### Complete configuration example
