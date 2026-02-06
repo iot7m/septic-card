@@ -31,6 +31,8 @@ export class TankCard extends LitElement implements LovelaceCard {
       ...SEPTIC_CARD_DEFAULT_CONFIG,
       ...config,
     };
+    console.log(config);
+    console.log(extendedConfig);
     assertAllEntities(extendedConfig);
     this._config = extendedConfig;
     this.requestUpdate();
@@ -76,9 +78,12 @@ export class TankCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card>
-        ${this._config.header?.show
-          ? html`<h1 class="card-header">
-              ${localize(this._config.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.header?.label, this.hass.language)}
+        ${this._config?.tank?.header?.show
+          ? html`<h1 class="card-tank.header">
+              ${localize(
+                this._config.tank.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.tank?.header?.label,
+                this.hass.language,
+              )}
             </h1>`
           : null}
         <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
@@ -101,7 +106,7 @@ export class TankCard extends LitElement implements LovelaceCard {
         style="--level: ${level}; --critical: ${criticalLevel}; --is-critical: ${isCritical ? 1 : 0}"
         @click=${() => this._openMoreInfo(levelEntityId)}
       >
-        <div class="scale">
+        <div class="scale scale-${this._config.tank?.scale?.position ?? ""}">
           ${marks.map(
             (mark) => html`
               <div
@@ -114,7 +119,7 @@ export class TankCard extends LitElement implements LovelaceCard {
           )}
           <div class="mark-critical"></div>
         </div>
-        <div class="center-label">${Math.round(level)}%</div>
+        ${this._config.tank?.level?.show ? html`<div class="center-label">${Math.round(level)}%</div>` : ""}
         <div class="water ${isCritical ? "water-critical" : ""}"></div>
       </div>
     `;
@@ -226,19 +231,26 @@ export class TankCard extends LitElement implements LovelaceCard {
       z-index: 3;
       box-sizing: border-box;
       position: absolute;
-      inset: 0px 60% 0px 22%;
       pointer-events: none;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
+    .scale-left {
+      inset: 0px 60% 0px 22%;
+    }
+
+    .scale-middle {
+      inset: 0px 40% 0px 41%;
+    }
+
     .mark-critical {
       position: absolute;
-      width: 320px;
+      width: 420px;
       height: 2px;
       z-index: 2;
-      left: -130%;
+      left: -140px;
       bottom: calc(var(--critical) * 1% - 1px);
       display: flex;
       align-items: center;

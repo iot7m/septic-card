@@ -9,15 +9,28 @@ interface SepticHeaderConfig {
   show: boolean;
 }
 
+interface SepticLevelConfig {
+  show: boolean;
+}
+interface SepticScaleConfig {
+  position: "left" | "middle";
+}
+
 interface SepticItemConfig {
   label?: string;
   icon?: string;
   show: boolean;
 }
 
+interface TankStyleConfig {
+  header?: SepticHeaderConfig;
+  level?: SepticLevelConfig;
+  scale?: SepticScaleConfig;
+}
+
 export interface SepticCardConfig extends LovelaceCardConfig {
   entities: SepticEntitiesConfig;
-  header?: SepticHeaderConfig;
+  tank?: TankStyleConfig;
   pressure?: SepticItemConfig;
   x_level?: SepticItemConfig;
   level?: SepticItemConfig;
