@@ -143,7 +143,6 @@ The header section controls the card title displayed at the top of the card.  By
 
 | Parameter | Type    | Required | Default | Description              |
 |-----------|---------|----------|---------|--------------------------|
-| `label`   | string  | No       | —       | Header text              |
 | `show`    | boolean | No       | `false` | Show or hide card header |
 | `label`   | string  | No       | `Septic`| Header text              |
 
@@ -173,8 +172,8 @@ Controls how the pressure  (`pressure`) entity is displayed on the card.  By def
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | `Pressure` | Custom label            |
-| `icon`    | string  | No       | `mdi:gauge`    | Custom icon             |
+| `label`   | string  | No       | `Pressure`           | Custom label            |
+| `icon`    | string  | No       | `mdi:gauge`          | Custom icon             |
 
 
 ### Critical level display options
@@ -184,7 +183,7 @@ Controls how the critical level threshold (`x_level`) entity is displayed on the
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | `Critical level` | Custom label            |
+| `label`   | string  | No       | `Critical level`     | Custom label            |
 | `icon`    | string  | No       | `mdi:water-minus`    | Custom icon             |
 
 
@@ -195,8 +194,8 @@ Controls how the current fill level (`level`) entity is displayed on the card. B
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | `Liquid level` | Custom label            |
-| `icon`    | string  | No       | `mdi:water-percent`    | Custom icon             |
+| `label`   | string  | No       | `Liquid level`       | Custom label            |
+| `icon`    | string  | No       | `mdi:water-percent`  | Custom icon             |
 
 
 ### Temperature display options
@@ -206,7 +205,7 @@ Controls how the temperature (`temp`) entity is displayed on the card. By defaul
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | `Temperature` | Custom label            |
+| `label`   | string  | No       | `Temperature`        | Custom label            |
 | `icon`    | string  | No       | `mdi:thermometer`    | Custom icon             |
 
 ### Critical level exceeded indicator display options
@@ -232,7 +231,7 @@ The `error_name` entity has special behavior.  It is displayed only when an erro
 | Parameter | Type    | Required | Default              | Description             |
 |-----------|---------|----------|----------------------|-------------------------|
 | `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | `Error` | Custom label            |
+| `label`   | string  | No       | `Error`              | Custom label            |
 | `icon`    | string  | No       | `mdi:alert-decagram-outline`    | Custom icon             |
 
 
