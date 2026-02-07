@@ -288,7 +288,7 @@ level:
 temp:
   show: true
   label: Temperature
-  icon: mdi:temperature
+  icon: mdi:thermometer
 pressure:
   show: true
   label: Pressure

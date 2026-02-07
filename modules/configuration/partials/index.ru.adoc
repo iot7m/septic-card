@@ -3,87 +3,263 @@
 :keywords: Septic, Home Assistant, конфигурация, сущности, параметры, Lovelace, YAML, кастомная карточка
 :navtitle: Конфигурация
 
-Раздел описывает доступные параметры конфигурации *Septic Card*.
+Раздел описывает доступные параметры конфигурации *Septic Tank Card*.
 
-Карточка настраивается через YAML-конфигурацию и использует набор сущностей Home Assistant для отображения параметров системы мониторинга септика. В будущих версиях список параметров может быть расширен.
+Карточка настраивается через YAML и использует сущности Home Assistant для отображения параметров септика. В будущих версиях список параметров может быть расширен.
 
-== Сущности
+== Entities
 
-Каждая сущность соответствует определённому параметру системы и может иметь собственную иконку.
+Секция `entities` обязательна. Каждая сущность указывается как `entity_id` (строка).
 
-[cols="1,2,1,3",options="header"]
+[cols="1,2,1,1,3",options="header"]
 |===
-| Ключ | Пример entity | Иконка | Описание
+| Key | Example entity_id | Type | Required | Description
 
 | `level`
-| `sensor.uroven_zhidkosti_septika`
-| `mdi:water-percent`
-| Текущий уровень заполнения септика
+| `sensor.septic_tank_liquid_level`
+| entity
+| Yes
+| Current septic tank fill level
 
 | `temp`
-| `sensor.temperatura_septika`
-| `mdi:thermometer`
-| Температура в системе септика
+| `sensor.septic_tank_temperature`
+| entity
+| Yes
+| Septic tank temperature
 
 | `pressure`
-| `sensor.davlenie_septika`
-| `mdi:gauge`
-| Внутреннее давление
+| `sensor.septic_tank_pressure`
+| entity
+| Yes
+| Internal pressure
 
 | `x_level`
-| `sensor.kriticheskii_uroven_septika`
-| `mdi:water-alert`
-| Порог критического уровня
+| `sensor.septic_tank_critical_level`
+| entity
+| Yes
+| Critical level threshold
 
 | `exceeds_x_level`
-| `sensor.prevyshen_kriticheskii_uroven_septika`
-| `mdi:alert-octagon-outline`
-| Признак превышения критического уровня
+| `binary_sensor.septic_tank_exceeds_critical_level`
+| entity
+| Yes
+| Indicates that the critical level has been exceeded
+
+| `sdt`
+| `sensor.septic_tank_sdt`
+| entity
+| Yes
+| Signal level (SDT)
 
 | `error_name`
-| `sensor.oshibka_septika`
-| `mdi:alert-circle-outline`
-| Состояние ошибки или описание ошибки
+| `sensor.septic_tank_error`
+| entity
+| Yes
+| Error state or error description
 |===
 
-== Параметры отображения
+== Display options
 
 Параметры отображения позволяют управлять внешним видом карточки.
 
+=== Tank options
+
 [cols="1,1,1,3",options="header"]
 |===
-| Параметр | Тип | По умолчанию | Описание
+| Parameter | Type | Default | Description
 
-| `show_title`
+| `tank.header.show`
 | boolean
-| `true`
-| Показывать или скрывать заголовок карточки
+| `false`
+| Show or hide card header
+
+| `tank.header.label`
+| string
+| `Septic`
+| Header text (default localization)
+
+| `tank.level.show`
+| boolean
+| `false`
+| Show or hide large level label inside the tank
+
+| `tank.scale.position`
+| `left` \| `middle`
+| `middle`
+| Scale position on tank
 |===
 
-== Пример конфигурации
+=== Entity row options
 
-Пример полной конфигурации карточки с указанием сущностей и пользовательских иконок:
+Для каждого параметра (`level`, `temp`, `pressure`, `x_level`, `exceeds_x_level`, `sdt`, `error_name`) доступны одинаковые параметры отображения.
 
-```yaml
+[cols="1,1,1,3",options="header"]
+|===
+| Parameter | Type | Default | Description
+
+| `level.show`
+| boolean
+| `false`
+| Show or hide the entity row
+
+| `level.label`
+| string
+| `Liquid level`
+| Custom label
+
+| `level.icon`
+| string
+| `mdi:water-percent`
+| Custom icon
+
+| `temp.show`
+| boolean
+| `true`
+| Show or hide the entity row
+
+| `temp.label`
+| string
+| `Temperature`
+| Custom label
+
+| `temp.icon`
+| string
+| `mdi:thermometer`
+| Custom icon
+
+| `pressure.show`
+| boolean
+| `true`
+| Show or hide the entity row
+
+| `pressure.label`
+| string
+| `Pressure`
+| Custom label
+
+| `pressure.icon`
+| string
+| `mdi:gauge`
+| Custom icon
+
+| `x_level.show`
+| boolean
+| `false`
+| Show or hide the entity row
+
+| `x_level.label`
+| string
+| `Critical level`
+| Custom label
+
+| `x_level.icon`
+| string
+| `mdi:water-minus`
+| Custom icon
+
+| `exceeds_x_level.show`
+| boolean
+| `false`
+| Show or hide the entity row
+
+| `exceeds_x_level.label`
+| string
+| `Exceeding the liquid level`
+| Custom label
+
+| `exceeds_x_level.icon`
+| string
+| `mdi:water-alert`
+| Custom icon
+
+| `sdt.show`
+| boolean
+| `false`
+| Show or hide the entity row
+
+| `sdt.label`
+| string
+| `SDT`
+| Custom label
+
+| `sdt.icon`
+| string
+| `mdi:signal`
+| Custom icon
+
+| `error_name.show`
+| boolean
+| `false`
+| Show or hide the entity row
+
+| `error_name.label`
+| string
+| `Error`
+| Custom label
+
+| `error_name.icon`
+| string
+| `mdi:alert-decagram-outline`
+| Custom icon
+|===
+
+Важно: `error_name` имеет особое поведение. Даже при `error_name.show: false` строка ошибки может отображаться автоматически, если состояние не `ok`, `unknown` или `unavailable`.
+
+== Example configuration
+
+[source,yaml]
+----
 type: custom:septic-tank-card
-show_title: true
 entities:
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
+  exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
+
+tank:
+  header:
+    show: true
+    label: My septic tank
   level:
-    entity: sensor.uroven_zhidkosti_septika
-    icon: mdi:water-percent
-  temp:
-    entity: sensor.temperatura_septika
-    icon: mdi:thermometer
-  pressure:
-    entity: sensor.davlenie_septika
-    icon: mdi:gauge
-  x_level:
-    entity: sensor.kriticheskii_uroven_septika
-    icon: mdi:water-alert
-  exceeds_x_level:
-    entity: sensor.prevyshen_kriticheskii_uroven_septika
-    icon: mdi:alert-octagon-outline
-  error_name:
-    entity: sensor.oshibka_septika
-    icon: mdi:alert-circle-outline
-```
+    show: true
+  scale:
+    position: left
+
+level:
+  show: true
+  icon: mdi:water-percent
+  label: Liquid level
+
+temp:
+  show: true
+  icon: mdi:thermometer
+  label: Temperature
+
+pressure:
+  show: true
+  icon: mdi:gauge
+  label: Pressure
+
+x_level:
+  show: true
+  icon: mdi:water-minus
+  label: Critical level
+
+exceeds_x_level:
+  show: true
+  icon: mdi:water-alert
+  label: Exceeding the liquid level
+
+sdt:
+  show: true
+  icon: mdi:signal
+  label: SDT
+
+error_name:
+  show: true
+  icon: mdi:alert-decagram-outline
+  label: Error
+----
