@@ -1,6 +1,6 @@
 views:
   - path: default_view
-    title: Screenshot
+    title: G-Septik
     badges:
       - type: entity
         entity: weather.demo_weather_north
