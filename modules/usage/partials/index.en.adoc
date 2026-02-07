@@ -25,7 +25,8 @@ Adding a card via the visual editor is suitable for most users and does not requ
 
 Example configuration:
 
-```yaml
+[source,yaml]
+----
 type: custom:septic-tank-card
 entities:
   level: sensor.septic_tank_liquid_level
@@ -35,7 +36,7 @@ entities:
   exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
   sdt: sensor.septic_tank_sdt
   error_name: sensor.septic_tank_error
-```
+----
 
 == Using YAML (Raw configuration)
 
@@ -43,7 +44,8 @@ If Home Assistant dashboards are configured in YAML mode, the card configuration
 
 Example dashboard configuration:
 
-```yaml
+[source,yaml]
+----
 views:
   - title: Home
     cards:
@@ -56,6 +58,6 @@ views:
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
           sdt: sensor.septic_tank_sdt
           error_name: sensor.septic_tank_error
-```
+----
 
 After saving the configuration, the card appears on the dashboard automatically.
