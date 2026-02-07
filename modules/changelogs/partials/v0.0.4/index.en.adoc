@@ -3,12 +3,19 @@
 :keywords: Septic, Home Assistant, changelog, change history, versions, updates, custom card
 :navtitle: Version v0.0.4
 
-Version v0.0.3 focuses on preparing the card for proper distribution via HACS. This release resolves compatibility issues with HACS requirements, introduces default configuration values, and includes an internal refactor of the configuration handling logic.
+Version v0.0.4 is focused on generalizing the card and preparing it for use with any septic tanks and similar monitoring systems. As part of this release, the card configuration was reworked, the documentation was updated, the visual appearance was improved, and changes required for scaling the solution to multiple objects were implemented.
 
 Changelog:
 
-- prepared the repository for publication in HACS
-- updated the hacs.json file to comply with HACS requirements
-- fixed repository structure validation issues during installation via HACS
-- added default configuration values for cards
-- performed an internal refactor of the configuration handling logic
+- generalized the card logic to support any septic tanks
+- updated and unified the configuration structure and default values
+- updated card styles to improve visual appearance
+- changed the icon for the `x_level` parameter
+- removed the deprecated `getEntityId` function
+- removed debug logging
+- added support for the `@/` import alias
+- implemented localization support
+- added tests for the localization function
+- updated card images and screenshots
+- added a test septic dashboard to validate the generalized card
+- updated the README to reflect the unified configuration model

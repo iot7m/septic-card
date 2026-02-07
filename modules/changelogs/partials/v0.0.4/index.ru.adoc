@@ -3,19 +3,19 @@
 :keywords: Septic, Home Assistant, история изменений, changelog, версии, обновления, кастомная карточка
 :navtitle: Версия v0.0.4
 
-Version v0.0.4 is focused on generalizing the card and preparing it for use with any septic tanks and similar monitoring systems. As part of this release, the card configuration was reworked, the documentation was updated, the visual appearance was improved, and changes required for scaling the solution to multiple objects were implemented.
+Версия v0.0.4 посвящена генерализации карточки и подготовке её к использованию с любыми септиками и аналогичными системами. В рамках данного релиза была переработана конфигурация карточки, обновлена документация, улучшен внешний вид, а также внесены изменения, необходимые для масштабирования решения на несколько объектов.
 
 Changelog:
 
-- generalized the card logic to support any septic tanks
-- updated and unified the configuration structure and default values
-- updated card styles to improve visual appearance
-- changed the icon for the `x_level` parameter
-- removed the deprecated `getEntityId` function
-- removed debug logging
-- added support for the `@/` import alias
-- implemented localization support
-- added tests for the localization function
-- updated card images and screenshots
-- added a test septic dashboard to validate the generalized card
-- updated the README to reflect the unified configuration model
+- выполнена генерализация логики карточки для работы с любыми септиками
+- обновлена и унифицирована структура конфигурации и значения по умолчанию
+- обновлены стили карточки для улучшения визуального восприятия
+- изменена иконка параметра `x_level`
+- удалена устаревшая функция `getEntityId`
+- удалён отладочный лог
+- добавлена поддержка алиаса импорта `@/`
+- внедрена поддержка локализации
+- добавлены тесты для функции локализации
+- обновлены изображения и скриншоты карточки
+- добавлен тестовый dashboard септика для проверки обобщённой карточки
+- обновлён README с учётом унифицированной модели конфигурации

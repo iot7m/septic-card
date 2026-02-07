@@ -218,7 +218,6 @@ entities:
   exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
   sdt: sensor.septic_tank_sdt
   error_name: sensor.septic_tank_error
-
 tank:
   header:
     show: true
@@ -227,37 +226,30 @@ tank:
     show: true
   scale:
     position: left
-
 level:
   show: true
   icon: mdi:water-percent
   label: Liquid level
-
 temp:
   show: true
   icon: mdi:thermometer
   label: Temperature
-
 pressure:
   show: true
   icon: mdi:gauge
   label: Pressure
-
 x_level:
   show: true
   icon: mdi:water-minus
   label: Critical level
-
 exceeds_x_level:
   show: true
   icon: mdi:water-alert
   label: Exceeding the liquid level
-
 sdt:
   show: true
   icon: mdi:signal
   label: SDT
-
 error_name:
   show: true
   icon: mdi:alert-decagram-outline
