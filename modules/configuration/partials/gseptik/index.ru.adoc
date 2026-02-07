@@ -1,7 +1,78 @@
-= История изменений
-:description: История изменений Septic Card — новые возможности, улучшения и исправления для Home Assistant.
-:keywords: Septic, Home Assistant, история изменений, changelog, версии, обновления, кастомная карточка
-:navtitle: История изменений
+= Пример конфигурации G-Septik
+:description: Пример настройки Septic Tank Card для системы G-Septik на базе Home Assistant.
+:keywords: G-Septik, Septic Card, Home Assistant, конфигурация, пример, YAML, септик
+:navtitle: Пример конфигурации G-Septik
 
-В данном разделе приведена история изменений *Septic Card*. Здесь публикуется информация о новых возможностях, изменениях в поведении карточек, улучшениях интерфейса и исправлениях ошибок. Каждая версия описывается на отдельной странице и соответствует опубликованному релизу проекта.
 
+== Настройка получения данных
+
+Система *G-Septik* предоставляет API для получения актуальных данных мониторинга септика. Ниже приведён пример настройки REST-сенсоров Home Assistant для получения данных из G-Septik. Замените `<API_TOKEN>` на ваш персональный токен доступа.
+
+[source,yaml]
+----
+rest:
+  - resource: https://data.gseptik.ru/Api/public/v2/home-assistant/readings/<API_TOKEN>
+    method: GET
+    scan_interval: 300
+    timeout: 30
+    sensor:
+      - name: Уровень жидкости септика
+        unique_id: sensor_gseptik_liquid_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].liquid_level }}"
+        unit_of_measurement: "%"
+
+      - name: Температура септика
+        unique_id: sensor_gseptik_temperature
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].temp }}"
+        unit_of_measurement: "°C"
+
+      - name: Давление септика
+        unique_id: sensor_gseptik_pressure
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].pressure }}"
+        unit_of_measurement: "мбар"
+
+      - name: Критический уровень септика
+        unique_id: sensor_gseptik_x_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].x_level }}"
+        unit_of_measurement: "%"
+
+      - name: Превышен критический уровень септика
+        unique_id: sensor_gseptik_exceeds_x_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].exceeds_x_level }}"
+
+      - name: Уровень сигнала септика
+        unique_id: sensor_gseptik_sdt
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].sdt }}"
+        unit_of_measurement: "%"
+        icon: mdi:signal
+
+      - name: Ошибка септика
+        unique_id: sensor_gseptik_error_name
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].error_name }}"
+----
+
+== Настройка карточки Septic Tank Card
+
+После создания сенсоров их можно использовать в *Septic Tank Card*. Ниже приведён пример конфигурации карточки для отображения данных G-Septik.
+
+[source,yaml]
+----
+type: custom:septic-tank-card
+entities:
+  level: sensor_gseptik_liquid_level
+  temp: sensor_gseptik_temperature
+  pressure: sensor_gseptik_pressure
+  x_level: sensor_gseptik_x_level
+  exceeds_x_level: sensor_gseptik_exceeds_x_level
+  sdt: sensor_gseptik_sdt
+  error_name: sensor_gseptik_error_name
+----
+
+Карточка полностью универсальна и может использоваться как для G-Septik, так и для любых других систем мониторинга септика при соблюдении структуры сущностей.
