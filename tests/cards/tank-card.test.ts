@@ -76,7 +76,7 @@ describe("tank-card", () => {
     expect(el.shadowRoot!.textContent).toContain("Pressure");
   });
 
-  it("renders without crashing when default partitial config", async () => {
+  it("renders without crashing when default partial config", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
       type: `custom:${TANK_CARD_NAME}`,
