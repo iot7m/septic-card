@@ -28,12 +28,13 @@ Example configuration:
 ```yaml
 type: custom:septic-tank-card
 entities:
-  level: uroven_zhidkosti_septika
-  temp: temperatura_septika
-  pressure: davlenie_septika
-  x_level: kriticheskii_uroven_septika
-  exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-  error_name: oshibka_septika
+  level: sensor.septic_tank_liquid_level
+  temp: sensor.septic_tank_temperature
+  pressure: sensor.septic_tank_pressure
+  x_level: sensor.septic_tank_critical_level
+  exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+  sdt: sensor.septic_tank_sdt
+  error_name: sensor.septic_tank_error
 ```
 
 == Using YAML (Raw configuration)
@@ -48,12 +49,13 @@ views:
     cards:
       - type: custom:septic-tank-card
         entities:
-          level: uroven_zhidkosti_septika
-          temp: temperatura_septika
-          pressure: davlenie_septika
-          x_level: kriticheskii_uroven_septika
-          exceeds_x_level: prevyshen_kriticheskii_uroven_septika
-          error_name: oshibka_septika
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
 ```
 
 After saving the configuration, the card appears on the dashboard automatically.
