@@ -4,6 +4,12 @@ export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "excee
 
 export type SepticEntitiesConfig = Record<SepticEntityKey, string>;
 
+interface SepticItemConfig {
+  label?: string;
+  icon?: string;
+  show: boolean;
+}
+
 interface SepticHeaderConfig {
   label: string;
   show: boolean;
@@ -12,17 +18,12 @@ interface SepticHeaderConfig {
 interface SepticLevelConfig {
   show: boolean;
 }
+
 interface SepticScaleConfig {
   position: "left" | "middle";
 }
 
-interface SepticItemConfig {
-  label?: string;
-  icon?: string;
-  show: boolean;
-}
-
-interface TankStyleConfig {
+interface SepticTankConfig {
   header?: SepticHeaderConfig;
   level?: SepticLevelConfig;
   scale?: SepticScaleConfig;
@@ -30,7 +31,7 @@ interface TankStyleConfig {
 
 export interface SepticCardConfig extends LovelaceCardConfig {
   entities: SepticEntitiesConfig;
-  tank?: TankStyleConfig;
+  tank?: SepticTankConfig;
   pressure?: SepticItemConfig;
   x_level?: SepticItemConfig;
   level?: SepticItemConfig;
