@@ -23,37 +23,31 @@ rest:
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].liquid_level }}"
         unit_of_measurement: "%"
-
       - name: Septic temperature
         unique_id: sensor_gseptik_temperature
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].temp }}"
         unit_of_measurement: "°C"
-
       - name: Septic pressure
         unique_id: sensor_gseptik_pressure
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].pressure }}"
         unit_of_measurement: "mbar"
-
       - name: Septic critical level
         unique_id: sensor_gseptik_x_level
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].x_level }}"
         unit_of_measurement: "%"
-
       - name: Septic critical level exceeded
         unique_id: sensor_gseptik_exceeds_x_level
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].exceeds_x_level }}"
-
       - name: Septic signal level
         unique_id: sensor_gseptik_sdt
         json_attributes_path: "$[0]"
         value_template: "{{ value_json[0].sdt }}"
         unit_of_measurement: "%"
         icon: mdi:signal
-
       - name: Septic error
         unique_id: sensor_gseptik_error_name
         json_attributes_path: "$[0]"
