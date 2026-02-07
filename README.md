@@ -28,6 +28,7 @@ Septic provides visual components to display:
   - [Level display options](#level-display-options)
   - [Temperature display options](#temperature-display-options)
   - [Critical level exceeded indicator display options](#critical-level-exceeded-indicator-display-options)
+  - [SDT display options](#sdt-display-options)
   - [Error display options](#error-display-options)
   - [Complete configuration example](#complete-configuration-example)
   - [Multiple cards configuration](#multiple-cards-configuration)
@@ -127,7 +128,7 @@ This section describes all available configuration options for Septic cards. New
 
 ### Entities configuration
 
-Each entity represents a specific septic tank parameter and may define a custom icon.
+Each entity represents a specific septic tank parameter.
 
 | Parameter         | Type   | Required | Default | Description                                         |
 |-------------------|--------|----------|---------|-----------------------------------------------------|
@@ -136,7 +137,7 @@ Each entity represents a specific septic tank parameter and may define a custom 
 | `pressure`        | entity | Yes      | —       | Internal pressure                                   |
 | `x_level`         | entity | Yes      | —       | Critical level threshold                            |
 | `exceeds_x_level` | entity | Yes      | —       | Indicates that the critical level has been exceeded |
-| `sdt`             | entity | No       | —       | Signal level (SDT)                                  |
+| `sdt`             | entity | Yes      | —       | Signal level (SDT)                                  |
 | `error_name`      | entity | Yes      | —       | Error state or error description                    |
 
 ### Tank display options
@@ -147,7 +148,7 @@ The `tank` section controls the visual representation of the tank itself. All su
 tank:
   header:
     show: true
-    label: "Septic Tank"
+    label: Septic Tank
   level:
     show: true
   scale:
@@ -161,7 +162,7 @@ The header section controls the card title displayed at the top of the card.  By
 | Parameter | Type    | Required | Default | Description              |
 |-----------|---------|----------|---------|--------------------------|
 | `show`    | boolean | No       | `false` | Show or hide card header |
-| `label`   | string  | No       | —       | Header text              |
+| `label`   | string  | No       | Septic  | Header text              |
 
 
 #### Level display options
@@ -181,77 +182,86 @@ Controls the position of the tank scale.  By default, the scale position is midd
 | `position` | `left` \| `middle` | No       | `middle` | Scale position on tank |
 
 
-
 ### Pressure display options
 
-Controls how the pressure  (`pressure`) entity is displayed on the card.  By default, the pressure entity is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the pressure  (`pressure`) entity is displayed on the card. By default, the pressure entity is shown using the card’s predefined icon and the default label.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default     | Description             |
+|-----------|---------|----------|-------------|-------------------------|
+| `show`    | boolean | No       | `true`      | Show or hide the entity |
+| `label`   | string  | No       | Pressure    | Custom label            |
+| `icon`    | string  | No       | `mdi:gauge` | Custom icon             |
 
 
 ### Critical level display options
 
-Controls how the critical level threshold (`x_level`) entity is displayed on the card.  By default, the critical level entity is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the critical level threshold (`x_level`) entity is displayed on the card.  By default, the critical level entity is shown using the card’s predefined icon and the default label.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default           | Description             |
+|-----------|---------|----------|-------------------|-------------------------|
+| `show`    | boolean | No       | `false`           | Show or hide the entity |
+| `label`   | string  | No       | Critical level    | Custom label            |
+| `icon`    | string  | No       | `mdi:water-minus` | Custom icon             |
 
 
 ### Level display options
 
-Controls how the current fill level (`level`) entity is displayed on the card. By default, the level entity is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the current fill level (`level`) entity is displayed on the card. By default, the level entity is shown using the card’s predefined icon and the default label.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default             | Description             |
+|-----------|---------|----------|---------------------|-------------------------|
+| `show`    | boolean | No       | `false`             | Show or hide the entity |
+| `label`   | string  | No       | Liquid level        | Custom label            |
+| `icon`    | string  | No       | `mdi:water-percent` | Custom icon             |
 
 
 ### Temperature display options
 
-Controls how the temperature (`temp`) entity is displayed on the card. By default, the temperature entity is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the temperature (`temp`) entity is displayed on the card. By default, the temperature entity is shown using the card’s predefined icon and the default label.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default           | Description             |
+|-----------|---------|----------|-------------------|-------------------------|
+| `show`    | boolean | No       | `true`            | Show or hide the entity |
+| `label`   | string  | No       | Temperature       | Custom label            |
+| `icon`    | string  | No       | `mdi:thermometer` | Custom icon             |
 
 ### Critical level exceeded indicator display options
 
-Controls how the critical level exceeded indicator (`exceeds_x_level`) is displayed on the card. By default, the indicator is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the critical level exceeded indicator (`exceeds_x_level`) is displayed on the card. By default, the indicator is shown using the card’s predefined icon and the default label.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default                    | Description             |
+|-----------|---------|----------|----------------------------|-------------------------|
+| `show`    | boolean | No       | `false`                    | Show or hide the entity |
+| `label`   | string  | No       | Exceeding the liquid level | Custom label            |
+| `icon`    | string  | No       | `mdi:water-alert`          | Custom icon             |
+
+
+### SDT display options
+
+Controls how the SDT (`sdt`) entity is displayed on the card. By default, the SDT entity is hidden.
+
+| Parameter | Type    | Required | Default      | Description             |
+|-----------|---------|----------|--------------|-------------------------|
+| `show`    | boolean | No       | `false`      | Show or hide the entity |
+| `label`   | string  | No       | SDT          | Custom label            |
+| `icon`    | string  | No       | `mdi:signal` | Custom icon             |
 
 ### Error display options
 
-Controls how the error entity (`error_name`) is displayed on the card.  By default, the error entity is shown using the card’s predefined icon and the entity’s friendly name.
+Controls how the error entity (`error_name`) is displayed on the card.  By default, the error entity is shown using the card’s predefined icon and the default label.
 
 The `error_name` entity has special behavior.  It is displayed if `show` is set to `true` and when an error occurs, even if `show` is set to `false`. The entity is hidden when its state is `ok`, `unknown`, or `unavailable`.
 
-| Parameter | Type    | Required | Default              | Description             |
-|-----------|---------|----------|----------------------|-------------------------|
-| `show`    | boolean | No       | `true`               | Show or hide the entity |
-| `label`   | string  | No       | entity friendly name | Custom label            |
-| `icon`    | string  | No       | card default icon    | Custom icon             |
+| Parameter | Type    | Required | Default                      | Description             |
+|-----------|---------|----------|------------------------------|-------------------------|
+| `show`    | boolean | No       | `false`                      | Show or hide the entity |
+| `label`   | string  | No       | Error                        | Custom label            |
+| `icon`    | string  | No       | `mdi:alert-decagram-outline` | Custom icon             |
 
 
 ### Complete configuration example
 
 This example demonstrates a complete configuration of the Septic tank card, including all supported entities and display options.
-
 
 ```yaml
 type: custom:septic-tank-card
@@ -274,27 +284,31 @@ tank:
 level:
   show: true
   icon: mdi:water-percent
-  label: Water level
+  label: Liquid level
 temp:
   show: true
-  label: Water temperature
-  icon: mdi:coolant-temperature
+  label: Temperature
+  icon: mdi:temperature
 pressure:
   show: true
-  label: Water pressure
+  label: Pressure
   icon: mdi:gauge
 x_level:
   show: true
-  label: Critical water level
-  icon: mdi:water-alert
+  label: Critical level
+  icon: mdi:water-minus
 exceeds_x_level:
   show: true
-  label: Exceeding the water level
-  icon: mdi:alert-octagon-outline
+  label: Exceeding the liquid level
+  icon: mdi:water-alert
+sdt:
+  show: true
+  label: SDT
+  icon: mdi:signal
 error_name:
   show: true
   label: Error
-  icon: mdi:alert-circle-outline
+  icon: mdi:alert-decagram-outline
 ```
 
 ### Multiple cards configuration
@@ -328,7 +342,7 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
   tank:
     header:
       show: true
-      label: My septic tank2
+      label: My septic tank 2
 ```
 
 
