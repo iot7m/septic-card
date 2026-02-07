@@ -1,6 +1,6 @@
 import type { LovelaceCardConfig } from "custom-card-helpers";
 
-export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name";
+export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "sdt" | "error_name";
 
 export type SepticEntitiesConfig = Record<SepticEntityKey, string>;
 
