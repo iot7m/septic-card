@@ -76,6 +76,24 @@ describe("tank-card", () => {
     expect(el.shadowRoot!.textContent).toContain("Pressure");
   });
 
+  it("renders without crashing when default partitial config", async () => {
+    const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
+    el.setConfig({
+      type: `custom:${TANK_CARD_NAME}`,
+      entities: ENTITIES,
+      temp: { label: "Temperature" },
+      pressure: { label: "Pressure" },
+    });
+    el.hass = createHass();
+
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    expect(el.shadowRoot).toBeTruthy();
+    expect(el.shadowRoot!.textContent).toContain("Temperature");
+    expect(el.shadowRoot!.textContent).toContain("Pressure");
+  });
+
   it("renders without crashing when error_name config are provided", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
