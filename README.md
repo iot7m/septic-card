@@ -136,7 +136,7 @@ Each entity represents a specific septic tank parameter and may define a custom 
 | `pressure`        | entity | Yes      | —       | Internal pressure                                   |
 | `x_level`         | entity | Yes      | —       | Critical level threshold                            |
 | `exceeds_x_level` | entity | Yes      | —       | Indicates that the critical level has been exceeded |
-| `sdt`             | entity | No       | —       | Signal level (SDT)                                  |
+| `sdt`             | entity | Yes      | —       | Signal level (SDT)                                  |
 | `error_name`      | entity | Yes      | —       | Error state or error description                    |
 
 ### Tank display options
