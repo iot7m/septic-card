@@ -45,7 +45,9 @@ describe("tank-card", () => {
     el.setConfig({
       type: `custom:${TANK_CARD_NAME}`,
       entities: ENTITIES,
-      header: { show: true, label: "Septic" },
+      tank: {
+        header: { show: true, label: "Septic" },
+      },
     });
     el.hass = createHass();
 

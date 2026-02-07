@@ -22,7 +22,7 @@ Septic provides visual components to display:
   - [Using YAML (Raw configuration)](#using-yaml-raw-configuration)
 - [Configuration](#configuration)
   - [Entities configuration](#entities-configuration)
-  - [Header display options](#header-display-options)
+  - [Tank display options](#tank-display-options)
   - [Pressure display options](#pressure-display-options)
   - [Critical level display options](#critical-level-display-options)
   - [Level display options](#level-display-options)
@@ -139,14 +139,48 @@ Each entity represents a specific septic tank parameter and may define a custom 
 | `sdt`             | entity | No       | —       | Signal level (SDT)                                  |
 | `error_name`      | entity | Yes      | —       | Error state or error description                    |
 
-### Header display options
+### Tank display options
+
+The `tank` section controls the visual representation of the tank itself. All subsections are optional.
+
+```yaml
+tank:
+  header:
+    show: true
+    label: "Septic Tank"
+  level:
+    show: true
+  scale:
+    position: left
+```
+
+#### Header display options
 
 The header section controls the card title displayed at the top of the card.  By default, the header is hidden. You can enable the header and optionally provide a custom label.
 
 | Parameter | Type    | Required | Default | Description              |
 |-----------|---------|----------|---------|--------------------------|
-| `label`   | string  | No       | —       | Header text              |
 | `show`    | boolean | No       | `false` | Show or hide card header |
+| `label`   | string  | No       | —       | Header text              |
+
+
+#### Level display options
+
+Controls visibility of the tank fill level indicator.  By default, the level is hidden.
+
+| Parameter | Type    | Required | Default | Description                  |
+|-----------|---------|----------|---------|------------------------------|
+| `show`    | boolean | No       | `false` | Show or hide level indicator |
+
+#### Scale display options
+
+Controls the position of the tank scale.  By default, the scale position is middle.
+
+| Parameter  | Type               | Required | Default  | Description            |
+|------------|--------------------|----------|----------|------------------------|
+| `position` | `left` \| `middle` | No       | `middle` | Scale position on tank |
+
+
 
 ### Pressure display options
 
@@ -229,9 +263,14 @@ entities:
   exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
   sdt: sensor.septic_tank_sdt
   error_name: sensor.septic_tank_error
-header:
-  show: true
-  label: My Septic
+tank:
+  header:
+    show: true
+    label: My septic tank
+  level:
+    show: true
+  scale:
+    position: left
 level:
   show: true
   icon: mdi:water-percent
@@ -272,9 +311,10 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
     exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
     sdt: sensor.septic_tank_sdt
     error_name: sensor.septic_tank_error
-  header:
-    show: true
-    label: My Septic 1
+  tank:
+    header:
+      show: true
+      label: My septic tank
 
 - type: custom:septic-tank-card
   entities:
@@ -285,9 +325,10 @@ This example demonstrates how to use multiple Septic cards on the same dashboard
     exceeds_x_level: binary_sensor.septic_tank_2_exceeds_critical_level
     sdt: sensor.septic_tank_2_sdt
     error_name: sensor.septic_tank_2_error
-  header:
-    show: true
-    label: My Septic 2
+  tank:
+    header:
+      show: true
+      label: My septic tank2
 ```
 
 

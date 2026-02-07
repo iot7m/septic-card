@@ -19,9 +19,12 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
     exceeds_x_level: "exceeds_x_level",
     error_name: "error_name",
   },
-
   type: `custom:${TANK_CARD_NAME}`,
-  header: { show: false, label: "card.header.label" },
+  tank: {
+    header: { show: false, label: "card.header.label" },
+    level: { show: false },
+    scale: { position: "middle" },
+  },
   level: { show: false, icon: "mdi:water-percent", label: "card.entities.level" },
   temp: { show: true, icon: "mdi:thermometer", label: "card.entities.temp" },
   pressure: { show: true, icon: "mdi:gauge", label: "card.entities.pressure" },

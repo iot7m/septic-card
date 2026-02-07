@@ -9,7 +9,6 @@ views:
       - type: tile
         entity: climate.ecobee
         name: Climate
-
       - type: custom:septic-tile-card
         entities:
           level: sensor.septic_tank_liquid_level
@@ -19,7 +18,6 @@ views:
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
           error_name: sensor.septic_tank_error
           sdt: sensor.septic_tank_sdt
-
       - type: custom:stack-in-card
         cards:
           - type: custom:gauge-card-pro
@@ -96,6 +94,14 @@ views:
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
           error_name: sensor.septic_tank_error
           sdt: sensor.septic_tank_sdt
+        tank:
+          header:
+            show: true
+            label: My Septic Tank
+          level:
+            show: true
+          scale:
+            position: left
 
       - type: custom:stack-in-card
         cards:

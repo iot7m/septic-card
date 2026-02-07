@@ -37,7 +37,6 @@ export class TankDialog extends LitElement {
   }
 
   private _tabChanged(e: CustomEvent) {
-    console.log(e.detail);
     this._tab = e.detail.value;
   }
   private renderTank() {
