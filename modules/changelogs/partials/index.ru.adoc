@@ -7,4 +7,6 @@
 
 Версии:
 
+- xref:v0.0.2/index.adoc[v0.0.4]
+- xref:v0.0.2/index.adoc[v0.0.3]
 - xref:v0.0.2/index.adoc[v0.0.2]

@@ -1,0 +1,81 @@
+= G-Septik Configuration Example
+:description: Example configuration of the Septic Tank Card for the G-Septik system based on Home Assistant.
+:keywords: G-Septik, Septic Card, Home Assistant, configuration, example, YAML, septic tank
+:navtitle: G-Septik configuration example
+
+== Data acquisition setup
+
+The *G-Septik* system provides an API for accessing real-time septic tank monitoring data.
+Below is an example of configuring Home Assistant REST sensors to retrieve data from G-Septik.
+
+Replace `<API_TOKEN>` with your personal access token.
+
+[source,yaml]
+----
+rest:
+  - resource: https://data.gseptik.ru/Api/public/v2/home-assistant/readings/<API_TOKEN>
+    method: GET
+    scan_interval: 300
+    timeout: 30
+    sensor:
+      - name: Septic liquid level
+        unique_id: sensor_gseptik_liquid_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].liquid_level }}"
+        unit_of_measurement: "%"
+
+      - name: Septic temperature
+        unique_id: sensor_gseptik_temperature
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].temp }}"
+        unit_of_measurement: "°C"
+
+      - name: Septic pressure
+        unique_id: sensor_gseptik_pressure
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].pressure }}"
+        unit_of_measurement: "mbar"
+
+      - name: Septic critical level
+        unique_id: sensor_gseptik_x_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].x_level }}"
+        unit_of_measurement: "%"
+
+      - name: Septic critical level exceeded
+        unique_id: sensor_gseptik_exceeds_x_level
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].exceeds_x_level }}"
+
+      - name: Septic signal level
+        unique_id: sensor_gseptik_sdt
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].sdt }}"
+        unit_of_measurement: "%"
+        icon: mdi:signal
+
+      - name: Septic error
+        unique_id: sensor_gseptik_error_name
+        json_attributes_path: "$[0]"
+        value_template: "{{ value_json[0].error_name }}"
+----
+
+== Septic Tank Card configuration
+
+Once the sensors are created, they can be used in the *Septic Tank Card*.
+Below is an example card configuration for visualizing data from G-Septik.
+
+[source,yaml]
+----
+type: custom:septic-tank-card
+entities:
+  level: sensor_gseptik_liquid_level
+  temp: sensor_gseptik_temperature
+  pressure: sensor_gseptik_pressure
+  x_level: sensor_gseptik_x_level
+  exceeds_x_level: sensor_gseptik_exceeds_x_level
+  sdt: sensor_gseptik_sdt
+  error_name: sensor_gseptik_error_name
+----
+
+The card is fully generic and can be used not only with G-Septik, but also with any other septic or similar monitoring systems, as long as the required entity structure is provided.

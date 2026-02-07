@@ -1,0 +1,14 @@
+= Change history
+:description: Change history of Septic Card — new features, improvements, and fixes for Home Assistant.
+:keywords: Septic, Home Assistant, changelog, change history, versions, updates, custom card
+:navtitle: Version v0.0.4
+
+Version v0.0.3 focuses on preparing the card for proper distribution via HACS. This release resolves compatibility issues with HACS requirements, introduces default configuration values, and includes an internal refactor of the configuration handling logic.
+
+Changelog:
+
+- prepared the repository for publication in HACS
+- updated the hacs.json file to comply with HACS requirements
+- fixed repository structure validation issues during installation via HACS
+- added default configuration values for cards
+- performed an internal refactor of the configuration handling logic

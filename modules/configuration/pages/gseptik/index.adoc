@@ -1,0 +1,2 @@
+ifndef::page-locale[:page-locale: en]
+include::partial$gseptik/index.{page-locale}.adoc[]

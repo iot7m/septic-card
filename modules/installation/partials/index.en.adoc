@@ -9,9 +9,9 @@ The card is distributed as a custom frontend component and is connected to the H
 
 == HACS installation
 
-Support for installation via *Home Assistant Community Store (HACS)* is currently under development and not yet available.
+The card can be installed via *Home Assistant Community Store (HACS)* using a custom repository.
 
-Manual installation is recommended.
+This is the recommended installation method, as it allows you to receive updates automatically and ensures correct integration with Home Assistant.
 
 == Manual installation
 
@@ -19,9 +19,10 @@ For manual installation, download the card file and add it to the Home Assistant
 
 First, download the latest `septic-card.js` file from the project releases page and copy it to the Home Assistant directory:
 
-```
+[source]
+----
 /config/www/septic/septic-card.js
-```
+----
 
 After that, add the card as a resource using one of the methods described below.
 
@@ -37,11 +38,12 @@ After that, add the card as a resource using one of the methods described below.
 
 Add the resource to your Lovelace configuration:
 
-```yaml
+[source,yaml]
+----
 resources:
   - url: /local/septic/septic-card.js
     type: module
-```
+----
 
 After adding the resource, refresh the browser page or clear the cache if the card does not appear immediately.
 
