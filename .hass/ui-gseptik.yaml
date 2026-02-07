@@ -20,11 +20,11 @@ views:
           - entity: sensor.uroven_signala_septika
             icon: mdi:signal
           - entity: sensor.kriticheskii_uroven_septika
-            icon: mdi:water-alert
+            icon: mdi:water-minus
           - entity: sensor.prevyshen_kriticheskii_uroven_septika
-            icon: mdi:alert-octagon-outline
+            icon: mdi:water-alert
           - entity: sensor.oshibka_septika
-            icon: mdi:alert-circle-outline
+            icon: mdi:alert-decagram-outline
       - type: custom:septic-tank-card
         entities:
           level: sensor.septic_tank_liquid_level

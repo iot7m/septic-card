@@ -22,6 +22,7 @@
     - name: "Septic tank SDT"
       unique_id: sensor_septic_tank_sdt
       state: "{{ states('input_number.septic_tank_sdt') }}"
+      unit_of_measurement: "%"
 
     - name: "Septic tank error"
       unique_id: sensor_septic_tank_error_name
