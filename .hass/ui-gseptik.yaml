@@ -1,0 +1,65 @@
+views:
+  - path: default_view
+    title: G-Septik
+    badges:
+      - type: entity
+        entity: weather.demo_weather_north
+        color: red
+    cards:
+      - type: entities
+        title: GSeptik
+        state_color: false
+        show_header_toggle: false
+        entities:
+          - entity: sensor.uroven_zhidkosti_septika
+            icon: mdi:water-percent
+          - entity: sensor.temperatura_septika
+            icon: mdi:thermometer
+          - entity: sensor.davlenie_septika
+            icon: mdi:gauge
+          - entity: sensor.uroven_signala_septika
+            icon: mdi:signal
+          - entity: sensor.kriticheskii_uroven_septika
+            icon: mdi:water-minus
+          - entity: sensor.prevyshen_kriticheskii_uroven_septika
+            icon: mdi:water-alert
+          - entity: sensor.oshibka_septika
+            icon: mdi:alert-decagram-outline
+      - type: custom:septic-tank-card
+        entities:
+          level: sensor.septic_tank_liquid_level
+          temp: sensor.septic_tank_temperature
+          pressure: sensor.septic_tank_pressure
+          x_level: sensor.septic_tank_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+          sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
+        tank:
+          header:
+            show: true
+            label: My Septic Tank
+          level:
+            show: true
+          scale:
+            position: left
+      - type: custom:septic-tank-card
+        entities:
+          level: sensor.septic_tank_2_liquid_level
+          temp: sensor.septic_tank_2_temperature
+          pressure: sensor.septic_tank_2_pressure
+          x_level: sensor.septic_tank_2_critical_level
+          exceeds_x_level: binary_sensor.septic_tank_2_exceeds_critical_level
+          sdt: sensor.septic_tank_2_sdt
+          error_name: sensor.septic_tank_2_error
+        level:
+          show: true
+        temp:
+          show: true
+        pressure:
+          show: true
+        x_level:
+          show: true
+        exceeds_x_level:
+          show: true
+        error_name:
+          show: true
