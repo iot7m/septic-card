@@ -77,7 +77,7 @@ export class TankCard extends LitElement implements LovelaceCard {
     return html`
       <ha-card>
         ${this._config?.tank?.header?.show
-          ? html`<h1 class="card-tank.header">
+          ? html`<h1 class="card-header">
               ${localize(
                 this._config.tank.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.tank?.header?.label,
                 this.hass.language,
