@@ -13,6 +13,7 @@ const MOCK_ENTITIES: SepticEntitiesConfig = {
   x_level: "sensor.x_level",
   exceeds_x_level: "sensor.exceeds_x_level",
   error_name: "sensor.error",
+  sdt: "sensor.septic_tank_sdt",
 };
 
 describe("mergeItem", () => {
