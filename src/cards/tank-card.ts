@@ -29,7 +29,6 @@ export class TankCard extends LitElement implements LovelaceCard {
 
   setConfig(config: SepticCardConfig) {
     const extendedConfig = resolveConfig(config, SEPTIC_CARD_DEFAULT_CONFIG);
-    console.log(extendedConfig);
 
     assertAllEntities(extendedConfig);
     this._config = extendedConfig;
