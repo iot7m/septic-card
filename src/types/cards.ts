@@ -11,7 +11,7 @@ export interface SepticItemConfig {
 }
 
 interface SepticHeaderConfig {
-  label: string;
+  label?: string;
   show?: boolean;
 }
 

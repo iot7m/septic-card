@@ -7,6 +7,7 @@ import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 import type { ResolvedSepticCardConfig, SepticCardConfig } from "@/types/cards";
 
 import { assertAllEntities } from "@/utils/asserts";
+import { resolveConfig } from "@/utils/default_config";
 import {
   getCriticalLevel,
   getExceedsCritical,
@@ -15,7 +16,6 @@ import {
   getLevelEntityId,
   getStateObj,
   getUnitOfMeasure,
-  resolveConfig,
 } from "@/utils/extractors";
 import { localize } from "@/utils/localize";
 
