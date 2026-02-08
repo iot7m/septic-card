@@ -66,7 +66,7 @@ views:
                 icon: mdi:water-alert
               - entity: sensor.septic_tank_sdt
                 name: SDT
-                icon: mdi:counter
+                icon: mdi:signal
               - entity: sensor.septic_tank_error
                 name: Error
                 icon: mdi:alert-decagram-outline
@@ -141,7 +141,7 @@ views:
                 icon: mdi:water-alert
               - entity: sensor.septic_tank_sdt
                 name: SDT
-                icon: mdi:counter
+                icon: mdi:signal
               - entity: sensor.septic_tank_error
                 name: Error
                 icon: mdi:alert-decagram-outline
@@ -182,7 +182,7 @@ views:
             icon: mdi:water-alert
           - entity: sensor.septic_tank_sdt
             name: SDT
-            icon: mdi:counter
+            icon: mdi:signal
           - entity: sensor.septic_tank_error
             name: Error
             icon: mdi:alert-decagram-outline

@@ -8,4 +8,6 @@ This section contains the change history of *Septic Card*. Here you can find inf
 
 Versions:
 
+- xref:v0.0.4/index.adoc[v0.0.4]
+- xref:v0.0.3/index.adoc[v0.0.3]
 - xref:v0.0.2/index.adoc[v0.0.2]

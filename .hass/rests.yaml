@@ -28,6 +28,12 @@
       unique_id: sensor_gseptik_exceeds_x_level
       json_attributes_path: "$[0]"
       value_template: "{{ value_json[0].exceeds_x_level }}"
+    - name: Уровень сигнала септика
+      unique_id: sensor_gseptik_sdt
+      json_attributes_path: "$[0]"
+      value_template: "{{ value_json[0].sdt }}"
+      unit_of_measurement: "%"
+      icon: mdi:signal
     - name: Ошибка септика
       unique_id: sensor_gseptik_error_name
       json_attributes_path: "$[0]"
