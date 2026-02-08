@@ -61,6 +61,13 @@ export class TankCardEditor extends LitElement implements LovelaceCardEditor {
       },
     },
     {
+      name: "sdt",
+      label: "Флаг превышения уровня",
+      selector: {
+        entity: {},
+      },
+    },
+    {
       name: "error_name",
       label: "Сенсор ошибки",
       selector: {

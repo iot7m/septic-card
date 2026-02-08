@@ -38,6 +38,7 @@ export interface SepticCardConfig extends LovelaceCardConfig {
   temp?: SepticItemConfig;
   exceeds_x_level?: SepticItemConfig;
   error_name?: SepticItemConfig;
+  sdt?: SepticItemConfig;
 }
 
 export interface SpepticCardEditorConfig extends LovelaceCardConfig {

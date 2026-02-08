@@ -9,7 +9,8 @@
       "pressure": "Pressure",
       "x_level": "Critical level",
       "exceeds_x_level": "Exceeding the liquid level",
-      "error_name": "Error"
+      "error_name": "Error",
+      "sdt": "Signal level"
     }
   }
 }

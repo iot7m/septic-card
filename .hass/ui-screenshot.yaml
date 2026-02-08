@@ -53,3 +53,5 @@ views:
           show: true
         error_name:
           show: true
+        sdt:
+          show: true
