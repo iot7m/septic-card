@@ -4,7 +4,7 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
-import type { SepticCardConfig } from "@/types/cards";
+import type { ResolvedSepticCardConfig, SepticCardConfig } from "@/types/cards";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
@@ -15,6 +15,7 @@ import {
   getLevelEntityId,
   getStateObj,
   getUnitOfMeasure,
+  resolveConfig,
 } from "@/utils/extractors";
 import { localize } from "@/utils/localize";
 
@@ -23,14 +24,13 @@ import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
 @customElement(TANK_CARD_NAME)
 export class TankCard extends LitElement implements LovelaceCard {
-  private _config?: SepticCardConfig;
+  private _config?: ResolvedSepticCardConfig;
   private _hass?: HomeAssistant;
 
   setConfig(config: SepticCardConfig) {
-    const extendedConfig = {
-      ...SEPTIC_CARD_DEFAULT_CONFIG,
-      ...config,
-    };
+    const extendedConfig = resolveConfig(config, SEPTIC_CARD_DEFAULT_CONFIG);
+    console.log(extendedConfig);
+
     assertAllEntities(extendedConfig);
     this._config = extendedConfig;
     this.requestUpdate();
@@ -77,12 +77,7 @@ export class TankCard extends LitElement implements LovelaceCard {
     return html`
       <ha-card>
         ${this._config?.tank?.header?.show
-          ? html`<h1 class="card-header">
-              ${localize(
-                this._config.tank.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.tank?.header?.label,
-                this.hass.language,
-              )}
-            </h1>`
+          ? html`<h1 class="card-header">${localize(this._config.tank.header.label, this.hass.language)}</h1>`
           : null}
         <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
       </ha-card>
@@ -152,7 +147,7 @@ export class TankCard extends LitElement implements LovelaceCard {
             if (!stateObj) return null;
 
             const uom = getUnitOfMeasure(stateObj);
-            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
+            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label);
 
             const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
             const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;

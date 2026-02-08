@@ -1,4 +1,4 @@
-import { SepticCardConfig } from "@/types/cards";
+import { ResolvedSepticCardConfig } from "@/types/cards";
 
 export const CARD_PREFIX = "septic" as const;
 
@@ -10,7 +10,7 @@ export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
 export const SEPTIC_DIALOG_NAME = `${CARD_PREFIX}-dialog` as const;
 
-export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
+export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<ResolvedSepticCardConfig> = {
   entities: {
     level: "level",
     temp: "temp",

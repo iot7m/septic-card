@@ -4,26 +4,26 @@ export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "excee
 
 export type SepticEntitiesConfig = Record<SepticEntityKey, string>;
 
-interface SepticItemConfig {
+export interface SepticItemConfig {
   label?: string;
   icon?: string;
-  show: boolean;
+  show?: boolean;
 }
 
 interface SepticHeaderConfig {
   label: string;
-  show: boolean;
+  show?: boolean;
 }
 
 interface SepticLevelConfig {
-  show: boolean;
+  show?: boolean;
 }
 
 interface SepticScaleConfig {
   position: "left" | "middle";
 }
 
-interface SepticTankConfig {
+export interface SepticTankConfig {
   header?: SepticHeaderConfig;
   level?: SepticLevelConfig;
   scale?: SepticScaleConfig;
@@ -42,4 +42,34 @@ export interface SepticCardConfig extends LovelaceCardConfig {
 
 export interface SpepticCardEditorConfig extends LovelaceCardConfig {
   entities?: SepticEntitiesConfig;
+}
+
+export type ResolvedSepticItemConfig = Required<SepticItemConfig>;
+
+export interface ResolvedSepticTankConfig {
+  header: {
+    label: string;
+    show: boolean;
+  };
+  level: {
+    show: boolean;
+  };
+  scale: {
+    position: "left" | "middle";
+  };
+}
+
+export interface ResolvedSepticCardConfig extends Omit<
+  SepticCardConfig,
+  "tank" | "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name"
+> {
+  type: string;
+  entities: SepticEntitiesConfig;
+  tank: ResolvedSepticTankConfig;
+  level: ResolvedSepticItemConfig;
+  temp: ResolvedSepticItemConfig;
+  pressure: ResolvedSepticItemConfig;
+  x_level: ResolvedSepticItemConfig;
+  exceeds_x_level: ResolvedSepticItemConfig;
+  error_name: ResolvedSepticItemConfig;
 }

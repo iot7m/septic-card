@@ -1,5 +1,12 @@
 import type { HomeAssistant } from "custom-card-helpers";
 
+import {
+  ResolvedSepticCardConfig,
+  ResolvedSepticTankConfig,
+  SepticCardConfig,
+  SepticItemConfig,
+  SepticTankConfig,
+} from "@/types/cards";
 import type { HassState } from "@/types/hass";
 
 /**
@@ -130,4 +137,47 @@ export function getExceedsCritical(hass: HomeAssistant | undefined, entityId: st
 export function getErrorName(hass: HomeAssistant | undefined, entityId: string): string | null {
   const value = getStateObj(hass, entityId)?.state;
   return value && value.length > 0 ? value : null;
+}
+
+export function mergeItem(
+  value: SepticItemConfig | undefined,
+  defaults: Required<SepticItemConfig>,
+): Required<SepticItemConfig> {
+  return {
+    show: value?.show ?? defaults.show,
+    icon: value?.icon ?? defaults.icon,
+    label: value?.label ?? defaults.label,
+  };
+}
+
+function mergeTank(tank: SepticTankConfig | undefined, defaults: ResolvedSepticTankConfig): ResolvedSepticTankConfig {
+  return {
+    header: {
+      show: tank?.header?.show ?? defaults.header.show,
+      label: tank?.header?.label ?? defaults.header.label,
+    },
+    level: {
+      show: tank?.level?.show ?? defaults.level.show,
+    },
+    scale: {
+      position: tank?.scale?.position ?? defaults.scale.position,
+    },
+  };
+}
+
+export function resolveConfig(input: SepticCardConfig, defaults: ResolvedSepticCardConfig): ResolvedSepticCardConfig {
+  return {
+    type: input.type ?? defaults.type,
+
+    entities: input.entities ?? defaults.entities,
+
+    tank: mergeTank(input.tank, defaults.tank),
+
+    level: mergeItem(input.level, defaults.level),
+    temp: mergeItem(input.temp, defaults.temp),
+    pressure: mergeItem(input.pressure, defaults.pressure),
+    x_level: mergeItem(input.x_level, defaults.x_level),
+    exceeds_x_level: mergeItem(input.exceeds_x_level, defaults.exceeds_x_level),
+    error_name: mergeItem(input.error_name, defaults.error_name),
+  };
 }
