@@ -2,14 +2,10 @@ import type { HomeAssistant } from "custom-card-helpers";
 
 import { SepticEntitiesConfig } from "@/types/cards";
 
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
+
 export const ENTITIES: SepticEntitiesConfig = {
-  level: "sensor.uroven_zhidkosti_septika",
-  temp: "sensor.temperatura_septika",
-  pressure: "sensor.davlenie_septika",
-  x_level: "sensor.kriticheskii_uroven_septika",
-  exceeds_x_level: "sensor.prevyshen_kriticheskii_uroven_septika",
-  sdt: "sensor.uroven_signala_septika",
-  error_name: "sensor.oshibka_septika",
+  ...SEPTIC_CARD_DEFAULT_CONFIG.entities,
 };
 
 export function createHass(): HomeAssistant {
