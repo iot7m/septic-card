@@ -6,6 +6,8 @@ import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 
 import { SpepticCardEditorConfig } from "@/types/cards";
 
+import { localize } from "@/utils/localize";
+
 import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
 @customElement(TANK_CARD_EDITOR_NAME)
@@ -27,49 +29,49 @@ export class TankCardEditor extends LitElement implements LovelaceCardEditor {
   private _schema = [
     {
       name: "level",
-      label: "Показатель уровня жидкости",
+      label: localize("card.entities.level", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "temp",
-      label: "Показатель температуры",
+      label: localize("card.entities.temp", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "pressure",
-      label: "Показатель давления",
+      label: localize("card.entities.pressure", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "x_level",
-      label: "Критический уровень",
+      label: localize("card.entities.x_level", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "exceeds_x_level",
-      label: "Флаг превышения уровня",
+      label: localize("card.entities.exceeds_x_level", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "sdt",
-      label: "Флаг превышения уровня",
+      label: localize("card.entities.sdt", this.hass.language),
       selector: {
         entity: {},
       },
     },
     {
       name: "error_name",
-      label: "Сенсор ошибки",
+      label: localize("card.entities.error_name", this.hass.language),
       selector: {
         entity: {},
       },
