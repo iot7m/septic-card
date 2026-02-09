@@ -31,6 +31,6 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   pressure: { show: true, icon: "mdi:gauge", label: "card.entities.pressure" },
   x_level: { show: false, icon: "mdi:water-minus", label: "card.entities.x_level" },
   exceeds_x_level: { show: false, icon: "mdi:water-alert", label: "card.entities.exceeds_x_level" },
-  sdt: { show: false, icon: "mdi:signal", label: "card.entities.sdt" },
+  sdt: { show: true, icon: "mdi:signal", label: "card.entities.sdt" },
   error_name: { show: false, icon: "mdi:alert-decagram-outline", label: "card.entities.error_name" },
 };

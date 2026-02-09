@@ -16,8 +16,8 @@ views:
           pressure: sensor.septic_tank_pressure
           x_level: sensor.septic_tank_critical_level
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          error_name: sensor.septic_tank_error
           sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
       - type: custom:stack-in-card
         cards:
           - type: custom:gauge-card-pro
@@ -92,8 +92,8 @@ views:
           pressure: sensor.septic_tank_pressure
           x_level: sensor.septic_tank_critical_level
           exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          error_name: sensor.septic_tank_error
           sdt: sensor.septic_tank_sdt
+          error_name: sensor.septic_tank_error
         tank:
           header:
             show: true
