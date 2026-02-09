@@ -26,57 +26,63 @@ export class TankCardEditor extends LitElement implements LovelaceCardEditor {
     return this._hass!;
   }
 
-  private _schema = [
-    {
-      name: "level",
-      label: localize("card.entities.level", this.hass.language),
-      selector: {
-        entity: {},
+  private get _schema() {
+    if (!this._hass) return [];
+
+    const lang = this._hass.language;
+
+    return [
+      {
+        name: "level",
+        label: localize("card.entities.level", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "temp",
-      label: localize("card.entities.temp", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "temp",
+        label: localize("card.entities.temp", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "pressure",
-      label: localize("card.entities.pressure", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "pressure",
+        label: localize("card.entities.pressure", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "x_level",
-      label: localize("card.entities.x_level", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "x_level",
+        label: localize("card.entities.x_level", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "exceeds_x_level",
-      label: localize("card.entities.exceeds_x_level", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "exceeds_x_level",
+        label: localize("card.entities.exceeds_x_level", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "sdt",
-      label: localize("card.entities.sdt", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "sdt",
+        label: localize("card.entities.sdt", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-    {
-      name: "error_name",
-      label: localize("card.entities.error_name", this.hass.language),
-      selector: {
-        entity: {},
+      {
+        name: "error_name",
+        label: localize("card.entities.error_name", lang),
+        selector: {
+          entity: {},
+        },
       },
-    },
-  ];
+    ];
+  }
 
   setConfig(config: SpepticCardEditorConfig) {
     this._config = {

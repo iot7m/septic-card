@@ -12,7 +12,7 @@ describe("tank-card-editor", () => {
     const el = document.createElement(TANK_CARD_EDITOR_NAME) as CardEditorTestElement;
     el.setConfig({ type: `custom:${TANK_CARD_NAME}`, entities: ENTITIES });
     el.hass = createHass();
-
+    el.hass.language = "en";
     document.body.appendChild(el);
     await el.updateComplete;
 
