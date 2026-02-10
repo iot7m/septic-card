@@ -45,7 +45,7 @@ Septic provides visual components to display:
 
 ### HACS installation
 
-The card can be installed via HACS custom repository.
+The card is available in the **Home Assistant Community Store (HACS)**. It can be installed by searching for **Septic Tank** in HACS.
 
 ### Manual installation
 
