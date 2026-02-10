@@ -8,7 +8,7 @@ import { createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";
 
 describe("tile-card", () => {
-  it("renders without crashing when hass and config are provided", async () => {
+  it("renders with default config", async () => {
     const el = document.createElement(TILE_CARD_NAME) as CardTestElement;
     el.setConfig(TILE_CARD_DEFAULT_CONFIG);
     el.hass = createHass();

@@ -8,7 +8,7 @@ import { createHass } from "@tests/fixtures";
 import type { DialogTestElement } from "@tests/types";
 
 describe("septic-dialog", () => {
-  it("renders dialog when hass and entity are provided", async () => {
+  it("renders with default config", async () => {
     const el = document.createElement(SEPTIC_DIALOG_NAME) as DialogTestElement;
     el.entity = "sensor.septic_tank_liquid_level";
     el.hass = createHass();

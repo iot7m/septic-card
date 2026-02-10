@@ -8,7 +8,7 @@ import { createHass } from "@tests/fixtures";
 import { type CardEditorTestElement } from "@tests/types";
 
 describe("tank-card-editor", () => {
-  it("renders ha-form when hass and config are provided", async () => {
+  it("renders with default", async () => {
     const el = document.createElement(TANK_CARD_EDITOR_NAME) as CardEditorTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
     el.hass = createHass();

@@ -8,7 +8,7 @@ import { createHass } from "@tests/fixtures";
 import { type CardTestElement } from "@tests/types";
 
 describe("tank-card", () => {
-  it("renders without crashing when hass and default language", async () => {
+  it("renders with default config", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
     el.hass = createHass();
@@ -21,7 +21,7 @@ describe("tank-card", () => {
     expect(el.shadowRoot!.textContent).toContain("Temperature");
   });
 
-  it("renders without crashing when hass and language ru", async () => {
+  it("renders with ru language", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
     el.hass = createHass();
@@ -35,7 +35,7 @@ describe("tank-card", () => {
     expect(el.shadowRoot!.textContent).toContain("Температура");
   });
 
-  it("renders without crashing when error_name config are provided", async () => {
+  it("renders with custom error_name", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig({
       ...SEPTIC_CARD_DEFAULT_CONFIG,
