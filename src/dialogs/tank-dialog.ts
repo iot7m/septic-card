@@ -27,12 +27,12 @@ export class TankDialog extends LitElement {
   }
 
   private get septicLevel() {
-    const value = Number(this.hass?.states["sensor.uroven_zhidkosti_septika"]?.state);
+    const value = Number(this.hass?.states["sensor.septic_tank_liquid_level"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
   private get criticalLevel() {
-    const value = Number(this.hass?.states["sensor.kriticheskii_uroven_septika"]?.state);
+    const value = Number(this.hass?.states["sensor.septic_tank_critical_level"]?.state);
     return Number.isNaN(value) ? 0 : Math.min(Math.max(value, 0), 100);
   }
 
@@ -101,11 +101,15 @@ export class TankDialog extends LitElement {
 
   private renderLevel() {
     if (!this.hass || !this.entity) return html``;
-    const uroven_zhidkosti_septika = "sensor.uroven_zhidkosti_septika";
-    const temperatura_septika = "sensor.temperatura_septika";
-    const davlenie_septika = "sensor.davlenie_septika";
-    const kriticheskii_uroven_septika = "sensor.kriticheskii_uroven_septika";
-    const prevyshen_kriticheskii_uroven_septika = "sensor.prevyshen_kriticheskii_uroven_septika";
+
+    // TODO: uncomment
+    return html``;
+    /*
+    const uroven_zhidkosti_septika = "sensor.septic_tank_liquid_level";
+    const temperatura_septika = "sensor.septic_tank_temperature";
+    const davlenie_septika = "sensor.septic_tank_pressure";
+    const kriticheskii_uroven_septika = "sensor.septic_tank_critical_level";
+    const prevyshen_kriticheskii_uroven_septika = "binary_sensor.septic_tank_exceeds_critical_level";
     return html`
       <div>
         <div class="flex">
@@ -145,6 +149,7 @@ export class TankDialog extends LitElement {
         </div>
       </div>
     `;
+     */
   }
 
   private renderHistory() {
