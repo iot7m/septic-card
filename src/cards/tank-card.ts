@@ -208,7 +208,7 @@ export class TankCard extends LitElement implements LovelaceCard {
       line-height: 1;
       color: var(--primary-text-color);
       pointer-events: none;
-      z-index: 4;
+      z-index: 2;
     }
 
     .water {

@@ -8,7 +8,7 @@ import { createHassEnvironment } from "@tests/environment";
 import { type CardEditorTestElement } from "@tests/types";
 
 describe("tank-card-editor", () => {
-  it("renders with default", async () => {
+  it("renders with default config", async () => {
     const el = document.createElement(TANK_CARD_EDITOR_NAME) as CardEditorTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
     el.hass = createHassEnvironment();

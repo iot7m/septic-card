@@ -51,5 +51,7 @@ views:
           show: true
         exceeds_x_level:
           show: true
+        sdt:
+          show: true
         error_name:
           show: true

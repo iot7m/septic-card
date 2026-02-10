@@ -7,7 +7,7 @@ views:
         color: red
     cards:
       - type: entities
-        title: GSeptik
+        title: G-Septik
         state_color: false
         show_header_toggle: false
         entities:
@@ -17,23 +17,23 @@ views:
             icon: mdi:thermometer
           - entity: sensor.davlenie_septika
             icon: mdi:gauge
-          - entity: sensor.uroven_signala_septika
-            icon: mdi:signal
           - entity: sensor.kriticheskii_uroven_septika
             icon: mdi:water-minus
           - entity: sensor.prevyshen_kriticheskii_uroven_septika
             icon: mdi:water-alert
+          - entity: sensor.uroven_signala_septika
+            icon: mdi:signal
           - entity: sensor.oshibka_septika
             icon: mdi:alert-decagram-outline
       - type: custom:septic-tank-card
         entities:
-          level: sensor.septic_tank_liquid_level
-          temp: sensor.septic_tank_temperature
-          pressure: sensor.septic_tank_pressure
-          x_level: sensor.septic_tank_critical_level
-          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          sdt: sensor.septic_tank_sdt
-          error_name: sensor.septic_tank_error
+          level: sensor.uroven_zhidkosti_septika
+          temp: sensor.temperatura_septika
+          pressure: sensor.davlenie_septika
+          x_level: sensor.kriticheskii_uroven_septika
+          exceeds_x_level: sensor.prevyshen_kriticheskii_uroven_septika
+          sdt: sensor.uroven_signala_septika
+          error_name: sensor.oshibka_septika
         tank:
           header:
             show: true
@@ -44,13 +44,13 @@ views:
             position: left
       - type: custom:septic-tank-card
         entities:
-          level: sensor.septic_tank_2_liquid_level
-          temp: sensor.septic_tank_2_temperature
-          pressure: sensor.septic_tank_2_pressure
-          x_level: sensor.septic_tank_2_critical_level
-          exceeds_x_level: binary_sensor.septic_tank_2_exceeds_critical_level
-          sdt: sensor.septic_tank_2_sdt
-          error_name: sensor.septic_tank_2_error
+          level: sensor.uroven_zhidkosti_septika
+          temp: sensor.temperatura_septika
+          pressure: sensor.davlenie_septika
+          x_level: sensor.kriticheskii_uroven_septika
+          exceeds_x_level: sensor.prevyshen_kriticheskii_uroven_septika
+          sdt: sensor.uroven_signala_septika
+          error_name: sensor.oshibka_septika
         level:
           show: true
         temp:
@@ -60,6 +60,8 @@ views:
         x_level:
           show: true
         exceeds_x_level:
+          show: true
+        sdt:
           show: true
         error_name:
           show: true
