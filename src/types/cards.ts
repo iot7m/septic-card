@@ -29,7 +29,7 @@ interface SepticTankConfig {
   scale?: SepticScaleConfig;
 }
 
-export interface SepticCardConfig extends LovelaceCardConfig {
+export interface SepticConfig {
   entities: SepticEntitiesConfig;
   tank?: SepticTankConfig;
   pressure?: SepticItemConfig;
@@ -37,8 +37,11 @@ export interface SepticCardConfig extends LovelaceCardConfig {
   level?: SepticItemConfig;
   temp?: SepticItemConfig;
   exceeds_x_level?: SepticItemConfig;
+  sdt?: SepticItemConfig;
   error_name?: SepticItemConfig;
 }
+
+export interface SepticCardConfig extends SepticConfig, LovelaceCardConfig {}
 
 export interface SpepticCardEditorConfig extends LovelaceCardConfig {
   entities?: SepticEntitiesConfig;

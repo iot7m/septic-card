@@ -1,4 +1,4 @@
-import { SepticCardConfig } from "@/types/cards";
+import { SepticCardConfig, SepticConfig } from "@/types/cards";
 
 export const CARD_PREFIX = "septic" as const;
 
@@ -10,19 +10,7 @@ export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
 export const SEPTIC_DIALOG_NAME = `${CARD_PREFIX}-dialog` as const;
 
-type CardBaseConfig = {
-  entities: SepticCardConfig["entities"];
-  tank: SepticCardConfig["tank"];
-  level: SepticCardConfig["level"];
-  temp: SepticCardConfig["temp"];
-  pressure: SepticCardConfig["pressure"];
-  x_level: SepticCardConfig["x_level"];
-  exceeds_x_level: SepticCardConfig["exceeds_x_level"];
-  sdt: SepticCardConfig["sdt"];
-  error_name: SepticCardConfig["error_name"];
-};
-
-export const CARD_DEFAULT_CONFIG: Readonly<CardBaseConfig> = {
+export const SEPTIC_DEFAULT_CONFIG: Readonly<SepticConfig> = {
   entities: {
     level: "level",
     temp: "temp",
@@ -48,10 +36,10 @@ export const CARD_DEFAULT_CONFIG: Readonly<CardBaseConfig> = {
 
 export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   type: `custom:${TANK_CARD_NAME}`,
-  ...CARD_DEFAULT_CONFIG,
+  ...SEPTIC_DEFAULT_CONFIG,
 };
 
 export const TILE_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   type: `custom:${TILE_CARD_NAME}`,
-  ...CARD_DEFAULT_CONFIG,
+  ...SEPTIC_DEFAULT_CONFIG,
 };
