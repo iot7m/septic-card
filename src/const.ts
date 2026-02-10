@@ -12,13 +12,13 @@ export const SEPTIC_DIALOG_NAME = `${CARD_PREFIX}-dialog` as const;
 
 export const SEPTIC_DEFAULT_CONFIG: Readonly<SepticConfig> = {
   entities: {
-    level: "level",
-    temp: "temp",
-    pressure: "pressure",
-    x_level: "x_level",
-    exceeds_x_level: "exceeds_x_level",
-    sdt: "sdt",
-    error_name: "error_name",
+    level: "sensor.septic_tank_liquid_level",
+    temp: "sensor.septic_tank_temperature",
+    pressure: "sensor.septic_tank_pressure",
+    x_level: "sensor.septic_tank_critical_level",
+    exceeds_x_level: "binary_sensor.septic_tank_exceeds_critical_level",
+    sdt: "sensor.septic_tank_sdt",
+    error_name: "sensor.septic_tank_error",
   },
   tank: {
     header: { show: false, label: "card.header.label" },
