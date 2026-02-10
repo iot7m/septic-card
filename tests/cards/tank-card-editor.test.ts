@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
+import { SEPTIC_CARD_DEFAULT_CONFIG, TANK_CARD_EDITOR_NAME } from "@/const";
 
 import "@/cards/tank-card-editor";
 
-import { ENTITIES, createHass } from "@tests/fixtures";
+import { createHassEnvironment } from "@tests/environment";
 import { type CardEditorTestElement } from "@tests/types";
 
 describe("tank-card-editor", () => {
-  it("renders ha-form when hass and config are provided", async () => {
+  it("renders with default", async () => {
     const el = document.createElement(TANK_CARD_EDITOR_NAME) as CardEditorTestElement;
-    el.setConfig({ type: `custom:${TANK_CARD_NAME}`, entities: ENTITIES });
-    el.hass = createHass();
+    el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
+    el.hass = createHassEnvironment();
 
     document.body.appendChild(el);
     await el.updateComplete;
