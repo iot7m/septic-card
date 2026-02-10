@@ -4,14 +4,14 @@ import { SEPTIC_CARD_DEFAULT_CONFIG, TANK_CARD_NAME } from "@/const";
 
 import "@/cards/tank-card";
 
-import { createHass } from "@tests/fixtures";
+import { createHassEnvironment } from "@tests/environment";
 import { type CardTestElement } from "@tests/types";
 
 describe("tank-card", () => {
   it("renders with default config", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
-    el.hass = createHass();
+    el.hass = createHassEnvironment();
 
     document.body.appendChild(el);
     await el.updateComplete;
@@ -24,7 +24,7 @@ describe("tank-card", () => {
   it("renders with ru language", async () => {
     const el = document.createElement(TANK_CARD_NAME) as CardTestElement;
     el.setConfig(SEPTIC_CARD_DEFAULT_CONFIG);
-    el.hass = createHass();
+    el.hass = createHassEnvironment();
     el.hass.language = "ru";
 
     document.body.appendChild(el);
@@ -45,7 +45,7 @@ describe("tank-card", () => {
         label: "Error",
       },
     });
-    el.hass = createHass();
+    el.hass = createHassEnvironment();
 
     document.body.appendChild(el);
     await el.updateComplete;

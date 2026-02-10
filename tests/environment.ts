@@ -2,7 +2,7 @@ import type { HomeAssistant } from "custom-card-helpers";
 
 import { SEPTIC_DEFAULT_CONFIG } from "@/const";
 
-export function createHass(): HomeAssistant {
+export function createHassEnvironment(): HomeAssistant {
   return {
     states: {
       [SEPTIC_DEFAULT_CONFIG.entities.level]: { state: "42", attributes: { unit_of_measurement: "%" } },
