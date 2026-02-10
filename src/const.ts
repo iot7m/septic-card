@@ -10,7 +10,19 @@ export const TILE_CARD_NAME = `${CARD_PREFIX}-tile-card` as const;
 
 export const SEPTIC_DIALOG_NAME = `${CARD_PREFIX}-dialog` as const;
 
-export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
+type CardBaseConfig = {
+  entities: SepticCardConfig["entities"];
+  tank: SepticCardConfig["tank"];
+  level: SepticCardConfig["level"];
+  temp: SepticCardConfig["temp"];
+  pressure: SepticCardConfig["pressure"];
+  x_level: SepticCardConfig["x_level"];
+  exceeds_x_level: SepticCardConfig["exceeds_x_level"];
+  sdt: SepticCardConfig["sdt"];
+  error_name: SepticCardConfig["error_name"];
+};
+
+export const CARD_DEFAULT_CONFIG: Readonly<CardBaseConfig> = {
   entities: {
     level: "level",
     temp: "temp",
@@ -20,7 +32,6 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
     sdt: "sdt",
     error_name: "error_name",
   },
-  type: `custom:${TANK_CARD_NAME}`,
   tank: {
     header: { show: false, label: "card.header.label" },
     level: { show: false },
@@ -33,4 +44,14 @@ export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
   exceeds_x_level: { show: false, icon: "mdi:water-alert", label: "card.entities.exceeds_x_level" },
   sdt: { show: false, icon: "mdi:signal", label: "card.entities.sdt" },
   error_name: { show: false, icon: "mdi:alert-decagram-outline", label: "card.entities.error_name" },
+};
+
+export const SEPTIC_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
+  type: `custom:${TANK_CARD_NAME}`,
+  ...CARD_DEFAULT_CONFIG,
+};
+
+export const TILE_CARD_DEFAULT_CONFIG: Readonly<SepticCardConfig> = {
+  type: `custom:${TILE_CARD_NAME}`,
+  ...CARD_DEFAULT_CONFIG,
 };
