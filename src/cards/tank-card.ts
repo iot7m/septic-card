@@ -135,14 +135,18 @@ export class TankCard extends LitElement implements LovelaceCard {
         ${keys
           .filter((def) => {
             if (this._config?.[def]) {
-              return !!this._config?.[def]?.show !== false;
-            }
-            if (def === "error_name") {
-              const configured = config.entities.error_name;
-              const stateObj = getStateObj(this.hass, configured);
-              if (!stateObj) return false;
-              const state = stateObj.state.toLowerCase();
-              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+              const showAllowed = this._config?.[def]?.show !== false;
+              if (def === "error_name") {
+                const configured = config.entities.error_name;
+                const stateObj = getStateObj(this.hass, configured);
+                if (!stateObj) return false;
+                const state = stateObj.state.toLowerCase();
+                const hasError = state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+                console.log(hasError || showAllowed);
+
+                return hasError || showAllowed;
+              }
+              return showAllowed;
             }
           })
           .map((def) => {
