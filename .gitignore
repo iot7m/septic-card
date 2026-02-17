@@ -22,6 +22,7 @@
 !.hass/scripts.yaml
 !.hass/templates.yaml
 !.hass/ui-gseptik.yaml
+!.hass/ui-research.yaml
 !.hass/ui-septic.yaml
 !.hass/ui-screenshot.yaml
 
