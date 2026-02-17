@@ -46,10 +46,9 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   getCardSize(): number {
-    // Rough estimate for masonry layout. 1 is too small for this card.
+    // Rough estimate for masonry layout. 1 (default value) is too small for this card.
     const entitiesCount = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).length;
     return 4 + Math.ceil(entitiesCount / 3);
-    // return 1;
   }
 
   static getStubConfig() {
