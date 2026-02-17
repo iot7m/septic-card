@@ -140,10 +140,10 @@ export class TankCard extends LitElement implements LovelaceCard {
                 const configured = config.entities.error_name;
                 const stateObj = getStateObj(this.hass, configured);
                 if (!stateObj) return false;
-                const state = stateObj.state.toLowerCase();
-                const hasError = state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
-                console.log(hasError || showAllowed);
 
+                // Ok on different languates(en and ru)
+                const state = stateObj.state.toLowerCase().trim();
+                const hasError = !["ok", "ок"].includes(state);
                 return hasError || showAllowed;
               }
               return showAllowed;
