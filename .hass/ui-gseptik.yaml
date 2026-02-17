@@ -6,25 +6,6 @@ views:
         entity: weather.demo_weather_north
         color: red
     cards:
-      - type: entities
-        title: G-Septik
-        state_color: false
-        show_header_toggle: false
-        entities:
-          - entity: sensor.uroven_zhidkosti_septika
-            icon: mdi:water-percent
-          - entity: sensor.temperatura_septika
-            icon: mdi:thermometer
-          - entity: sensor.davlenie_septika
-            icon: mdi:gauge
-          - entity: sensor.kriticheskii_uroven_septika
-            icon: mdi:water-minus
-          - entity: sensor.prevyshen_kriticheskii_uroven_septika
-            icon: mdi:water-alert
-          - entity: sensor.uroven_signala_septika
-            icon: mdi:signal
-          - entity: sensor.oshibka_septika
-            icon: mdi:alert-decagram-outline
       - type: custom:septic-tank-card
         entities:
           level: sensor.uroven_zhidkosti_septika
@@ -65,3 +46,22 @@ views:
           show: true
         error_name:
           show: true
+      - type: entities
+        title: G-Septik
+        state_color: false
+        show_header_toggle: false
+        entities:
+          - entity: sensor.uroven_zhidkosti_septika
+            icon: mdi:water-percent
+          - entity: sensor.temperatura_septika
+            icon: mdi:thermometer
+          - entity: sensor.davlenie_septika
+            icon: mdi:gauge
+          - entity: sensor.kriticheskii_uroven_septika
+            icon: mdi:water-minus
+          - entity: sensor.prevyshen_kriticheskii_uroven_septika
+            icon: mdi:water-alert
+          - entity: sensor.uroven_signala_septika
+            icon: mdi:signal
+          - entity: sensor.oshibka_septika
+            icon: mdi:alert-decagram-outline

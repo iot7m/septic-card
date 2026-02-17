@@ -46,7 +46,10 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   getCardSize(): number {
-    return 1;
+    // Rough estimate for masonry layout. 1 is too small for this card.
+    const entitiesCount = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).length;
+    return 4 + Math.ceil(entitiesCount / 3);
+    // return 1;
   }
 
   static getStubConfig() {
@@ -176,6 +179,17 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   static styles = css`
+    :host {
+      display: block;
+      min-width: 0;
+    }
+
+    ha-card {
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
     .tank {
       width: 100%;
       max-width: 320px;
