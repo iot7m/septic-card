@@ -23,29 +23,6 @@ views:
             show: true
           scale:
             position: left
-      - type: custom:septic-tank-card
-        entities:
-          level: sensor.uroven_zhidkosti_septika
-          temp: sensor.temperatura_septika
-          pressure: sensor.davlenie_septika
-          x_level: sensor.kriticheskii_uroven_septika
-          exceeds_x_level: sensor.prevyshen_kriticheskii_uroven_septika
-          sdt: sensor.uroven_signala_septika
-          error_name: sensor.oshibka_septika
-        level:
-          show: true
-        temp:
-          show: true
-        pressure:
-          show: true
-        x_level:
-          show: true
-        exceeds_x_level:
-          show: true
-        sdt:
-          show: true
-        error_name:
-          show: true
       - type: entities
         title: G-Septik
         state_color: false
