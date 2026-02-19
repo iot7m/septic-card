@@ -31,7 +31,9 @@
 - binary_sensor:
     - name: "Septic tank exceeds critical level"
       unique_id: binary_sensor_septic_tank_exceeds_x_level
-      state: "{{ is_state('input_boolean.septic_tank_exceeds_x_level', 'on') }}"
+      device_class: problem
+      state: "{{ states('sensor_gseptik_exceeds_x_level') == 'True' }}"
+
 
 # The second one septic tank
 - sensor:
@@ -67,4 +69,5 @@
 - binary_sensor:
     - name: "Septic tank 2 exceeds critical level"
       unique_id: binary_sensor_septic_tank2_exceeds_x_level
+      device_class: problem
       state: "{{ is_state('input_boolean.septic_tank2_exceeds_x_level', 'on') }}"
