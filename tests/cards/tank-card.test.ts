@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { localize } from "@/utils/localize";
+
 import { SEPTIC_CARD_DEFAULT_CONFIG, SEPTIC_DEFAULT_CONFIG, TANK_CARD_NAME } from "@/const";
 
 import "@/cards/tank-card";
@@ -17,8 +19,8 @@ describe("tank-card", () => {
     await el.updateComplete;
 
     expect(el.shadowRoot).toBeTruthy();
-    expect(el.shadowRoot!.textContent).toContain("Pressure");
-    expect(el.shadowRoot!.textContent).toContain("Temperature");
+    expect(el.shadowRoot!.textContent).toContain(localize("card.entities.pressure", "en"));
+    expect(el.shadowRoot!.textContent).toContain(localize("card.entities.temp", "en"));
   });
 
   it("renders with ru language", async () => {
@@ -31,8 +33,8 @@ describe("tank-card", () => {
     await el.updateComplete;
 
     expect(el.shadowRoot).toBeTruthy();
-    expect(el.shadowRoot!.textContent).toContain("Давление");
-    expect(el.shadowRoot!.textContent).toContain("Температура");
+    expect(el.shadowRoot!.textContent).toContain(localize("card.entities.pressure", "ru"));
+    expect(el.shadowRoot!.textContent).toContain(localize("card.entities.temp", "ru"));
   });
 
   it("renders with custom error_name", async () => {
