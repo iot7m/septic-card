@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { localize } from "@/utils/localize";
+
 import { TILE_CARD_DEFAULT_CONFIG, TILE_CARD_NAME } from "@/const";
 
 import "@/cards/tile-card";
@@ -17,6 +19,6 @@ describe("tile-card", () => {
     await el.updateComplete;
 
     expect(el.shadowRoot).toBeTruthy();
-    expect(el.shadowRoot!.textContent).toContain("Септик");
+    expect(el.shadowRoot!.textContent).toContain(localize("card.header.label", "ru"));
   });
 });
