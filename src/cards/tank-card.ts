@@ -162,7 +162,8 @@ export class TankCard extends LitElement implements LovelaceCard {
             const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
             const label =
               labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
-            const formattedState = this.hass.formatEntityState(stateObj);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const formattedState = (this.hass as any).formatEntityState(stateObj);
 
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
