@@ -2,8 +2,15 @@
   method: GET
   scan_interval: 300
   timeout: 30
+  binary_sensor:
+    # Binary sensors
+    - name: Превышение критического уровня септика
+      unique_id: binary_sensor_gseptik_exceeds_x_level
+      device_class: problem
+      value_template: >
+        {{ value_json[0].exceeds_x_level in [true, 'true', 'True', 1, '1', 'on', 'ON'] }}
   sensor:
-    # Sensor 1
+    # Sensors
     - name: Уровень жидкости септика
       unique_id: sensor_gseptik_liquid_level
       json_attributes_path: "$[0]"

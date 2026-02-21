@@ -13,5 +13,12 @@ export function createHassEnvironment(): HomeAssistant {
       [SEPTIC_DEFAULT_CONFIG.entities.sdt]: { state: "98", attributes: { unit_of_measurement: "%" } },
       [SEPTIC_DEFAULT_CONFIG.entities.error_name]: { state: "", attributes: {} },
     },
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formatEntityState: (stateObj: any) => {
+      const uom = stateObj?.attributes?.unit_of_measurement ?? stateObj?.attributes?.unit ?? "";
+      const state = stateObj?.state ?? "";
+      return `${state}${uom ? ` ${uom}` : ""}`.trim();
+    },
   } as unknown as HomeAssistant;
 }

@@ -2,7 +2,7 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
+import { type HomeAssistant, type LovelaceCard } from "custom-card-helpers";
 
 import type { SepticCardConfig } from "@/types/cards";
 
@@ -14,7 +14,6 @@ import {
   getLevel,
   getLevelEntityId,
   getStateObj,
-  getUnitOfMeasure,
 } from "@/utils/extractors";
 import { localize } from "@/utils/localize";
 
@@ -157,19 +156,20 @@ export class TankCard extends LitElement implements LovelaceCard {
             const stateObj = getStateObj(this.hass, configured);
             if (!stateObj) return null;
 
-            const uom = getUnitOfMeasure(stateObj);
             const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
             const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
             const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
             const label =
               labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const formattedState = (this.hass as any).formatEntityState(stateObj);
 
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
                 <ha-icon class="entity-icon" icon=${icon}></ha-icon>
                 <div class="entity-name">${label}</div>
-                <div class="entity-state">${stateObj.state} ${uom}</div>
+                <div class="entity-state">${formattedState}</div>
               </div>
             `;
           })}
