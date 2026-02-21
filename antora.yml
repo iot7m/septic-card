@@ -1,6 +1,6 @@
 name: septic-card
 title: Septic Card
-version: latest
+version: 0.9.0
 prerelease:
 nav:
   - modules/installation/nav.adoc
