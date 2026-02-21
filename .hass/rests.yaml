@@ -8,7 +8,7 @@
       unique_id: binary_sensor_gseptik_exceeds_x_level
       device_class: problem
       value_template: >
-        {{ value_json[0].exceeds_x_level in [true, 'true', 'True', 1, '1', 'on', 'ON'] }}
+        {{ value_json[0].exceeds_x_level in [true, 'true', 'True', 1, '1', 'on', 'ON', 'Да'] }}
   sensor:
     # Sensors
     - name: Уровень жидкости септика
