@@ -29,7 +29,7 @@ views:
           temp: sensor.temperatura_septika
           pressure: sensor.davlenie_septika
           x_level: sensor.kriticheskii_uroven_septika
-          exceeds_x_level: sensor.prevyshen_kriticheskii_uroven_septika
+          exceeds_x_level: binary_sensor.prevyshenie_kriticheskogo_urovnia_septika
           sdt: sensor.uroven_signala_septika
           error_name: sensor.oshibka_septika
         level:
