@@ -62,6 +62,7 @@ export function resolveConfig(input: SepticCardConfig, defaults: SepticCardConfi
     pressure: mergeItem(input.pressure, defaults.pressure),
     x_level: mergeItem(input.x_level, defaults.x_level),
     exceeds_x_level: mergeItem(input.exceeds_x_level, defaults.exceeds_x_level),
+    sdt: mergeItem(input.sdt, defaults.sdt),
     error_name: mergeItem(input.error_name, defaults.error_name),
   };
 }
