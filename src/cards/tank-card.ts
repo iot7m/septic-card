@@ -2,7 +2,7 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
+import { type HomeAssistant, type LovelaceCard } from "custom-card-helpers";
 
 import type { SepticCardConfig } from "@/types/cards";
 
@@ -15,7 +15,6 @@ import {
   getLevel,
   getLevelEntityId,
   getStateObj,
-  getUnitOfMeasure,
 } from "@/utils/extractors";
 import { localize } from "@/utils/localize";
 
@@ -45,7 +44,9 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   getCardSize(): number {
-    return 1;
+    // Rough estimate for masonry layout. 1 (default value) is too small for this card.
+    const entitiesCount = Object.keys(SEPTIC_CARD_DEFAULT_CONFIG.entities).length;
+    return 4 + Math.ceil(entitiesCount / 3);
   }
 
   static getStubConfig() {
@@ -129,14 +130,18 @@ export class TankCard extends LitElement implements LovelaceCard {
         ${keys
           .filter((def) => {
             if (this._config?.[def]) {
-              return !!this._config?.[def]?.show !== false;
-            }
-            if (def === "error_name") {
-              const configured = config.entities.error_name;
-              const stateObj = getStateObj(this.hass, configured);
-              if (!stateObj) return false;
-              const state = stateObj.state.toLowerCase();
-              return state !== "ok" && state !== "ок" && state !== "unknown" && state !== "unavailable";
+              const showAllowed = this._config?.[def]?.show !== false;
+              if (def === "error_name") {
+                const configured = config.entities.error_name;
+                const stateObj = getStateObj(this.hass, configured);
+                if (!stateObj) return false;
+
+                // Ok on different languates(en and ru)
+                const state = stateObj.state.toLowerCase().trim();
+                const hasError = !["ok", "ок"].includes(state);
+                return hasError || showAllowed;
+              }
+              return showAllowed;
             }
           })
           .map((def) => {
@@ -145,19 +150,20 @@ export class TankCard extends LitElement implements LovelaceCard {
             const stateObj = getStateObj(this.hass, configured);
             if (!stateObj) return null;
 
-            const uom = getUnitOfMeasure(stateObj);
-            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label);
+            const name = getFriendlyName(stateObj, SEPTIC_CARD_DEFAULT_CONFIG[def]?.label ?? def);
 
             const icon = config[def]?.icon ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.icon;
             const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
             const label =
               labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const formattedState = (this.hass as any).formatEntityState(stateObj);
 
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>
                 <ha-icon class="entity-icon" icon=${icon}></ha-icon>
                 <div class="entity-name">${label}</div>
-                <div class="entity-state">${stateObj.state} ${uom}</div>
+                <div class="entity-state">${formattedState}</div>
               </div>
             `;
           })}
@@ -166,6 +172,17 @@ export class TankCard extends LitElement implements LovelaceCard {
   }
 
   static styles = css`
+    :host {
+      display: block;
+      min-width: 0;
+    }
+
+    ha-card {
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
     .tank {
       width: 100%;
       max-width: 320px;
@@ -202,7 +219,7 @@ export class TankCard extends LitElement implements LovelaceCard {
       line-height: 1;
       color: var(--primary-text-color);
       pointer-events: none;
-      z-index: 4;
+      z-index: 2;
     }
 
     .water {

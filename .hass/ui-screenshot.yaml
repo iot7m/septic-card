@@ -1,55 +1,56 @@
 views:
   - path: default_view
     title: Screenshot
+    type: sections
+    max_columns: 3
     badges:
       - type: entity
         entity: weather.demo_weather_north
         color: red
-    cards:
-      - type: thermostat
-        entity: climate.ecobee
-        name: Climate
-      - type: thermostat
-        entity: climate.ecobee
-        name: Climate
-      - type: thermostat
-        entity: climate.ecobee
-        name: Climate
-      - type: custom:septic-tank-card
-        entities:
-          level: sensor.septic_tank_liquid_level
-          temp: sensor.septic_tank_temperature
-          pressure: sensor.septic_tank_pressure
-          x_level: sensor.septic_tank_critical_level
-          exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
-          sdt: sensor.septic_tank_sdt
-          error_name: sensor.septic_tank_error
-        tank:
-          header:
-            show: true
-            label: My Septic Tank
-          level:
-            show: true
-          scale:
-            position: left
-      - type: custom:septic-tank-card
-        entities:
-          level: sensor.septic_tank_2_liquid_level
-          temp: sensor.septic_tank_2_temperature
-          pressure: sensor.septic_tank_2_pressure
-          x_level: sensor.septic_tank_2_critical_level
-          exceeds_x_level: binary_sensor.septic_tank_2_exceeds_critical_level
-          sdt: sensor.septic_tank_2_sdt
-          error_name: sensor.septic_tank_2_error
-        level:
-          show: true
-        temp:
-          show: true
-        pressure:
-          show: true
-        x_level:
-          show: true
-        exceeds_x_level:
-          show: true
-        error_name:
-          show: true
+    sections:
+      - type: grid
+        square: false
+        cards:
+          - type: custom:septic-tank-card
+            entities:
+              level: sensor.septic_tank_liquid_level
+              temp: sensor.septic_tank_temperature
+              pressure: sensor.septic_tank_pressure
+              x_level: sensor.septic_tank_critical_level
+              exceeds_x_level: binary_sensor.septic_tank_exceeds_critical_level
+              sdt: sensor.septic_tank_sdt
+              error_name: sensor.septic_tank_error
+            tank:
+              header:
+                show: true
+                label: My Septic Tank
+              level:
+                show: true
+              scale:
+                position: left
+      - type: grid
+        square: false
+        cards:
+          - type: custom:septic-tank-card
+            entities:
+              level: sensor.septic_tank_2_liquid_level
+              temp: sensor.septic_tank_2_temperature
+              pressure: sensor.septic_tank_2_pressure
+              x_level: sensor.septic_tank_2_critical_level
+              exceeds_x_level: binary_sensor.septic_tank_2_exceeds_critical_level
+              sdt: sensor.septic_tank_2_sdt
+              error_name: sensor.septic_tank_2_error
+            level:
+              show: true
+            temp:
+              show: true
+            pressure:
+              show: true
+            x_level:
+              show: true
+            exceeds_x_level:
+              show: true
+            sdt:
+              show: true
+            error_name:
+              show: true

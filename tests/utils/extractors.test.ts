@@ -15,17 +15,19 @@ import {
   getUnitOfMeasure,
 } from "@/utils/extractors";
 
-import { ENTITIES, createHass } from "@tests/fixtures";
+import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
+
+import { createHassEnvironment } from "@tests/environment";
 
 describe("extractors", () => {
   it("getStateObj returns state object", () => {
-    const hass = createHass();
-    expect(getStateObj(hass, ENTITIES.level)?.state).toBe("42");
+    const hass = createHassEnvironment();
+    expect(getStateObj(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.level)?.state).toBe("42");
   });
 
   it("getUnitOfMeasure returns unit", () => {
-    const hass = createHass();
-    const stateObj = getStateObj(hass, ENTITIES.level);
+    const hass = createHassEnvironment();
+    const stateObj = getStateObj(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.level);
     expect(getUnitOfMeasure(stateObj)).toBe("%");
   });
 
@@ -43,32 +45,32 @@ describe("extractors", () => {
   });
 
   it("getLevel returns numeric level", () => {
-    const hass = createHass();
-    expect(getLevel(hass, ENTITIES.level)).toBe(42);
+    const hass = createHassEnvironment();
+    expect(getLevel(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.level)).toBe(42);
   });
 
   it("getCriticalLevel returns numeric critical level", () => {
-    const hass = createHass();
-    expect(getCriticalLevel(hass, ENTITIES.x_level)).toBe(80);
+    const hass = createHassEnvironment();
+    expect(getCriticalLevel(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.x_level)).toBe(80);
   });
 
   it("getTemperature returns raw value", () => {
-    const hass = createHass();
-    expect(getTemperature(hass, ENTITIES.temp)).toBe(5);
+    const hass = createHassEnvironment();
+    expect(getTemperature(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.temp)).toBe(5);
   });
 
   it("getPressure returns raw value", () => {
-    const hass = createHass();
-    expect(getPressure(hass, ENTITIES.pressure)).toBe(1010);
+    const hass = createHassEnvironment();
+    expect(getPressure(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.pressure)).toBe(1010);
   });
 
   it("getExceedsCritical parses no as false", () => {
-    const hass = createHass();
-    expect(getExceedsCritical(hass, ENTITIES.exceeds_x_level)).toBe(false);
+    const hass = createHassEnvironment();
+    expect(getExceedsCritical(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.exceeds_x_level)).toBe(false);
   });
 
   it("getErrorName returns null for empty string", () => {
-    const hass = createHass();
-    expect(getErrorName(hass, ENTITIES.error_name)).toBeNull();
+    const hass = createHassEnvironment();
+    expect(getErrorName(hass, SEPTIC_CARD_DEFAULT_CONFIG.entities.error_name)).toBeNull();
   });
 });

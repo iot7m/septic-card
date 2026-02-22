@@ -1,0 +1,19 @@
+= Change history
+:description: Change history of Septic Card — new features, improvements, and fixes for Home Assistant.
+:keywords: Septic, Home Assistant, changelog, change history, versions, updates, custom card
+:navtitle: Version v0.9.0
+
+Version 0.9.0 focuses on expanding functionality and improving card stability. This release adds support for new parameters, fixes layout issues in masonry, sections, and single-row modes, and updates the documentation, including the HACS installation section.
+
+Changelog:
+
+- Added SDT signal level sensor
+- Added binary sensor for critical level threshold
+- Implemented septic error display
+- Added tests for error handling logic
+- Added tests for localization function
+- Updated entity tests
+- Fixed layout issues in masonry and sections modes
+- Fixed card rendering in single-row layout
+- Updated README after HACS publication
+- Updated HACS installation section in documentation
