@@ -2,9 +2,8 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import { type HomeAssistant, type LovelaceCard } from "custom-card-helpers";
-
 import type { SepticCardConfig } from "@/types/cards";
+import { type HomeAssistant, type LovelaceCard } from "@/types/hass";
 
 import { assertAllEntities } from "@/utils/asserts";
 import {
@@ -142,7 +141,6 @@ export class TankCard extends LitElement implements LovelaceCard {
                 const stateObj = getStateObj(this.hass, configured);
                 if (!stateObj) return false;
 
-                // Ok on different languates(en and ru)
                 const state = stateObj.state.toLowerCase().trim();
                 const hasError = !["ok", "ок"].includes(state);
                 return hasError || showAllowed;
@@ -162,8 +160,7 @@ export class TankCard extends LitElement implements LovelaceCard {
             const labelKey = config[def]?.label ?? SEPTIC_CARD_DEFAULT_CONFIG[def]?.label;
             const label =
               labelKey && labelKey.includes(".") ? localize(labelKey, this.hass.language) : (labelKey ?? name);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const formattedState = (this.hass as any).formatEntityState(stateObj);
+            const formattedState = this.hass.formatEntityState(stateObj);
 
             return html`
               <div class="entity-row" @click=${() => this._openMoreInfo(entityId)}>

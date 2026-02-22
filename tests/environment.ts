@@ -1,4 +1,4 @@
-import type { HomeAssistant } from "custom-card-helpers";
+import type { HomeAssistant } from "@/types/hass";
 
 import { SEPTIC_DEFAULT_CONFIG } from "@/const";
 

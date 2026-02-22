@@ -13,7 +13,6 @@
     "<THIRD_PARTY_MODULES>",
     "^lit$",
     "^lit/decorators\\.js$",
-    "^custom-card-helpers$",
     "^@/types/(.*)",
     "^@/utils/(.*)",
     "^@/const(.*)",
