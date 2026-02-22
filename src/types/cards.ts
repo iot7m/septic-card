@@ -43,33 +43,3 @@ export interface SepticCardConfig extends LovelaceCardConfig {
 export interface SpepticCardEditorConfig extends LovelaceCardConfig {
   entities?: SepticEntitiesConfig;
 }
-
-export type ResolvedSepticItemConfig = Required<SepticItemConfig>;
-
-export interface ResolvedSepticTankConfig {
-  header: {
-    label: string;
-    show: boolean;
-  };
-  level: {
-    show: boolean;
-  };
-  scale: {
-    position: "left" | "middle";
-  };
-}
-
-export interface ResolvedSepticCardConfig extends Omit<
-  SepticCardConfig,
-  "tank" | "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "error_name"
-> {
-  type: string;
-  entities: SepticEntitiesConfig;
-  tank: ResolvedSepticTankConfig;
-  level: ResolvedSepticItemConfig;
-  temp: ResolvedSepticItemConfig;
-  pressure: ResolvedSepticItemConfig;
-  x_level: ResolvedSepticItemConfig;
-  exceeds_x_level: ResolvedSepticItemConfig;
-  error_name: ResolvedSepticItemConfig;
-}

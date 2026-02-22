@@ -4,7 +4,7 @@ import { customElement } from "lit/decorators.js";
 
 import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 
-import type { ResolvedSepticCardConfig, SepticCardConfig } from "@/types/cards";
+import type { SepticCardConfig } from "@/types/cards";
 
 import { assertAllEntities } from "@/utils/asserts";
 import { resolveConfig } from "@/utils/default_config";
@@ -24,7 +24,7 @@ import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
 @customElement(TANK_CARD_NAME)
 export class TankCard extends LitElement implements LovelaceCard {
-  private _config?: ResolvedSepticCardConfig;
+  private _config?: SepticCardConfig;
   private _hass?: HomeAssistant;
 
   setConfig(config: SepticCardConfig) {
@@ -76,7 +76,7 @@ export class TankCard extends LitElement implements LovelaceCard {
     return html`
       <ha-card>
         ${this._config?.tank?.header?.show
-          ? html`<h1 class="card-header">${localize(this._config.tank.header.label, this.hass.language)}</h1>`
+          ? html`<h1 class="card-header">${localize(this._config.tank.header.label ?? "", this.hass.language)}</h1>`
           : null}
         <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
       </ha-card>
