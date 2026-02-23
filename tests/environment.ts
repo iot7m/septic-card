@@ -1,3 +1,5 @@
+import { HassEntity } from "home-assistant-js-websocket";
+
 import type { HomeAssistant } from "@/types/hass";
 
 import { SEPTIC_DEFAULT_CONFIG } from "@/const";
@@ -14,8 +16,7 @@ export function createHassEnvironment(): HomeAssistant {
       [SEPTIC_DEFAULT_CONFIG.entities.error_name]: { state: "", attributes: {} },
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formatEntityState: (stateObj: any) => {
+    formatEntityState: (stateObj: HassEntity) => {
       const uom = stateObj?.attributes?.unit_of_measurement ?? stateObj?.attributes?.unit ?? "";
       const state = stateObj?.state ?? "";
       return `${state}${uom ? ` ${uom}` : ""}`.trim();

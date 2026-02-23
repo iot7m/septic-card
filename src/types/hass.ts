@@ -1,4 +1,4 @@
-import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
+import type { HassConfig, HassEntities, HassEntity } from "home-assistant-js-websocket";
 
 import { LitElement } from "lit";
 
@@ -20,24 +20,12 @@ export interface FrontendLocaleData {
 
 export type LocalizeFunc = (key: string, placeholders?: Record<string, string | number>) => string;
 
-export interface UnitSystem {
-  length: string;
-  mass: string;
-  temperature: string;
-  volume: string;
-  pressure: string;
-  wind_speed: string;
-  precipitation: string;
-}
-
 export interface HomeAssistant {
   states: HassEntities;
   language: string;
   locale: FrontendLocaleData;
 
-  config: {
-    unit_system: UnitSystem;
-  };
+  config: HassConfig;
 
   localize: LocalizeFunc;
 
