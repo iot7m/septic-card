@@ -115,8 +115,8 @@ export function getExceedsCritical(hass: HomeAssistant | undefined, entityId: st
   const raw = getStateObj(hass, entityId)?.state.toLowerCase();
   if (!raw) return null;
 
-  if (raw === "да" || raw === "true" || raw === "on") return true;
-  if (raw === "нет" || raw === "false" || raw === "off") return false;
+  if (raw === "on") return true;
+  if (raw === "off") return false;
   return null;
 }
 

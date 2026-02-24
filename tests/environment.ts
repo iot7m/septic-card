@@ -9,7 +9,7 @@ export function createHassEnvironment(): HomeAssistant {
       [SEPTIC_DEFAULT_CONFIG.entities.temp]: { state: "5", attributes: { unit_of_measurement: "°C" } },
       [SEPTIC_DEFAULT_CONFIG.entities.pressure]: { state: "1010", attributes: { unit_of_measurement: "mbar" } },
       [SEPTIC_DEFAULT_CONFIG.entities.x_level]: { state: "80", attributes: { unit_of_measurement: "%" } },
-      [SEPTIC_DEFAULT_CONFIG.entities.exceeds_x_level]: { state: "Нет", attributes: {} },
+      [SEPTIC_DEFAULT_CONFIG.entities.exceeds_x_level]: { state: "off", attributes: {} },
       [SEPTIC_DEFAULT_CONFIG.entities.sdt]: { state: "98", attributes: { unit_of_measurement: "%" } },
       [SEPTIC_DEFAULT_CONFIG.entities.error_name]: { state: "", attributes: {} },
     },
