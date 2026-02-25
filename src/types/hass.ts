@@ -1,15 +1,6 @@
-import type { HassConfig, HassEntities, HassEntity } from "home-assistant-js-websocket";
+import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 
 import { LitElement } from "lit";
-
-export type HassState = {
-  state: string;
-  attributes?: {
-    unit_of_measurement?: unknown;
-    friendly_name?: unknown;
-    [key: string]: unknown;
-  };
-};
 
 export interface FrontendLocaleData {
   language: string;
@@ -25,13 +16,13 @@ export interface HomeAssistant {
   language: string;
   locale: FrontendLocaleData;
 
-  config: HassConfig;
+  config: {
+    unit_system?: Record<string, string>;
+  };
 
   localize: LocalizeFunc;
 
   formatEntityState(stateObj: HassEntity): string;
-
-  formatEntityAttributeValue(stateObj: HassEntity, attribute: string, value?: string | number | boolean | null): string;
 }
 
 export interface LovelaceCardConfig {
@@ -45,13 +36,6 @@ export interface LovelaceCard extends HTMLElement {
 
   getCardSize?(): number;
 }
-
-export interface ConfigChangedDetail<TConfig> {
-  config: TConfig;
-}
-
-export type ConfigChangedEvent<TConfig> = CustomEvent<ConfigChangedDetail<TConfig>>;
-
 export interface LovelaceCardEditor<TConfig> extends LitElement {
   hass?: HomeAssistant;
   setConfig(config: TConfig): void;

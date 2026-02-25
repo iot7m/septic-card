@@ -1,7 +1,5 @@
 import { describe, expect, it } from "vitest";
 
-import type { HassState } from "@/types/hass";
-
 import {
   getCriticalLevel,
   getErrorName,
@@ -17,7 +15,7 @@ import {
 
 import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 
-import { createHassEnvironment } from "@tests/environment";
+import { createEntity, createHassEnvironment } from "@tests/environment";
 
 describe("extractors", () => {
   it("getStateObj returns state object", () => {
@@ -32,10 +30,7 @@ describe("extractors", () => {
   });
 
   it("getFriendlyName returns friendly_name", () => {
-    const state: HassState = {
-      state: "42",
-      attributes: { friendly_name: "Liquid level" },
-    };
+    const state = createEntity("sensor.test", "42", { friendly_name: "Liquid level" });
 
     expect(getFriendlyName(state, "Fallback")).toBe("Liquid level");
   });
