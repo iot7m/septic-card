@@ -6,6 +6,7 @@ import type { SepticCardConfig } from "@/types/cards";
 import { type HomeAssistant, type LovelaceCard } from "@/types/hass";
 
 import { assertAllEntities } from "@/utils/asserts";
+import { resolveConfig } from "@/utils/config";
 import {
   getCriticalLevel,
   getExceedsCritical,
@@ -15,7 +16,6 @@ import {
   getStateObj,
 } from "@/utils/extractors";
 import { localize } from "@/utils/localize";
-import { resolveConfig } from "@/utils/merge_config";
 
 import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
