@@ -1,6 +1,6 @@
-import type { HomeAssistant } from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
 
-import type { HassState } from "@/types/hass";
+import type { HomeAssistant } from "@/types/hass";
 
 /**
  * Returns a state object (`hass.states[entity_id]`) for the given configured entity id.
@@ -11,8 +11,8 @@ import type { HassState } from "@/types/hass";
  * @param entityId - Entity id from card config (short or full)
  * @returns State object or undefined if missing
  */
-export function getStateObj(hass: HomeAssistant | undefined, entityId: string): HassState | undefined {
-  return hass?.states?.[entityId] as HassState | undefined;
+export function getStateObj(hass: HomeAssistant | undefined, entityId: string): HassEntity | undefined {
+  return hass?.states?.[entityId];
 }
 
 /**
@@ -21,7 +21,7 @@ export function getStateObj(hass: HomeAssistant | undefined, entityId: string): 
  * @param stateObj - State object from `hass.states`
  * @returns Unit string (e.g. "%", "°C") or empty string when missing/invalid
  */
-export function getUnitOfMeasure(stateObj: HassState | undefined): string {
+export function getUnitOfMeasure(stateObj: HassEntity | undefined): string {
   const uom = stateObj?.attributes?.unit_of_measurement;
   return typeof uom === "string" ? uom : "";
 }
@@ -33,7 +33,7 @@ export function getUnitOfMeasure(stateObj: HassState | undefined): string {
  * @param fallback - Default label when `friendly_name` is missing/invalid
  * @returns Human-readable entity name
  */
-export function getFriendlyName(stateObj: HassState | undefined, fallback: string): string {
+export function getFriendlyName(stateObj: HassEntity | undefined, fallback: string): string {
   const name = stateObj?.attributes?.friendly_name;
   return typeof name === "string" ? name : fallback;
 }

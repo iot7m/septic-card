@@ -2,16 +2,15 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-
 import { SpepticCardEditorConfig } from "@/types/cards";
+import type { HomeAssistant, LovelaceCardEditor } from "@/types/hass";
 
 import { localize } from "@/utils/localize";
 
 import { TANK_CARD_EDITOR_NAME, TANK_CARD_NAME } from "@/const";
 
 @customElement(TANK_CARD_EDITOR_NAME)
-export class TankCardEditor extends LitElement implements LovelaceCardEditor {
+export class TankCardEditor extends LitElement implements LovelaceCardEditor<SpepticCardEditorConfig> {
   private _config: SpepticCardEditorConfig = {
     type: `custom:${TANK_CARD_EDITOR_NAME}`,
   };
