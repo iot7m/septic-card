@@ -4,26 +4,26 @@ export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "excee
 
 export type SepticEntitiesConfig = Record<SepticEntityKey, string>;
 
-interface SepticItemConfig {
+export interface SepticItemConfig {
   label?: string;
   icon?: string;
-  show: boolean;
+  show?: boolean;
 }
 
 interface SepticHeaderConfig {
-  label: string;
-  show: boolean;
+  label?: string;
+  show?: boolean;
 }
 
 interface SepticLevelConfig {
-  show: boolean;
+  show?: boolean;
 }
 
 interface SepticScaleConfig {
   position: "left" | "middle";
 }
 
-interface SepticTankConfig {
+export interface SepticTankConfig {
   header?: SepticHeaderConfig;
   level?: SepticLevelConfig;
   scale?: SepticScaleConfig;

@@ -6,6 +6,7 @@ import type { SepticCardConfig } from "@/types/cards";
 import { type HomeAssistant, type LovelaceCard } from "@/types/hass";
 
 import { assertAllEntities } from "@/utils/asserts";
+import { resolveConfig } from "@/utils/config";
 import {
   getCriticalLevel,
   getExceedsCritical,
@@ -25,10 +26,8 @@ export class TankCard extends LitElement implements LovelaceCard {
   private _hass?: HomeAssistant;
 
   setConfig(config: SepticCardConfig) {
-    const extendedConfig = {
-      ...SEPTIC_CARD_DEFAULT_CONFIG,
-      ...config,
-    };
+    const extendedConfig = resolveConfig(config, SEPTIC_CARD_DEFAULT_CONFIG);
+
     assertAllEntities(extendedConfig);
     this._config = extendedConfig;
     this.requestUpdate();
@@ -77,12 +76,7 @@ export class TankCard extends LitElement implements LovelaceCard {
     return html`
       <ha-card>
         ${this._config?.tank?.header?.show
-          ? html`<h1 class="card-header">
-              ${localize(
-                this._config.tank.header.label ?? SEPTIC_CARD_DEFAULT_CONFIG.tank?.header?.label,
-                this.hass.language,
-              )}
-            </h1>`
+          ? html`<h1 class="card-header">${localize(this._config.tank.header.label ?? "", this.hass.language)}</h1>`
           : null}
         <div class="card-box">${this.renderTank()} ${this.renderEntities()}</div>
       </ha-card>
