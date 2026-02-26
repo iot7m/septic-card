@@ -2,9 +2,8 @@ import { LitElement, css, html } from "lit";
 
 import { customElement } from "lit/decorators.js";
 
-import type { HomeAssistant, LovelaceCard } from "custom-card-helpers";
-
 import type { SepticCardConfig } from "@/types/cards";
+import type { HomeAssistant, LovelaceCard } from "@/types/hass";
 
 import { assertAllEntities } from "@/utils/asserts";
 import { getCriticalLevel } from "@/utils/extractors";

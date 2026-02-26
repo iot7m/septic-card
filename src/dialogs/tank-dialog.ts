@@ -2,7 +2,7 @@ import { LitElement, css, html } from "lit";
 
 import { customElement, state } from "lit/decorators.js";
 
-import type { HomeAssistant } from "custom-card-helpers";
+import type { HomeAssistant } from "@/types/hass";
 
 import { SEPTIC_DIALOG_NAME } from "@/const";
 

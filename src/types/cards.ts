@@ -1,4 +1,4 @@
-import type { LovelaceCardConfig } from "custom-card-helpers";
+import type { LovelaceCardConfig } from "@/types/hass";
 
 export type SepticEntityKey = "level" | "temp" | "pressure" | "x_level" | "exceeds_x_level" | "sdt" | "error_name";
 

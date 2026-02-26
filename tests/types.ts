@@ -1,6 +1,5 @@
-import type { HomeAssistant } from "custom-card-helpers";
-
 import { SepticCardConfig, SpepticCardEditorConfig } from "@/types/cards";
+import type { HomeAssistant } from "@/types/hass";
 
 export type CardTestElement = HTMLElement & {
   hass?: HomeAssistant;
