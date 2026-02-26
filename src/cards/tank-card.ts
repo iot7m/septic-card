@@ -142,6 +142,7 @@ export class TankCard extends LitElement implements LovelaceCard {
                 if (!stateObj) return false;
 
                 const state = stateObj.state.toLowerCase().trim();
+                // Ok on different languates(en and ru), don't delete
                 const hasError = !["ok", "ок"].includes(state);
                 return hasError || showAllowed;
               }
