@@ -52,11 +52,8 @@ function mergeTank(tank: SepticTankConfig | undefined, defaults: SepticTankConfi
 export function resolveConfig(input: SepticCardConfig, defaults: SepticCardConfig): SepticCardConfig {
   return {
     type: input.type ?? defaults.type,
-
     entities: input.entities ?? defaults.entities,
-
     tank: mergeTank(input.tank, defaults.tank),
-
     level: mergeItem(input.level, defaults.level),
     temp: mergeItem(input.temp, defaults.temp),
     pressure: mergeItem(input.pressure, defaults.pressure),

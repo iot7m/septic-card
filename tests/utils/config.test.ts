@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { SepticEntitiesConfig } from "@/types/cards";
 
-import { mergeItem, resolveConfig } from "@/utils/merge_config";
+import { mergeItem, resolveConfig } from "@/utils/config";
 
 import { SEPTIC_CARD_DEFAULT_CONFIG } from "@/const";
 
